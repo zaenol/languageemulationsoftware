@@ -9,6 +9,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 public class View_modelEditor {
 
@@ -18,10 +19,12 @@ public class View_modelEditor {
 	String titleText = "Aphasia Model Editor";
 	JLabel title = new JLabel(titleText,JLabel.CENTER);
 	
-	JPanel west=new JPanel();
-	JPanel east=new JPanel();
+	JPanel anomicPanel=new JPanel(new GridLayout(1,1));
+	JPanel agrammaticPanel=new JPanel(new GridLayout(1,1));
+	JPanel otherPanel=new JPanel(new GridLayout(1,1));
 	
-	JPanel distortionClassifications;
+	//JPanel distortionClassifications;
+	JTabbedPane tabbedPane = new JTabbedPane();
 	
 	public View_modelEditor() {
 		frame = new JFrame(titleText);
@@ -31,28 +34,36 @@ public class View_modelEditor {
 		container = frame.getContentPane();
 		container.setLayout(new BorderLayout());
 	
-		distortionClassifications = new JPanel();
-		distortionClassifications.setLayout(new GridLayout(1, 2));
+		//distortionClassifications = new JPanel();
+		//distortionClassifications.setLayout(new GridLayout(1, 2));
 		
-		distortionClassifications.add(west);
-		distortionClassifications.add(east);
+		tabbedPane.addTab("Anomic", null, anomicPanel,"Anomic Errors and Corrections");
+		tabbedPane.addTab("Agrammatic", null, agrammaticPanel,"Agrammatic Errors and Corrections");
+		tabbedPane.addTab("Other", null, otherPanel,"Other Errors and Corrections");
+		
+		//distortionClassifications.add(west);
+		//distortionClassifications.add(east);
 		
 		container.add(title, BorderLayout.NORTH);
-		container.add(distortionClassifications,BorderLayout.CENTER);
+		container.add(tabbedPane,BorderLayout.CENTER);
 		
 		frame.setVisible(true);
 		
 	}
 	public void setAnomic(JPanel panel){
-		distortionClassifications.remove(west);
-		distortionClassifications.add(panel);
-		west = panel;
+		anomicPanel.removeAll();
+		anomicPanel.add(panel);
+		//distortionClassifications.remove(west);
+		//distortionClassifications.add(panel);
+		//west = panel;
 		frame.setVisible(frame.isVisible());
 	}
 	public void setAgrammatic(JPanel panel){
-		distortionClassifications.remove(east);
-		distortionClassifications.add(panel);
-		east = panel;
+		agrammaticPanel.removeAll();
+		agrammaticPanel.add(panel);
+		//distortionClassifications.remove(east);
+		//distortionClassifications.add(panel);
+		//east = panel;
 		frame.setVisible(frame.isVisible());
 		
 	}

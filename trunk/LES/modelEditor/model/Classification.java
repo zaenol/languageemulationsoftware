@@ -251,8 +251,8 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 		    correctness.add(correctnessLabel);
 			
 			correctnessSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, getCorrectness());
-			correctnessSlider.setMajorTickSpacing(20);
-			correctnessSlider.setMinorTickSpacing(5);
+			correctnessSlider.setMajorTickSpacing(10);
+			correctnessSlider.setMinorTickSpacing(2);
 			correctnessSlider.setPaintTicks(true);
 			correctnessSlider.setPaintLabels(true);
 			correctnessSlider.addChangeListener(Classification.this);
