@@ -3,7 +3,9 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,25 +32,28 @@ public class View_modelEditor {
 		container.setLayout(new BorderLayout());
 	
 		distortionClassifications = new JPanel();
+		distortionClassifications.setLayout(new GridLayout(1, 2));
+		
+		distortionClassifications.add(west);
+		distortionClassifications.add(east);
 		
 		container.add(title, BorderLayout.NORTH);
-		//container.add(west,BorderLayout.WEST);
-		container.add(east,BorderLayout.EAST);
+		container.add(distortionClassifications,BorderLayout.CENTER);
 		
 		frame.setVisible(true);
 		
 	}
 	public void setAnomic(JPanel panel){
-		container.remove(west);
-		container.add(panel,BorderLayout.CENTER);
+		distortionClassifications.remove(west);
+		distortionClassifications.add(panel);
 		west = panel;
-		frame.setVisible(container.isVisible());
+		frame.setVisible(frame.isVisible());
 	}
 	public void setAgrammatic(JPanel panel){
-		container.remove(east);
-		container.add(panel,BorderLayout.EAST);
+		distortionClassifications.remove(east);
+		distortionClassifications.add(panel);
 		east = panel;
-		frame.setVisible(container.isVisible());
+		frame.setVisible(frame.isVisible());
 		
 	}
 
