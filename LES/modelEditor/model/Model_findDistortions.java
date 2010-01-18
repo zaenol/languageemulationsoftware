@@ -42,7 +42,7 @@ public abstract class Model_findDistortions {
         for(String c:dir.list(filter)){
         	try {
         		String forName = dirName.replace("/", ".")+"."+c.substring(0, c.length()-5);
-        		System.out.println(forName);
+        		//System.out.println(forName);
 				Class cls = Class.forName(forName);
 				boolean matchI = matchInterface(cls,I_Element.class,10);
 				if(matchI){

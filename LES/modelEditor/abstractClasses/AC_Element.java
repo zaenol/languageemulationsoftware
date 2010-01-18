@@ -1,6 +1,8 @@
 package modelEditor.abstractClasses;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -10,18 +12,37 @@ import modelEditor.interfaces.I_Element;
 
 public abstract class AC_Element implements I_Element {
 	String ID = "NOT SET";
-	protected JPanel panel;
+	
+	private JPanel masterPanel;
+	private JPanel contentPanel;
+	
+	protected JPanel headerPanel;
+	protected JPanel bodyPanel;
+	
+	//protected JPanel content;
 
 	public AC_Element(String id) {
 		initID(id);
-		panel = new JPanel();
-		panel.setSize(40, 40);
-		panel.setBorder(BorderFactory.createLineBorder(Color.black));
-		panel.add(new JLabel(ID));
+		masterPanel = new JPanel();
+		masterPanel.setSize(40, 40);
+		masterPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		masterPanel.setLayout(new BorderLayout());
+	
+		masterPanel.add(new JLabel(ID,JLabel.CENTER),BorderLayout.NORTH);
+		
+		contentPanel = new JPanel(new BorderLayout());
+		masterPanel.add(contentPanel,BorderLayout.CENTER);
+		
+		headerPanel = new JPanel();
+		contentPanel.add(headerPanel,BorderLayout.NORTH);
+		
+		bodyPanel = new JPanel();
+		contentPanel.add(bodyPanel,BorderLayout.CENTER);
+		
 	}
 
 	public JPanel getGUI(){
-		return panel;
+		return masterPanel;
 	}
 
 	public void initID(String id) {
@@ -37,6 +58,10 @@ public abstract class AC_Element implements I_Element {
 	public void setXML() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public void setBorder(Color color){
+		masterPanel.setBorder(BorderFactory.createLineBorder(color));
 	}
 
 }
