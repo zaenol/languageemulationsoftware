@@ -29,7 +29,7 @@ public abstract class Model_findDistortions {
     
     public Model_findDistortions(){
     	anomicDist = new Classification("Anomic Distortions");
-    	agramaticDist = new Classification("Agramatic Distortions");
+    	agramaticDist = new Classification("Agrammatic Distortions");
     }
     
     /**
@@ -51,7 +51,7 @@ public abstract class Model_findDistortions {
 					AC_Distortion distInstance = this.createInstanceOfDistortion(distConstructor);
 					
 					boolean isAnomic = distInstance.isANOMIC();
-					boolean isAgramatic = distInstance.isAGRAMATIC();
+					boolean isAgramatic = distInstance.isAGRAMMATIC();
 					
 					if(isAnomic)
 						anomicDist.addDistortion(distConstructor, distInstance);
@@ -94,6 +94,8 @@ public abstract class Model_findDistortions {
     		return matchInterface(source.getSuperclass(),target,depth+1);
     	return false;
     }
+
+
     
     
 

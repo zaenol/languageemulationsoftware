@@ -6,7 +6,7 @@ import modelEditor.interfaces.I_Element;
 public abstract class AC_Distortion extends AC_Element {
 
 	private boolean ANOMIC = false;
-	private boolean AGRAMATIC = false;
+	private boolean AGRAMMATIC = false;
 	private boolean DISTORTION_ERROR = false;
 	private boolean DISTORTION_CORRECTION = false;
 	
@@ -22,12 +22,12 @@ public abstract class AC_Distortion extends AC_Element {
 		ANOMIC = anomic;
 	}
 
-	public boolean isAGRAMATIC() {
-		return AGRAMATIC;
+	public boolean isAGRAMMATIC() {
+		return AGRAMMATIC;
 	}
 
-	public void setAGRAMATIC(boolean agramatic) {
-		AGRAMATIC = agramatic;
+	public void setAGRAMMATIC(boolean agrammatic) {
+		AGRAMMATIC = agrammatic;
 	}
 
 	public boolean isDISTORTION_ERROR() {

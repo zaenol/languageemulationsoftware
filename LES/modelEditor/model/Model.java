@@ -12,21 +12,25 @@ import modelEditor.interfaces.I_Element;
 public class Model extends Model_findDistortions{
 
 
-	JFrame frame;
+	
 	
 	public Model() {
 		super();
 		find_distortions();
 		
-		frame = new JFrame();
-		frame.setSize(900,600);
-		frame.add(anomicDist.getGUI());
-		frame.add(agramaticDist.getGUI());
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		//frame.add(anomicDist.getGUI());
+		//frame.add(agramaticDist.getGUI());
+		
 	}
 
 	
+	public Classification getAnomicDist() {
+		return anomicDist;
+	}
 
+	public Classification getAgramaticDist() {
+		return agramaticDist;
+	}
     
 }
