@@ -2,13 +2,18 @@ package modelEditor.distortions;
 
 import org.w3c.dom.Document;
 
-import modelEditor.abstractClasses.AC_Distortion_BubbleUp;
+import modelEditor.abstractClasses.AC_Distortion_BubbleDown;
 
-public class Anomic_correction_pauses extends AC_Distortion_BubbleUp {
+public class Anomic_error_formal extends AC_Distortion_BubbleDown {
 
-	public Anomic_correction_pauses() {
-		super("Pauses", true, false, false, true);
+	public Anomic_error_formal() {
+		super("Formal", true, false, true, false);
 		// TODO Auto-generated constructor stub
+	}
+
+	public void update() {
+		// TODO Auto-generated method stub
+
 	}
 
 	public Document getXML() {

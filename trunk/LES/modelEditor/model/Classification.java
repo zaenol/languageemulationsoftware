@@ -104,9 +104,9 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 		view.update(model.getNetRate());
 	}
 
-	public void getXML() {
+	public Document getXML() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	public void setValuesFromXML_local(Document dom) {

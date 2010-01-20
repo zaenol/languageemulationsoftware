@@ -12,7 +12,7 @@ public interface I_Element{
 	
 	
 	public abstract JPanel getGUI();
-	public abstract void getXML();
+	public abstract Document getXML();
 	public abstract void setValuesFromXML_local(Document dom);
 	public abstract void setValuesFromXML();
 	/**
