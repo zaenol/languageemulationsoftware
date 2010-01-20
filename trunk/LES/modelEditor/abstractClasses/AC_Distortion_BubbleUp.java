@@ -8,8 +8,8 @@ public abstract class AC_Distortion_BubbleUp extends AC_Distortion{
 
 	private Vector<BubbleUp_Listener> listeners = new Vector<BubbleUp_Listener>();
 	
-	public AC_Distortion_BubbleUp(String id){
-		super(id);
+	public AC_Distortion_BubbleUp(String id, boolean anomic, boolean agrammatic, boolean distortion_error, boolean distortion_correction){
+		super(id,anomic,agrammatic,distortion_error,distortion_correction);
 	}
 	
 	public synchronized void addBubbleUpListener(BubbleUp_Listener bubbleUpListener){

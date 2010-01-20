@@ -17,9 +17,7 @@ public class testDist2 extends AC_Distortion_BubbleUp implements ChangeListener{
 	int oldValue = 0;
 	
 	public testDist2(){
-		super("Test 2");
-		this.setCORRECTION(true);
-		this.setANOMIC(true);
+		super("Test 2",false,false,false,false);
 		
 		label = new JLabel("Value of "+" 0%", JLabel.CENTER);
 		label.setAlignmentX(JPanel.CENTER_ALIGNMENT);
