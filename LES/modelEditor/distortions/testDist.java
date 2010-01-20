@@ -12,9 +12,7 @@ public class testDist extends AC_Distortion_BubbleDown{
 	JLabel myLocalValue = new JLabel("Local: 0%");
 	
 	public testDist(){
-		super("Test Distortion");
-		this.setANOMIC(true);
-		this.setERROR(true);
+		super("Test Distortion",false,false,false,false);
 		this.bodyPanel.add(myGlobalValue);
 		this.bodyPanel.add(myLocalValue);
 	}

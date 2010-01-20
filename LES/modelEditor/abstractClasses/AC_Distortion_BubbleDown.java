@@ -16,8 +16,8 @@ public abstract class AC_Distortion_BubbleDown extends AC_Distortion implements 
 
 	private releaseBoxClass releaseBox;
 	
-	public AC_Distortion_BubbleDown(String id){
-		super(id);
+	public AC_Distortion_BubbleDown(String id, boolean anomic, boolean agrammatic, boolean distortion_error, boolean distortion_correction){
+		super(id,anomic,agrammatic,distortion_error,distortion_correction);
 		
 		releaseBox = new releaseBoxClass();
 		

@@ -10,8 +10,13 @@ public abstract class AC_Distortion extends AC_Element {
 	private boolean DISTORTION_ERROR = false;
 	private boolean DISTORTION_CORRECTION = false;
 	
-	public AC_Distortion(String id) {
+	public AC_Distortion(String id, boolean anomic, boolean agrammatic, boolean distortion_error, boolean distortion_correction) {
 		super(id);
+		this.setANOMIC(anomic);
+		this.setAGRAMMATIC(agrammatic);
+		this.setERROR(distortion_error);
+		this.setCORRECTION(distortion_correction);
+		
 	}
 
 	public boolean isANOMIC() {
