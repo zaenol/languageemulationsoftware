@@ -92,8 +92,8 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
     		return matchClass(source.getSuperclass(),target,depth+1);
     	return false;
     }
-	public String[] parseString(String[] messages){
-				return model.parseString(messages);
+	public String[] parseString_local(String[] messages) {
+		return model.parseString(messages);
 	}
 	
 	public void bubbleUpEventDetected(BubbleUp_Event event) {
@@ -106,7 +106,7 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 		
 	}
 
-	public void setXML() {
+	public void setValuesFromXML_local() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -175,7 +175,7 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 		public void setXML(){
 
 			for(AC_Distortion distortion:allDistortions){
-				distortion.setXML();
+				distortion.setValuesFromXML_local();
 			}			
 			
 		}

@@ -52,10 +52,10 @@ public abstract class AC_Element implements I_Element {
 
 	public String[] parseString(String[] messages) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.parseString_local(messages);
 	}
 
-	public void setXML() {
+	public void setValuesFromXML() {
 		// TODO Auto-generated method stub
 
 	}

@@ -36,20 +36,14 @@ public class testDist2 extends AC_Distortion_BubbleUp implements ChangeListener{
 		// TODO Auto-generated method stub
 		
 	}
-
-	public void initID() {
+	public void setValuesFromXML_local() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public String[] parseString(String[] messages) {
+	public String[] parseString_local(String[] messages) {
 		// TODO Auto-generated method stub
-		return messages;
-	}
-
-	public void setXML() {
-		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	public void stateChanged(ChangeEvent e) {
@@ -58,6 +52,10 @@ public class testDist2 extends AC_Distortion_BubbleUp implements ChangeListener{
 		oldValue = slider.getValue();
 		
 	}
+
+
+
+
 	
 
 }
