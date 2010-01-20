@@ -4,10 +4,10 @@ import org.w3c.dom.Document;
 
 import modelEditor.abstractClasses.AC_Distortion_BubbleUp;
 
-public class Anomic_correction_pauses extends AC_Distortion_BubbleUp {
+public class Anomic_correction_omissions extends AC_Distortion_BubbleUp {
 
-	public Anomic_correction_pauses() {
-		super("Pauses", true, false, false, true);
+	public Anomic_correction_omissions(){
+		super("Omissions", true, false, false, true);
 		// TODO Auto-generated constructor stub
 	}
 

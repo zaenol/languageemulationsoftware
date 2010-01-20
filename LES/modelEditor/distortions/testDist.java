@@ -21,9 +21,9 @@ public class testDist extends AC_Distortion_BubbleDown{
 		this.bodyPanel.add(myLocalValue);
 	}
 
-	public void getXML() {
+	public Document getXML() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 	public void setValuesFromXML_local(Document dom) {
 		// TODO Auto-generated method stub

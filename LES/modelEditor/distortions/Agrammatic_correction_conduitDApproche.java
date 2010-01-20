@@ -2,12 +2,12 @@ package modelEditor.distortions;
 
 import org.w3c.dom.Document;
 
-import modelEditor.abstractClasses.AC_Distortion_BubbleUp;
+import modelEditor.abstractClasses.AC_Distortion_Independent;
 
-public class Anomic_correction_pauses extends AC_Distortion_BubbleUp {
+public class Agrammatic_correction_conduitDApproche extends AC_Distortion_Independent {
 
-	public Anomic_correction_pauses() {
-		super("Pauses", true, false, false, true);
+	public Agrammatic_correction_conduitDApproche() {
+		super("Conduit d'approche", false, true, false, true);
 		// TODO Auto-generated constructor stub
 	}
 
