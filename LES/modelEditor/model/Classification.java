@@ -97,8 +97,8 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 	}
 	
 	public void bubbleUpEventDetected(BubbleUp_Event event) {
-		// TODO Auto-generated method stub
-		
+		model.adjustRatePointAdjustment(event.getValue()*-1);	
+		view.update(model.getNetRate());
 	}
 
 	public void getXML() {
@@ -124,18 +124,19 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 	}
 	public void stateChanged(ChangeEvent e) {
 		Object source = e.getSource();
-		view.sliderMoved(source);
+		//view.sliderMoved(source);
+		
 		if(view.sliderIsRate(source)!=-1)
 			model.setRate(view.sliderIsRate(source));
 		if(view.sliderIsCorrectness(source)!=-1)
 			model.setCorrectness(view.sliderIsCorrectness(source));
-		
+		view.update(model.getNetRate());
 	}
 	
 	private class Classification_Model{
 		int correctness = 0;
 		int rate = 0;
-		
+		double ratePointAdjustment = 0;
 
 
 
@@ -198,6 +199,13 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 			fireDoubleEvent(correctness+0d);
 		}
 		
+		public void adjustRatePointAdjustment(Double d){
+			ratePointAdjustment+=d;
+		}
+		public double getNetRate(){
+			return rate+ratePointAdjustment;
+		}
+		
 		protected synchronized void fireDoubleEvent(Double value){
 			BubbleDown_Event event = new BubbleDown_Event(Classification.this,value);
 			
@@ -222,6 +230,7 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 		JLabel rateLabel;
 		JSlider rateSlider;
 		String rateTitle = "Correction Rate = ";
+		String rateTitle2 = "% Remaining";
 		
 		boolean isBubbleDown=false;
 		boolean isBubbleUp=false;
@@ -258,7 +267,7 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 			correctnessSlider.addChangeListener(Classification.this);
 			correctness.add(correctnessSlider);
 			
-			rateLabel = new JLabel(rateTitle+" 0%", JLabel.CENTER);
+			rateLabel = new JLabel(rateTitle+" 0% | 0"+rateTitle2, JLabel.CENTER);
 		    rateLabel.setAlignmentX(rate.CENTER_ALIGNMENT);
 		    rate.add(rateLabel);
 			
@@ -310,11 +319,15 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 			return -1;
 		}
 		
-		public void sliderMoved(Object source){
-			if(source.equals(rateSlider))
-				rateLabel.setText(rateTitle+rateSlider.getValue()+"%");
-			else if(source.equals(correctnessSlider))
-				correctnessLabel.setText(correctnessTitle+correctnessSlider.getValue()+"%");
+		public void update(double netRateAdjustment){
+			String overlimit = "";
+			if(netRateAdjustment < 0){
+				rateLabel.setForeground(Color.red);
+				overlimit = " | OVERLIMIT !!!";
+			}else
+				rateLabel.setForeground(Color.black);
+			rateLabel.setText(rateTitle+rateSlider.getValue()+"% | "+netRateAdjustment+rateTitle2+overlimit);
+			correctnessLabel.setText(correctnessTitle+correctnessSlider.getValue()+"%");
 		}
 		
 	}
