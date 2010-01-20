@@ -16,6 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
 
 import modelEditor.abstractClasses.AC_Distortion;
 import modelEditor.abstractClasses.AC_Distortion_BubbleDown;
@@ -106,8 +109,8 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 		
 	}
 
-	public void setValuesFromXML_local() {
-		// TODO Auto-generated method stub
+	public void setValuesFromXML_local(Document dom) {
+		model.setXML(dom);
 		
 	}
 	
@@ -172,10 +175,10 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 			}			
 			return lastEdit;
 		}
-		public void setXML(){
+		public void setXML(Document dom){
 
 			for(AC_Distortion distortion:allDistortions){
-				distortion.setValuesFromXML_local();
+				distortion.setValuesFromXML_local(dom);
 			}			
 			
 		}

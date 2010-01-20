@@ -5,6 +5,9 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
 
 import modelEditor.abstractClasses.AC_Distortion_BubbleDown;
 import modelEditor.abstractClasses.AC_Distortion_BubbleUp;
@@ -36,7 +39,7 @@ public class testDist2 extends AC_Distortion_BubbleUp implements ChangeListener{
 		// TODO Auto-generated method stub
 		
 	}
-	public void setValuesFromXML_local() {
+	public void setValuesFromXML_local(Document dom) {
 		// TODO Auto-generated method stub
 		
 	}

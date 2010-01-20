@@ -2,9 +2,13 @@ package modelEditor.distortions;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
 
 import modelEditor.abstractClasses.AC_Distortion_BubbleDown;
 import modelEditor.eventsListeners.BubbleDown_Event;
+
 
 public class testDist extends AC_Distortion_BubbleDown{
 	
@@ -21,7 +25,7 @@ public class testDist extends AC_Distortion_BubbleDown{
 		// TODO Auto-generated method stub
 		
 	}
-	public void setValuesFromXML_local() {
+	public void setValuesFromXML_local(Document dom) {
 		// TODO Auto-generated method stub
 		
 	}

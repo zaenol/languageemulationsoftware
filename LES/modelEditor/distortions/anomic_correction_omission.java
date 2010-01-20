@@ -1,5 +1,9 @@
 package modelEditor.distortions;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
 import modelEditor.abstractClasses.AC_Distortion_BubbleUp;
 
 public class anomic_correction_omission extends AC_Distortion_BubbleUp {
@@ -16,7 +20,7 @@ public class anomic_correction_omission extends AC_Distortion_BubbleUp {
 		this.parseString(null);
 
 	}
-	public void setValuesFromXML_local() {
+	public void setValuesFromXML_local(Document dbf) {
 		// TODO Auto-generated method stub
 		
 	}
