@@ -52,6 +52,7 @@ public abstract class AC_Element implements I_Element {
 
 	public String[] parseString(String[] messages) {
 		// TODO Auto-generated method stub
+		//http://www.totheriver.com/learn/xml/xmltutorial.html
 		return this.parseString_local(messages);
 	}
 
