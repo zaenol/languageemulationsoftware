@@ -258,7 +258,7 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 			distortionCorrections = createDistortionGroup("Corrections",Color.gray);
 
 			
-			correctnessLabel = new JLabel(correctnessTitle+" 0%", JLabel.CENTER);
+			correctnessLabel = new JLabel(correctnessTitle+" 100%", JLabel.CENTER);
 		    correctnessLabel.setAlignmentX(correctness.CENTER_ALIGNMENT);
 		    correctness.add(correctnessLabel);
 			
@@ -326,7 +326,7 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 			String overlimit = "";
 			if(netRateAdjustment < 0){
 				rateLabel.setForeground(Color.red);
-				overlimit = " | OVERLIMIT !!!";
+				overlimit = " | OVER LIMIT !!!";
 			}else
 				rateLabel.setForeground(Color.black);
 			rateLabel.setText(rateTitle+rateSlider.getValue()+"% | "+netRateAdjustment+rateTitle2+overlimit);
