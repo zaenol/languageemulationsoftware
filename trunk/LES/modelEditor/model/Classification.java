@@ -232,7 +232,7 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 		JPanel rate;
 		JLabel rateLabel;
 		JSlider rateSlider;
-		String rateTitle = "Correction Rate = ";
+		String rateTitle = "Circumlocutions = ";
 		String rateTitle2 = "% Remaining";
 		
 		boolean isBubbleDown=false;

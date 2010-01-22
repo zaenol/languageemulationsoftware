@@ -7,7 +7,7 @@ import modelEditor.abstractClasses.AC_Distortion_Independent;
 public class Agrammatic_error_sublexicalNonFormalErrors extends AC_Distortion_Independent {
 
 	public Agrammatic_error_sublexicalNonFormalErrors() {
-		super("Sublexical Non-Formal Errors", false, true, true, false);
+		super("Sublexical Non Word Errors", false, true, true, false);
 		// TODO Auto-generated constructor stub
 	}
 
