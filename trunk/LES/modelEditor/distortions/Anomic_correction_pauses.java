@@ -18,7 +18,7 @@ public class Anomic_correction_pauses extends AC_Distortion_BubbleUp implements 
 	view v;
 	
 	public Anomic_correction_pauses() {
-		super("Pauses", true, false, false, true);
+		super("Pauses", false, false, false, true);
 		m = new model();
 		v = new view();
 	}

@@ -19,7 +19,7 @@ public class Anomic_correction_semanticDescription extends
 			view v;
 			
 	public Anomic_correction_semanticDescription() {
-		super("Semantic Description", true, false, false, true);
+		super("Semantic Description", false, false, false, true);
 		m = new model();
 		v = new view();
 	}

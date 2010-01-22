@@ -25,12 +25,19 @@ public class Model extends Model_findDistortions{
 	}
 
 	
-	public Classification getAnomicDist() {
-		return anomicDist;
+	public Classification getWordDist() {
+		return wordDist;
 	}
 
-	public Classification getAgramaticDist() {
-		return agramaticDist;
+	public Classification getInflectionDist() {
+		return inflectionDist;
+	}
+    public Classification getFunctionDist() {
+		return functionDist;
+	}
+
+	public Classification getNonFluencyDist() {
+		return nonFluencyDist;
 	}
     
 }

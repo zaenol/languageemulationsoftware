@@ -22,7 +22,7 @@ public class Anomic_error_formal extends AC_Distortion_BubbleDown implements Cha
 
 	
 	public Anomic_error_formal() {
-		super("Formal", true, false, true, false);
+		super("Formal", true, false, false, false);
 		m = new model();
 		v = new view();
 		

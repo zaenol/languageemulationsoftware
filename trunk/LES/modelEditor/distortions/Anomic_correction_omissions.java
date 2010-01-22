@@ -16,7 +16,7 @@ public class Anomic_correction_omissions extends AC_Distortion_BubbleUp implemen
 	view v;
 	
 	public Anomic_correction_omissions(){
-		super("Omissions", true, false, false, true);
+		super("Omissions", false, false, false, true);
 		m = new model();
 		v = new view();
 	}

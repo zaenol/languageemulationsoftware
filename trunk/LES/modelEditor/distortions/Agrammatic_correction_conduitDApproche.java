@@ -7,7 +7,7 @@ import modelEditor.abstractClasses.AC_Distortion_Independent;
 public class Agrammatic_correction_conduitDApproche extends AC_Distortion_Independent {
 
 	public Agrammatic_correction_conduitDApproche() {
-		super("Conduit d'approche", false, true, false, true);
+		super("Conduit d'approche", false, false, false, true);
 		// TODO Auto-generated constructor stub
 	}
 
