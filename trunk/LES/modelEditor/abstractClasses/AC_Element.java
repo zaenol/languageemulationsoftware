@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -19,6 +21,8 @@ public abstract class AC_Element implements I_Element {
 	protected JPanel headerPanel;
 	protected JPanel bodyPanel;
 	
+	private JPanel masterPanelNorth;
+	
 	//protected JPanel content;
 
 	public AC_Element(String id) {
@@ -28,7 +32,7 @@ public abstract class AC_Element implements I_Element {
 		masterPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		masterPanel.setLayout(new BorderLayout());
 	
-		masterPanel.add(new JLabel(ID,JLabel.CENTER),BorderLayout.NORTH);
+		//masterPanel.add(new JLabel(ID,JLabel.CENTER),BorderLayout.NORTH);
 		
 		contentPanel = new JPanel(new BorderLayout());
 		masterPanel.add(contentPanel,BorderLayout.CENTER);
@@ -39,6 +43,14 @@ public abstract class AC_Element implements I_Element {
 		bodyPanel = new JPanel();
 		contentPanel.add(bodyPanel,BorderLayout.CENTER);
 		
+		masterPanelNorth = new JPanel();
+		masterPanelNorth.setLayout(new BoxLayout(masterPanelNorth,BoxLayout.X_AXIS));
+		masterPanelNorth.add(new JLabel(ID,JLabel.CENTER));
+		masterPanel.add(masterPanelNorth,BorderLayout.NORTH);
+		
+	}
+	protected void addToTopOfMasterPanel(JComponent component){
+		masterPanelNorth.add(component);
 	}
 
 	public JPanel getGUI(){

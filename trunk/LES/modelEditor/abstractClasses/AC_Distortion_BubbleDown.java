@@ -21,7 +21,9 @@ public abstract class AC_Distortion_BubbleDown extends AC_Distortion implements 
 		
 		releaseBox = new releaseBoxClass();
 		
-		this.headerPanel.add(releaseBox.getReleaseBox());
+		//this.headerPanel.add(releaseBox.getReleaseBox());
+		this.addToTopOfMasterPanel(releaseBox.getReleaseBox());
+		
 		//releaseBox.addActionListener(this);
 	}
 
