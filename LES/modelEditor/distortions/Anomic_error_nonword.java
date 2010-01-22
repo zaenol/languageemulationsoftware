@@ -17,7 +17,7 @@ public class Anomic_error_nonword extends AC_Distortion_BubbleDown implements Ch
 	view v;
 	
 	public Anomic_error_nonword() {
-		super("Non Word", true, false, true, false);
+		super("Non Word", true, false, false, false);
 		m = new model();
 		v = new view();
 		

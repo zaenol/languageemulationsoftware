@@ -17,7 +17,7 @@ public class Anomic_error_unrelated extends AC_Distortion_BubbleDown implements 
 	view v;
 	
 	public Anomic_error_unrelated() {
-		super("UnRelated", true, false, true, false);
+		super("UnRelated", true, false, false, false);
 		m = new model();
 		v = new view();
 		

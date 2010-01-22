@@ -17,9 +17,10 @@ public abstract class Model_findDistortions {
 	//Vector<Constructor> distortionConstructors = new Vector<Constructor>();
 	//Vector<I_Distortion> distortionInstances = new Vector<I_Distortion>();
 	
-	Classification anomicDist;
-	Classification agramaticDist;
-	
+	Classification wordDist;
+	Classification inflectionDist;
+	Classification functionDist;
+	Classification nonFluencyDist;	
 	
 	FilenameFilter filter = new FilenameFilter() {
         public boolean accept(File dir, String name) {
@@ -27,9 +28,12 @@ public abstract class Model_findDistortions {
         }
     };
     
-    public Model_findDistortions(){
-    	anomicDist = new Classification("Anomic Distortions");
-    	agramaticDist = new Classification("Agrammatic Distortions");
+
+	public Model_findDistortions(){
+    	wordDist = new Classification("Word Distortions");
+    	inflectionDist = new Classification("Inflection Distortions");
+    	functionDist = new Classification("Function Word Distortions");
+    	nonFluencyDist = new Classification("Non Fluency Distortions");
     }
     
     /**
@@ -50,13 +54,19 @@ public abstract class Model_findDistortions {
 					Constructor distConstructor = cls.getConstructor();
 					AC_Distortion distInstance = this.createInstanceOfDistortion(distConstructor);
 					
-					boolean isAnomic = distInstance.isDISTORTION_WORD();
-					boolean isAgramatic = distInstance.isDISTORTION_INFLECTION();
+					boolean isWordDist = distInstance.isDISTORTION_WORD();
+					boolean isInflDist = distInstance.isDISTORTION_INFLECTION();
+					boolean isNFluDist = distInstance.isDISTORTION_NONFLUENCY();
+					boolean isFuncDist = distInstance.isDISTORTION_FUNCTION();
 					
-					if(isAnomic)
-						anomicDist.addDistortion(distConstructor, distInstance);
-					if(isAgramatic)
-						agramaticDist.addDistortion(distConstructor, distInstance);
+					if(isWordDist)
+						wordDist.addDistortion(distConstructor, distInstance);
+					if(isInflDist)
+						inflectionDist.addDistortion(distConstructor, distInstance);
+					if(isNFluDist)
+						nonFluencyDist.addDistortion(distConstructor, distInstance);
+					if(isFuncDist)
+						functionDist.addDistortion(distConstructor, distInstance);
 		
 				}else{
 					System.out.println("-"+cls);

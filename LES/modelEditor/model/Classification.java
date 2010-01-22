@@ -74,6 +74,9 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 			model.addIndeptDistortion(instance);
 		}
 		
+		view.addDistortion(distInstance.getGUI());
+		
+		/*
 		boolean isDistortionError = distInstance.isDISTORTION_FUNCTION();
 		if(isDistortionError)
 			view.addDistortionError(distInstance.getGUI());
@@ -81,7 +84,7 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 		boolean isDistortionCorrection = distInstance.isDISTORTION_NONFLUENCY();
 		if(isDistortionCorrection)
 			view.addDistortionCorrection(distInstance.getGUI());
-		
+		*/
 	}
 	
 	private boolean matchClass(Class source,Class target,int depth){
@@ -221,8 +224,9 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 	
 	private class Classification_View{
 		
-		JPanel distortionErrors;
-		JPanel distortionCorrections;
+		//JPanel distortionErrors;
+		//JPanel distortionCorrections;
+		JPanel distortions;
 		
 		JPanel correctness;
 		JLabel correctnessLabel;
@@ -253,9 +257,11 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 			headerPanel.add(rate,BorderLayout.EAST);
 			rate.setVisible(false);
 
-			distortionErrors  = createDistortionGroup("Errors",Color.gray);
+			//distortionErrors  = createDistortionGroup("Errors",Color.gray);
 			
-			distortionCorrections = createDistortionGroup("Corrections",Color.gray);
+			//distortionCorrections = createDistortionGroup("Corrections",Color.gray);
+			
+			distortions = createDistortionGroup("Distortion",Color.gray);
 
 			
 			correctnessLabel = new JLabel(correctnessTitle+" 100%", JLabel.CENTER);
@@ -303,12 +309,17 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 			return panel;
 		}
 
+		/*
 		public void addDistortionError(JPanel panel){
 			distortionErrors.add(panel);
 			
 		}
 		public void addDistortionCorrection(JPanel panel){
 			distortionCorrections.add(panel);
+		}
+		*/
+		public void addDistortion(JPanel panel){
+			distortions.add(panel);
 		}
 		
 		public int sliderIsRate(Object source){

@@ -7,7 +7,7 @@ import modelEditor.abstractClasses.AC_Distortion_Independent;
 public class Agrammatic_error_functionWords extends AC_Distortion_Independent {
 
 	public Agrammatic_error_functionWords() {
-		super("Dropping Function Words", false, true, true, false);
+		super("Dropping Function Words", false, false, true, false);
 		// TODO Auto-generated constructor stub
 	}
 

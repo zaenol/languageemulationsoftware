@@ -12,8 +12,10 @@ public class Driver_modelEditor {
 	public Driver_modelEditor(){
 		model = new Model();
 		view = new View_modelEditor();
-		view.setWordPanel(model.getAnomicDist().getGUI());
-		view.setInflectionPanel(model.getAgramaticDist().getGUI());
+		view.setWordPanel(model.getWordDist().getGUI());
+		view.setInflectionPanel(model.getInflectionDist().getGUI());
+		view.setNonFluencyPanel(model.getNonFluencyDist().getGUI());
+		view.setFunctionWordPanel(model.getFunctionDist().getGUI());
 	}
 	
 

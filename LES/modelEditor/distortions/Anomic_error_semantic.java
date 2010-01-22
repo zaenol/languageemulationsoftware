@@ -17,7 +17,7 @@ public class Anomic_error_semantic extends AC_Distortion_BubbleDown implements C
 	view v;
 	
 	public Anomic_error_semantic() {
-		super("Semantic", true, false, true, false);
+		super("Semantic", true, false, false, false);
 		m = new model();
 		v = new view();
 		

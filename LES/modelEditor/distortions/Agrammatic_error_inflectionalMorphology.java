@@ -7,7 +7,7 @@ import modelEditor.abstractClasses.AC_Distortion_Independent;
 public class Agrammatic_error_inflectionalMorphology extends AC_Distortion_Independent {
 
 	public Agrammatic_error_inflectionalMorphology() {
-		super("Inflectional Morphology", false, true, true, false);
+		super("Inflectional Morphology", false, true, false, false);
 		// TODO Auto-generated constructor stub
 	}
 
