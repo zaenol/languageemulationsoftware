@@ -19,8 +19,11 @@ public class View_modelEditor {
 	String titleText = "Aphasia Model Editor";
 	JLabel title = new JLabel(titleText,JLabel.CENTER);
 	
-	JPanel anomicPanel=new JPanel(new GridLayout(1,1));
-	JPanel agrammaticPanel=new JPanel(new GridLayout(1,1));
+	JPanel distortionWordPanel=new JPanel(new GridLayout(1,1));
+	JPanel distortionInflectionPanel=new JPanel(new GridLayout(1,1));
+	JPanel distortionFunctionPanel=new JPanel(new GridLayout(1,1));
+	JPanel distortionNonFluencyPanel=new JPanel(new GridLayout(1,1));
+	
 	JPanel otherPanel=new JPanel(new GridLayout(1,1));
 	
 	//JPanel distortionClassifications;
@@ -37,8 +40,10 @@ public class View_modelEditor {
 		//distortionClassifications = new JPanel();
 		//distortionClassifications.setLayout(new GridLayout(1, 2));
 		
-		tabbedPane.addTab("Anomic", null, anomicPanel,"Anomic Errors and Corrections");
-		tabbedPane.addTab("Agrammatic", null, agrammaticPanel,"Agrammatic Errors and Corrections");
+		tabbedPane.addTab("Distortion of Words", null, distortionWordPanel,"-- --");
+		tabbedPane.addTab("Distortion of Inflection", null, distortionInflectionPanel,"-- --");
+		tabbedPane.addTab("Distortion of Function Words", null, distortionFunctionPanel,"-- --");
+		tabbedPane.addTab("Distortion Non Fluency", null, distortionNonFluencyPanel,"-- --");
 		tabbedPane.addTab("Other", null, otherPanel,"Other Errors and Corrections");
 		
 		//distortionClassifications.add(west);
@@ -50,22 +55,25 @@ public class View_modelEditor {
 		frame.setVisible(true);
 		
 	}
-	public void setAnomic(JPanel panel){
-		anomicPanel.removeAll();
-		anomicPanel.add(panel);
-		//distortionClassifications.remove(west);
-		//distortionClassifications.add(panel);
-		//west = panel;
+	public void setWordPanel(JPanel panel){
+		distortionWordPanel.removeAll();
+		distortionWordPanel.add(panel);
 		frame.setVisible(frame.isVisible());
 	}
-	public void setAgrammatic(JPanel panel){
-		agrammaticPanel.removeAll();
-		agrammaticPanel.add(panel);
-		//distortionClassifications.remove(east);
-		//distortionClassifications.add(panel);
-		//east = panel;
+	public void setInflectionPanel(JPanel panel){
+		distortionInflectionPanel.removeAll();
+		distortionInflectionPanel.add(panel);
+		frame.setVisible(frame.isVisible());		
+	}
+	public void setFunctionWordPanel(JPanel panel){
+		distortionFunctionPanel.removeAll();
+		distortionFunctionPanel.add(panel);
 		frame.setVisible(frame.isVisible());
-		
+	}
+	public void setNonFluencyPanel(JPanel panel){
+		distortionNonFluencyPanel.removeAll();
+		distortionNonFluencyPanel.add(panel);
+		frame.setVisible(frame.isVisible());		
 	}
 
 }
