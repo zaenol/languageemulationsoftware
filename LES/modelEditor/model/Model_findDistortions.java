@@ -50,8 +50,8 @@ public abstract class Model_findDistortions {
 					Constructor distConstructor = cls.getConstructor();
 					AC_Distortion distInstance = this.createInstanceOfDistortion(distConstructor);
 					
-					boolean isAnomic = distInstance.isANOMIC();
-					boolean isAgramatic = distInstance.isAGRAMMATIC();
+					boolean isAnomic = distInstance.isDISTORTION_WORD();
+					boolean isAgramatic = distInstance.isDISTORTION_INFLECTION();
 					
 					if(isAnomic)
 						anomicDist.addDistortion(distConstructor, distInstance);
