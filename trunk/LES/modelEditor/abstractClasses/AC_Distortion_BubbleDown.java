@@ -10,8 +10,8 @@ import modelEditor.eventsListeners.BubbleDown_Listener;
 
 public abstract class AC_Distortion_BubbleDown extends AC_Distortion implements BubbleDown_Listener {
 	
-	private double severityValue_global = 0;
-	private double severityValue_local = 0;
+	private double severityValue_global = 100;
+	private double severityValue_local = 100;
 
 
 	private releaseBoxClass releaseBox;

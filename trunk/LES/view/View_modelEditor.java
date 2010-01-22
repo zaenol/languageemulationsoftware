@@ -28,7 +28,7 @@ public class View_modelEditor {
 	
 	public View_modelEditor() {
 		frame = new JFrame(titleText);
-		frame.setSize(900,600);
+		frame.setSize(1024,768);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		container = frame.getContentPane();

@@ -3,6 +3,7 @@ package modelEditor.abstractClasses;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.text.DecimalFormat;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -41,6 +42,7 @@ public abstract class AC_Element implements I_Element {
 		contentPanel.add(headerPanel,BorderLayout.NORTH);
 		
 		bodyPanel = new JPanel();
+		bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
 		contentPanel.add(bodyPanel,BorderLayout.CENTER);
 		
 		masterPanelNorth = new JPanel();
@@ -75,6 +77,11 @@ public abstract class AC_Element implements I_Element {
 	
 	public void setBorder(Color color){
 		masterPanel.setBorder(BorderFactory.createLineBorder(color));
+	}
+
+	public double roundFourDecimals(double d) {
+    	DecimalFormat twoDForm = new DecimalFormat("#.####");
+    	return Double.valueOf(twoDForm.format(d));
 	}
 
 }

@@ -137,7 +137,7 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 	}
 	
 	private class Classification_Model{
-		int correctness = 0;
+		int correctness = 100;
 		int rate = 0;
 		double ratePointAdjustment = 0;
 
