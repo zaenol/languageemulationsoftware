@@ -74,11 +74,11 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 			model.addIndeptDistortion(instance);
 		}
 		
-		boolean isDistortionError = distInstance.isDISTORTION_ERROR();
+		boolean isDistortionError = distInstance.isDISTORTION_FUNCTION();
 		if(isDistortionError)
 			view.addDistortionError(distInstance.getGUI());
 		
-		boolean isDistortionCorrection = distInstance.isDISTORTION_CORRECTION();
+		boolean isDistortionCorrection = distInstance.isDISTORTION_NONFLUENCY();
 		if(isDistortionCorrection)
 			view.addDistortionCorrection(distInstance.getGUI());
 		

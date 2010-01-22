@@ -5,50 +5,50 @@ import modelEditor.interfaces.I_Element;
 
 public abstract class AC_Distortion extends AC_Element {
 
-	private boolean ANOMIC = false;
-	private boolean AGRAMMATIC = false;
-	private boolean DISTORTION_ERROR = false;
-	private boolean DISTORTION_CORRECTION = false;
+	private boolean DISTORTION_WORD = false;
+	private boolean DISTORTION_INFLECTION = false;
+	private boolean DISTORTION_FUNCTION = false;
+	private boolean DISTORTION_NONFLUENCY = false;
 	
-	public AC_Distortion(String id, boolean anomic, boolean agrammatic, boolean distortion_error, boolean distortion_correction) {
+	public AC_Distortion(String id, boolean distortion_word, boolean distorition_inflection, boolean distortion_function, boolean distortion_nonfluency) {
 		super(id);
-		this.setANOMIC(anomic);
-		this.setAGRAMMATIC(agrammatic);
-		this.setERROR(distortion_error);
-		this.setCORRECTION(distortion_correction);
+		this.setDISTORTION_WORD(distortion_word);
+		this.setDISTORTION_INFLECTION(distorition_inflection);
+		this.setDISTORITION_FUNCTION(distortion_function);
+		this.setDISTORITION_NONFLUENCY(distortion_nonfluency);
 		
 	}
 
-	public boolean isANOMIC() {
-		return ANOMIC;
+	public boolean isDISTORTION_WORD() {
+		return DISTORTION_WORD;
 	}
 
-	public void setANOMIC(boolean anomic) {
-		ANOMIC = anomic;
+	public void setDISTORTION_WORD(boolean distortion_word) {
+		DISTORTION_WORD = distortion_word;
 	}
 
-	public boolean isAGRAMMATIC() {
-		return AGRAMMATIC;
+	public boolean isDISTORTION_INFLECTION() {
+		return DISTORTION_INFLECTION;
 	}
 
-	public void setAGRAMMATIC(boolean agrammatic) {
-		AGRAMMATIC = agrammatic;
+	public void setDISTORTION_INFLECTION(boolean distortion_inflection) {
+		DISTORTION_INFLECTION = distortion_inflection;
 	}
 
-	public boolean isDISTORTION_ERROR() {
-		return DISTORTION_ERROR;
+	public boolean isDISTORTION_FUNCTION() {
+		return DISTORTION_FUNCTION;
 	}
 
-	public void setERROR(boolean distortion_error) {
-		DISTORTION_ERROR = distortion_error;
+	public void setDISTORITION_FUNCTION(boolean distortion_function) {
+		DISTORTION_FUNCTION = distortion_function;
 	}
 
-	public boolean isDISTORTION_CORRECTION() {
-		return DISTORTION_CORRECTION;
+	public boolean isDISTORTION_NONFLUENCY() {
+		return DISTORTION_NONFLUENCY;
 	}
 
-	public void setCORRECTION(boolean distortion_correction) {
-		DISTORTION_CORRECTION = distortion_correction;
+	public void setDISTORITION_NONFLUENCY(boolean distortion_nonfluency) {
+		DISTORTION_NONFLUENCY = distortion_nonfluency;
 	}
 
 	
