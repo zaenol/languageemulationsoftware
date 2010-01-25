@@ -1,4 +1,4 @@
-package view;
+package modelEditor.view;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
