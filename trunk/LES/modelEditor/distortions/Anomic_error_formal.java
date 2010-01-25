@@ -12,6 +12,7 @@ import javax.swing.event.ChangeListener;
 import org.w3c.dom.Document;
 
 import modelEditor.abstractClasses.AC_Distortion_BubbleDown;
+import modelEditor.model.Model_Message;
 
 public class Anomic_error_formal extends AC_Distortion_BubbleDown implements ChangeListener {
 
@@ -41,9 +42,9 @@ public class Anomic_error_formal extends AC_Distortion_BubbleDown implements Cha
 		return null;
 	}
 
-	public String[] parseString_local(String[] messages) {
+	public Model_Message parseString(Model_Message messages) {
 		// TODO Auto-generated method stub
-		return null;
+		return messages;
 	}
 
 	public void setValuesFromXML_local(Document dom) {

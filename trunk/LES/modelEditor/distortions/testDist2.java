@@ -12,6 +12,7 @@ import org.w3c.dom.Document;
 import modelEditor.abstractClasses.AC_Distortion_BubbleDown;
 import modelEditor.abstractClasses.AC_Distortion_BubbleUp;
 import modelEditor.model.Classification;
+import modelEditor.model.Model_Message;
 
 public class testDist2 extends AC_Distortion_BubbleUp implements ChangeListener{
 	
@@ -44,9 +45,9 @@ public class testDist2 extends AC_Distortion_BubbleUp implements ChangeListener{
 		
 	}
 
-	public String[] parseString_local(String[] messages) {
+	public Model_Message parseString(Model_Message messages) {
 		// TODO Auto-generated method stub
-		return null;
+		return messages;
 	}
 
 	public void stateChanged(ChangeEvent e) {

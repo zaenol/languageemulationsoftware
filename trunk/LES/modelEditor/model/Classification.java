@@ -98,8 +98,12 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
     		return matchClass(source.getSuperclass(),target,depth+1);
     	return false;
     }
-	public String[] parseString_local(String[] messages) {
-		return model.parseString(messages);
+	public Model_Message parseString(String message){
+		return this.parseString(new Model_Message(message));
+	}
+	
+	public Model_Message parseString(Model_Message messages) {
+		return model.parseMessage(messages);
 	}
 	
 	public void bubbleUpEventDetected(BubbleUp_Event event) {
@@ -170,8 +174,8 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 			allDistortions.add(indept);
 		}
 
-		public String[] parseString(String[] messages){
-			String[] lastEdit = messages.clone();
+		public Model_Message parseMessage(Model_Message messages){
+			Model_Message lastEdit = messages;
 			
 			for(AC_Distortion distortion:allDistortions){
 				lastEdit = distortion.parseString(messages);

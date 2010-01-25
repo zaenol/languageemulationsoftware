@@ -18,10 +18,17 @@ public class Model extends Model_findDistortions{
 		super();
 		find_distortions();
 		
+	}
+	
+	public Model_Message distortMessage(String message){
+		Model_Message mm = new Model_Message(message);
 		
-		//frame.add(anomicDist.getGUI());
-		//frame.add(agramaticDist.getGUI());
+		mm = wordDist.parseString(mm);
+		mm = inflectionDist.parseString(mm);
+		mm = functionDist.parseString(mm);
+		mm = nonFluencyDist.parseString(mm);
 		
+		return mm;
 	}
 
 	

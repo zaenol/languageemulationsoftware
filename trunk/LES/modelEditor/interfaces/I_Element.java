@@ -5,6 +5,8 @@ import java.util.EventListener;
 import javax.swing.JPanel;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import modelEditor.model.Model_Message;
+
 import org.w3c.dom.Document;
 
 public interface I_Element{
@@ -19,9 +21,8 @@ public interface I_Element{
 	 * Given a series of messages to send, apply specific distorition.  Then calls
 	 * @param messages
 	 */
-	public abstract String[] parseString(String[] messages);
+	public abstract Model_Message parseString(Model_Message messages);
 	
-	public abstract String[] parseString_local(String[] messages);
 	/**
 	 * Forces all instantiations of distortions to create an ID value
 	 */

@@ -8,6 +8,7 @@ import org.w3c.dom.Document;
 
 import modelEditor.abstractClasses.AC_Distortion_BubbleDown;
 import modelEditor.eventsListeners.BubbleDown_Event;
+import modelEditor.model.Model_Message;
 
 
 public class testDist extends AC_Distortion_BubbleDown{
@@ -30,9 +31,9 @@ public class testDist extends AC_Distortion_BubbleDown{
 		
 	}
 
-	public String[] parseString_local(String[] messages) {
+	public Model_Message parseString(Model_Message messages) {
 		// TODO Auto-generated method stub
-		return null;
+		return messages;
 	}
 
 	public void update() {
