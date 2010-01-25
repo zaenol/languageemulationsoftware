@@ -1,7 +1,7 @@
 package modelEditor;
 
-import view.View_modelEditor;
 import modelEditor.model.Model;
+import modelEditor.view.View_modelEditor;
 
 public class Driver_modelEditor {
 	
