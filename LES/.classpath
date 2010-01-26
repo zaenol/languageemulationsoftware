@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="xercesImpl.jar"/>
 	<classpathentry kind="lib" path="xercesSamples.jar"/>
 	<classpathentry kind="lib" path="xml-apis.jar"/>
+	<classpathentry kind="lib" path="jbuddy/lib/JBuddy.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
