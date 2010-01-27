@@ -1,4 +1,4 @@
-package jbuddy.demo.CmdLineClientDemo;
+package chatClient.model.jbuddy;
 
 /*
  * (c) 2006 Zion Software, LLC. All Rights Reserved.
@@ -38,41 +38,6 @@ public class CmdLineClientDemo {
     FileSessionInvitationHandler fileSessionInvitationHandler = new FileSessionInvitationHandler(this);
     int nextFileSessionID = 1;
 
-
-    public static void main(String[] args) {
-    	
-	try {
-	    Iterator argIterator = Arrays.asList(args).iterator();
-
-	    String protocolName = (String)argIterator.next();
-	    int protocol = getProtocol(protocolName);
-	    
-	    if (protocol == -1) {
-		System.err.println("Invalid protocol");
-		System.err.println("Available protocol values are JSC, AIM, ICQ, MSN, YIM, JABBER, LCS, SAMETIME");
-		System.exit(1);
-	    }
-
-	    String clientName = (String)argIterator.next();
-
-	    // SAMETIME ids have 2 parts (FirstName LastName)
-	    if (protocol == IClient.SAMETIME)
-		clientName += (" " + (String)argIterator.next());
-
-	    // Unfortunately, in command line mode there is no way to supress 
-	    // the echo of user input, so we cannot hide the user's password.
-	    String password = (String)argIterator.next();
-
-	    CmdLineClientDemo demo = new CmdLineClientDemo(protocol, clientName, password);
-	    demo.run();
-	}
-	catch (NoSuchElementException nsee) {
-	    System.err.println("Usage: <protocol> <userName> <password>");
-	}
-	catch (Exception e) {
-	    System.out.println("Caught " + e.getClass().getName() + ": " + e.getMessage());
-	}
-    }
     
     
     /**
@@ -433,7 +398,7 @@ public class CmdLineClientDemo {
     /**
      * Connect to the server.
      */
-    private boolean connect() {
+    protected boolean connect() {
 	try {
 	    System.out.print("Trying to connect to " + client.getProtocolName() + " as " + clientName);
 	    return client.connect(); // Call this method to connect to the IM server
@@ -1220,5 +1185,40 @@ public class CmdLineClientDemo {
 	System.out.println("CmdLineClientDemo has exited");
 	System.exit(0);
     } // run()
+    
+    public static void main(String[] args) {
+    	
+		try {
+		    Iterator argIterator = Arrays.asList(args).iterator();
+		
+		    String protocolName = (String)argIterator.next();
+		    int protocol = getProtocol(protocolName);
+		    
+		    if (protocol == -1) {
+			System.err.println("Invalid protocol");
+			System.err.println("Available protocol values are JSC, AIM, ICQ, MSN, YIM, JABBER, LCS, SAMETIME");
+			System.exit(1);
+		    }
+		
+		    String clientName = (String)argIterator.next();
+		
+		    // SAMETIME ids have 2 parts (FirstName LastName)
+		    if (protocol == IClient.SAMETIME)
+			clientName += (" " + (String)argIterator.next());
+		
+		    // Unfortunately, in command line mode there is no way to supress 
+		    // the echo of user input, so we cannot hide the user's password.
+		    String password = (String)argIterator.next();
+		
+		    CmdLineClientDemo demo = new CmdLineClientDemo(protocol, clientName, password);
+		    demo.run();
+		}
+		catch (NoSuchElementException nsee) {
+		    System.err.println("Usage: <protocol> <userName> <password>");
+		}
+		catch (Exception e) {
+		    System.out.println("Caught " + e.getClass().getName() + ": " + e.getMessage());
+		}
+    }
 
 }

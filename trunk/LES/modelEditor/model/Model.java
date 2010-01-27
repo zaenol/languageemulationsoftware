@@ -20,8 +20,9 @@ public class Model extends Model_findDistortions{
 		
 	}
 	
-	public Model_Message distortMessage(String message){
-		Model_Message mm = new Model_Message(message);
+	public Model_Message distortMessage(Model_Message message){
+		//Model_Message mm = new Model_Message(message);
+		Model_Message mm = message;
 		
 		mm = wordDist.parseString(mm);
 		mm = inflectionDist.parseString(mm);
