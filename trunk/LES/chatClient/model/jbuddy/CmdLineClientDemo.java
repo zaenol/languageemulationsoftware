@@ -20,10 +20,10 @@ public class CmdLineClientDemo {
     
     int protocol;
     String clientName;
-    IClient client;
+    protected IClient client;
     
     boolean useFirstLastNaming; // if 2 arguments are needed for login and buddy names (ie: "firstname lastname")
-    boolean isUserQuit; // prevents reconnecting in the Gateway.connectionLost() method
+    public boolean isUserQuit; // prevents reconnecting in the Gateway.connectionLost() method
     
     IBuddyList buddyList;
     IBuddyList reverseList;
