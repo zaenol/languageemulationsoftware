@@ -1,8 +1,10 @@
 package chatClient.model;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import chatClient.model.jbuddy.CmdLineClientDemo;
 
@@ -38,13 +40,54 @@ public class Model_chatClient extends CmdLineClientDemo{
 		this.password = password;
 	}
 	
-	public void startIMConversation(){
+	public void startIMConversation() throws InterruptedException{
 		
 		if (!connect()) {
 		    System.err.println("Error connecting to server");
 		    System.exit(1);
 		}
 		
+		while (client.isOnline() == false) {
+		    System.out.print(".");
+		    Thread.sleep(1000); 
+		}
+
+		System.out.println("Connected!");
+		
+		Thread thread = new chatListener();
+		thread.start();
+		
+	}
+	
+	public void sendIMMessage(String userName, String message){
+		 try {
+             
+         	if (client.sendIM(userName, message) == false)
+         	    System.err.println("Failed to send message");
+
+         		//lastIMRecipient = userName;
+             }
+             catch (NoSuchElementException nsee) {
+            	 System.err.println("Usage: im <userName> <message>");
+             }
+             catch(IOException e){
+            	 System.err.println("IO Exception; sendIMMessage\n"+e.getMessage()+e.getStackTrace());
+             }
+	}
+	
+	
+	class chatListener extends Thread {
+		
+		public chatListener(){
+			
+		}
+		
+	    // This method is called when the thread runs
+	    public void run() {
+	    	while (client.isOnline() && !isUserQuit) {
+	    		
+	    	}
+	    }
 	}
 
 }
