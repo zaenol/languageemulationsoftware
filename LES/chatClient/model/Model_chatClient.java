@@ -3,6 +3,9 @@ package chatClient.model;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -59,7 +62,7 @@ public class Model_chatClient extends CmdLineClientDemo{
 		
 	}
 	
-	public void sendIMMessage(String userName, String message){
+	public void outgoing_sendIMMessage(String userName, String message){
 		 try {
              
          	if (client.sendIM(userName, message) == false)
@@ -75,6 +78,31 @@ public class Model_chatClient extends CmdLineClientDemo{
              }
 	}
 	
+	public void outgoing_broadcastIM(List<String> userNames,String message){
+		 try {
+	        	
+	        	
+	        	if (!userNames.isEmpty() && message != null) {
+	        	    Iterator userNameIterator = userNames.iterator();
+	        	    
+	        	    while (userNameIterator.hasNext()) {
+	        		String userName = (String)userNameIterator.next();
+	        		
+	        		if (client.sendIM(userName, message) == false)
+	        		    System.err.println("Failed to send message to " + userName);
+	        	    }
+	        	    
+	        	    //continue; // success
+	        	}
+	            }
+	            catch (NoSuchElementException nsee) { }
+	            catch(IOException e){
+	            	 System.err.println("IO Exception; broadcastIM\n"+e.getMessage()+e.getStackTrace());
+	             }
+	            
+	            //System.err.println("Usage: broadcast <userName1>...<userNameN> msg: <message>");
+	}
+	
 	
 	class chatListener extends Thread {
 		
@@ -88,6 +116,60 @@ public class Model_chatClient extends CmdLineClientDemo{
 	    		
 	    	}
 	    }
+	}
+	
+	public void printMessage(IMessage message) {
+		String prefix = null;
+		
+		switch (message.getType()) {
+		case IMessage.IM:
+		    prefix = "IM";
+		    outgoing_sendIMMessage(message.getSender(),"Message Recieved");
+		    break;
+		case IMessage.IM_OFFLINE:
+		    prefix = "Offline Message";
+		    break;
+		case IMessage.AUTO_RESPONSE:
+		    prefix = "Auto Response";
+		    break;
+		case IMessage.TYPING:
+		    prefix = "Typing Indicator";
+		    break;
+		case IMessage.TYPING_OFF:
+		    prefix = "Typing Indicator OFF";
+		    break;
+		case IMessage.AUTH_REQUEST:
+		    prefix = "Authorization Request";
+		    break;
+		case IMessage.AUTH_ACCEPT:
+		    prefix = "Authorization Accepted";
+		    break;
+		case IMessage.AUTH_DECLINE:
+		    prefix = "Authorization Declined";
+		    break;
+		case IMessage.ERROR:
+		    prefix = "Error Message";
+		    break;
+		case IMessage.WARNING:
+		    prefix = "Warning Message";
+		    break;
+		default:
+		    prefix = "Unknown Message";
+		}
+		
+		System.out.print("< ");
+		
+		if (prefix != null)
+		    System.out.print(prefix + " ");
+		    
+		System.out.print("from " + message.getSender());
+		
+		String body = message.getMessage();
+		
+		if (body != null && body.length() != 0)
+		    System.out.print(": " + body);
+		
+		System.out.println();
 	}
 
 }
