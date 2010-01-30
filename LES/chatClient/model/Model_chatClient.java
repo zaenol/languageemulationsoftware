@@ -64,8 +64,10 @@ public class Model_chatClient extends CmdLineClientDemo{
 	
 	public void outgoing_sendIMMessage(String userName, String message){
 		 try {
+			 
+			 String finalMessage = message;
              
-         	if (client.sendIM(userName, message) == false)
+         	if (client.sendIM(userName, finalMessage) == false)
          	    System.err.println("Failed to send message");
 
          		//lastIMRecipient = userName;
@@ -80,7 +82,6 @@ public class Model_chatClient extends CmdLineClientDemo{
 	
 	public void outgoing_broadcastIM(List<String> userNames,String message){
 		 try {
-	        	
 	        	
 	        	if (!userNames.isEmpty() && message != null) {
 	        	    Iterator userNameIterator = userNames.iterator();
@@ -103,6 +104,9 @@ public class Model_chatClient extends CmdLineClientDemo{
 	            //System.err.println("Usage: broadcast <userName1>...<userNameN> msg: <message>");
 	}
 	
+	public void incoming_IM(IMessage message){
+		
+	}
 	
 	class chatListener extends Thread {
 		
