@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import chatClient.Controller_chatClient;
 import chatClient.model.jbuddy.CmdLineClientDemo;
 
 import com.zion.jbuddy.*;
@@ -20,9 +21,11 @@ public class Model_chatClient extends CmdLineClientDemo{
 	private String screenName = "";
 	private String password = "";
 
+	Controller_chatClient controller;
 
-	public Model_chatClient(String screenName, String password){
+	public Model_chatClient(Controller_chatClient parent,String screenName, String password){
 		super(getProtocol("AIM"),screenName,password);
+		controller = parent;
 		this.setPassword(password);
 		this.setScreenName(screenName);
 	}
@@ -56,6 +59,10 @@ public class Model_chatClient extends CmdLineClientDemo{
 		}
 
 		System.out.println("Connected!");
+		
+		IBuddyList list = client.getBuddyList();
+		IBuddy[] buddies = list.getBuddies();
+		controller.updateBuddies(buddies);
 		
 		Thread thread = new chatListener();
 		thread.start();
@@ -105,10 +112,12 @@ public class Model_chatClient extends CmdLineClientDemo{
 	}
 	
 	public void incoming_IM(IMessage message){
-		
+		controller.incomingMessage(message);
 	}
 	
 	class chatListener extends Thread {
+		
+		long lastTime = 0;
 		
 		public chatListener(){
 			
@@ -116,7 +125,17 @@ public class Model_chatClient extends CmdLineClientDemo{
 		
 	    // This method is called when the thread runs
 	    public void run() {
+	    	lastTime = System.currentTimeMillis();
 	    	while (client.isOnline() && !isUserQuit) {
+	    		long currentTime = System.currentTimeMillis();
+	    		if(currentTime-lastTime > 60000*5){
+	    			
+	    			IBuddyList list = client.getBuddyList();
+	    			IBuddy[] buddies = list.getBuddies();
+	    			controller.updateBuddies(buddies);
+	    			
+	    			lastTime = System.currentTimeMillis();
+	    		}
 	    		
 	    	}
 	    }
@@ -128,7 +147,8 @@ public class Model_chatClient extends CmdLineClientDemo{
 		switch (message.getType()) {
 		case IMessage.IM:
 		    prefix = "IM";
-		    outgoing_sendIMMessage(message.getSender(),"Message Recieved");
+		    //outgoing_sendIMMessage(message.getSender(),"Message Recieved");
+		    incoming_IM(message);
 		    break;
 		case IMessage.IM_OFFLINE:
 		    prefix = "Offline Message";
