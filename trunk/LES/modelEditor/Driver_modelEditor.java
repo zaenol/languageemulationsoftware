@@ -7,7 +7,7 @@ public class Driver_modelEditor {
 	 */
 	public static void main(String[] args) {
 		Controller_modelEditor me = new Controller_modelEditor();
-		
+		me.setVisible(true);
 
 	}
 }

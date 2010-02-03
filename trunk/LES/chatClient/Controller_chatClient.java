@@ -21,11 +21,26 @@ public class Controller_chatClient implements ActionListener {
 	
 	public Controller_chatClient() throws InterruptedException{
 		vcc= new View_chatClient(this);
-		mcc= new Model_chatClient(this,"uiucles1","aphas1a");
-		mcc.startIMConversation();
+		
+		//mcc.startIMConversation();
 	}
 	
-	
+	public boolean connect(String screenName,String password){
+		
+		if(mcc != null){
+			mcc.quitConnection();
+		}
+		
+		mcc= new Model_chatClient(this,screenName,password);
+		
+		try {
+			return mcc.startIMConversation();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			return false;
+		}
+		
+	}
 	
 	public void setParent(Controller_LES parent) {
 		this.parent = parent;
@@ -34,32 +49,31 @@ public class Controller_chatClient implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String messageTyped = vcc.getMessageAndClear();
-		String buddy = vcc.getSelectedBuddyName();
-		Model_Message message = new Model_Message(messageTyped);
 		
-		if(parent != null)
-			message = parent.distortMessage(message);
+		if(mcc != null && mcc.isOnline()){
 		
-		if(parent != null)
-			parent.log_outgoingMessage(message);
-		
-		
-		
-		
-		
-		for(String s_message:message.getMessageToSend()){
-		
-			if(!message.isPostOriginalMessage())
-				vcc.postOutgoingMessage(mcc.getScreenName(), s_message);
-			mcc.outgoing_sendIMMessage(buddy, s_message);
+			String messageTyped = vcc.getMessageAndClear();
+			String buddy = vcc.getSelectedBuddyName();
+			Model_Message message = new Model_Message(messageTyped);
+			
+			if(parent != null)
+				message = parent.distortMessage(message);
+			
+			if(parent != null)
+				parent.log_outgoingMessage(message);
+			
+			
+			for(String s_message:message.getMessageToSend()){
+			
+				if(!message.isPostOriginalMessage())
+					vcc.postOutgoingMessage(mcc.getScreenName(), s_message);
+				mcc.outgoing_sendIMMessage(buddy, s_message);
+			}
+			
+			if(message.isPostOriginalMessage())
+				vcc.postOutgoingMessage(mcc.getScreenName(), message.getOriginalMessage());
+
 		}
-		
-		if(message.isPostOriginalMessage())
-			vcc.postOutgoingMessage(mcc.getScreenName(), message.getOriginalMessage());
-		
-		
-		
 		
 	}
 	
@@ -72,6 +86,9 @@ public class Controller_chatClient implements ActionListener {
 	public void updateBuddies(IBuddy[] buddies) {
 		vcc.updateBuddies(buddies);
 		
+	}
+	public void setVisible(boolean visible){
+		vcc.setVisible(visible);
 	}
 	
 }
