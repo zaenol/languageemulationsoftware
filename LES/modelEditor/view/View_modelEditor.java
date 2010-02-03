@@ -52,8 +52,11 @@ public class View_modelEditor {
 		container.add(title, BorderLayout.NORTH);
 		container.add(tabbedPane,BorderLayout.CENTER);
 		
-		frame.setVisible(true);
+		//frame.setVisible(true);
 		
+	}
+	public void setVisible(boolean visible){
+		frame.setVisible(visible);
 	}
 	public void setWordPanel(JPanel panel){
 		distortionWordPanel.removeAll();

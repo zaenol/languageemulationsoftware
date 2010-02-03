@@ -105,9 +105,11 @@ public class View_chatClient {
         fullPanel.add(inputPanel);
         
         chatWindow.add(fullPanel, BorderLayout.CENTER);
-        
-        chatWindow.setVisible(true);
-		
+
+	}
+	
+	public void setVisible(boolean visible){
+		chatWindow.setVisible(visible);
 	}
 	
 	private void resetBuddyList(){

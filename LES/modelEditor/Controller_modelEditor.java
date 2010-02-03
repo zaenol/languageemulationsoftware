@@ -19,6 +19,8 @@ public class Controller_modelEditor {
 	}
 	
 
-
+	public void setVisible(boolean visible){
+		view.setVisible(visible);
+	}
 
 }

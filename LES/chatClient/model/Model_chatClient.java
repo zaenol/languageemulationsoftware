@@ -46,11 +46,16 @@ public class Model_chatClient extends CmdLineClientDemo{
 		this.password = password;
 	}
 	
-	public void startIMConversation() throws InterruptedException{
+	public boolean isOnline(){
+		return client.isOnline();
+	}
+	
+	public boolean startIMConversation() throws InterruptedException{
 		
 		if (!connect()) {
 		    System.err.println("Error connecting to server");
-		    System.exit(1);
+		    //System.exit(1);
+		    return false;
 		}
 		
 		while (client.isOnline() == false) {
@@ -67,6 +72,13 @@ public class Model_chatClient extends CmdLineClientDemo{
 		Thread thread = new chatListener();
 		thread.start();
 		
+		return true;
+		
+	}
+	
+	public void quitConnection(){
+		isUserQuit = true;
+	    client.disconnect();
 	}
 	
 	public void outgoing_sendIMMessage(String userName, String message){
