@@ -34,7 +34,7 @@ public class Controller_LES implements ActionListener {
 		
 	}
 
-	@Override
+
 	public void actionPerformed(ActionEvent e) {
 		if(loginScreen.isConnectButton(e)){
 			String screenName = loginScreen.getScreenName();
@@ -50,7 +50,7 @@ public class Controller_LES implements ActionListener {
 			}
 			
 		}else if(loginScreen.isModelEditorButton(e)){
-			
+			modelEditor.setVisible(true);
 		}
 			
 		

@@ -33,6 +33,7 @@ public class View_LES {
 		
 		loginFrame = new JFrame();
 		loginFrame.setSize(400, 300);
+		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		loginPanel = new JPanel();
 		loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));
