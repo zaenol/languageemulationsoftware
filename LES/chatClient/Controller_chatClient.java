@@ -47,7 +47,7 @@ public class Controller_chatClient implements ActionListener {
 	}
 
 
-	@Override
+
 	public void actionPerformed(ActionEvent e) {
 		
 		if(mcc != null && mcc.isOnline()){
