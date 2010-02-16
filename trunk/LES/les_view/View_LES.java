@@ -25,6 +25,7 @@ public class View_LES {
 	TextEntry password;
 	TextEntry subjectID;
 	JButton connect;
+	JButton localChat;
 	JButton startModelEditor;;
 	
 	Controller_LES controller;
@@ -53,6 +54,10 @@ public class View_LES {
 		connect = new JButton("Connect");
 		connect.addActionListener(controller);
 		loginPanel.add(connect);
+		
+		localChat = new JButton("Local Chat");
+		localChat.addActionListener(controller);
+		loginPanel.add(localChat);
 		
 		startModelEditor= new JButton("Model Editor");
 		startModelEditor.addActionListener(controller);
