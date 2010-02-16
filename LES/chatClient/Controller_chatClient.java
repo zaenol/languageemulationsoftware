@@ -17,7 +17,7 @@ import com.zion.jbuddy.IBuddy;
 import com.zion.jbuddy.IMessage;
 
 
-import les_controller.Controller_LES;
+import les.controller.Controller_LES;
 import modelEditor.model.Model_Message;
 
 import chatClient.model.Model_chatClient;
