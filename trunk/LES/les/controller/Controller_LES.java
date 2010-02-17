@@ -16,6 +16,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
+import org.w3c.dom.Node;
 
 import chatClient.Controller_chatClient;
 
@@ -49,6 +50,7 @@ public class Controller_LES implements ActionListener {
 				
 		loginScreen = new View_LES(this);
 		chatClient = new Controller_chatClient();
+		chatClient.setParent(this);
 		modelEditor = new Controller_modelEditor();
 		
 		this.initDom();
@@ -82,10 +84,12 @@ public class Controller_LES implements ActionListener {
 	public void log_incomingMessage(IMessage message){
 		String[] messageArray = {message.getMessage()};
 		Element element = this.generateMessageXML(messageArray, message.getSender(), message.getRecipient(), "Incoming", null);
+		this.addAndPrint(element);
 	}
 	public void log_outgoingMessage(Model_Message message,String sender,String recipient){
 		//Element element = this.generateMessageXML(sentMessage, sender, recipient, messageDirection, additionalInformation);
 		Element element = this.generateMessageXML(message.getMessageToSend(), sender, recipient, "Outgoing", message.getXML());
+		this.addAndPrint(element);
 	}
 
 	private void addAndPrint(Element message){
@@ -103,9 +107,11 @@ public class Controller_LES implements ActionListener {
 			
 			String sep = File.separator;
 			
+			File output = new File(home+sep+"Desktop"+sep+fileName+".xml");
+			
 			//to generate a file output use fileoutputstream instead of system.out
 			XMLSerializer serializer = new XMLSerializer(
-			new FileOutputStream(new File(home+sep+"Desktop"+sep+fileName+".xml")), format);
+			new FileOutputStream(output), format);
 
 			serializer.serialize(dom);
 
@@ -171,8 +177,12 @@ public class Controller_LES implements ActionListener {
 			message_element.appendChild(this.makeWordElement("Recipient", recipient));
 			message_element.appendChild(this.makeWordElement("Direction",messageDirection));
 			message_element.appendChild(this.makeWordElement("Content",sentMessageString));
-			if(additionalInformation!=null)
-				message_element.appendChild(additionalInformation);
+			if(additionalInformation!=null){
+				Node tempNode = dom.importNode(additionalInformation,true); //true if you want a deep copy
+				//domYouAreAddingTheNodeTo.appendNode(tempNode);
+				message_element.appendChild(tempNode);
+				//message_element.appendChild(additionalInformation);
+			}
 		}
 		
 		return message_element;

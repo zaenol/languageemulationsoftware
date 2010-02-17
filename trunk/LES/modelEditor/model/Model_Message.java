@@ -97,12 +97,12 @@ public class Model_Message {
 			for(int i=0; i<originalWords.length;i++){
 				Element word_element = dom.createElement("Word");
 				
-				word_element.appendChild(makeWordElement("Original Word",originalWords[i]));
-				word_element.appendChild(makeWordElement("Final Word",finalWords[i]));
-				word_element.appendChild(makeWordElement("Is Distored",isDistorted[i]+""));
+				word_element.appendChild(makeWordElement("OriginalWord",originalWords[i]));
+				word_element.appendChild(makeWordElement("FinalWord",finalWords[i]));
+				word_element.appendChild(makeWordElement("IsDistored",isDistorted[i]+""));
 				word_element.appendChild(makeWordElement("Distortion",distortion[i]+""));
-				word_element.appendChild(makeWordElement("Part Of Speech",partOfSpeech[i]));
-				word_element.appendChild(makeWordElement("New Message After Word",newMessageAfterWord[i]+""));
+				word_element.appendChild(makeWordElement("PartOfSpeech",partOfSpeech[i]));
+				word_element.appendChild(makeWordElement("NewMessageAfterWord",newMessageAfterWord[i]+""));
 				
 				message_element.appendChild(word_element);
 			}
