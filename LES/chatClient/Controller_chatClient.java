@@ -28,6 +28,7 @@ public class Controller_chatClient implements ActionListener {
 	View_chatClient vcc;
 	Model_chatClient mcc;
 	Controller_LES parent = null;
+	boolean localChat = false;
 	
 
 	
@@ -38,20 +39,27 @@ public class Controller_chatClient implements ActionListener {
 	}
 	
 	
-	
 	public boolean connect(String screenName,String password){
+		return connect(screenName, password,false);
+	}
+	
+	public boolean connect(String screenName,String password,boolean localChat){
 		
-		if(mcc != null){
-			mcc.quitConnection();
-		}
-		
-		mcc= new Model_chatClient(this,screenName,password);
-		
-		try {
-			return mcc.startIMConversation();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			return false;
+		if(localChat)
+			return true;
+		else{
+			if(mcc != null){
+				mcc.quitConnection();
+			}
+			
+			mcc= new Model_chatClient(this,screenName,password);
+			
+			try {
+				return mcc.startIMConversation();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				return false;
+			}
 		}
 		
 	}
@@ -64,7 +72,7 @@ public class Controller_chatClient implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		
-		if(mcc != null && mcc.isOnline()){
+		if( (mcc != null && mcc.isOnline()) || localChat){
 		
 			String messageTyped = vcc.getMessageAndClear();
 			String buddy = vcc.getSelectedBuddyName();
