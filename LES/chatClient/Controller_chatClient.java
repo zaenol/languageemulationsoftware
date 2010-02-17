@@ -68,7 +68,7 @@ public class Controller_chatClient implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		
-		if( (mcc != null && mcc.isOnline()) || localChat){
+		if( (mcc != null && mcc.isOnline())){
 		
 			String messageTyped = vcc.getMessageAndClear();
 			String buddy = vcc.getSelectedBuddyName();
