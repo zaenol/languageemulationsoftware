@@ -2,12 +2,14 @@ package chatClient.model;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Properties;
 
 import chatClient.Controller_chatClient;
 import chatClient.model.jbuddy.CmdLineClientDemo;
@@ -22,12 +24,17 @@ public class Model_chatClient extends CmdLineClientDemo{
 	private String password = "";
 
 	Controller_chatClient controller;
+	
+	boolean localChat = false;
 
-	public Model_chatClient(Controller_chatClient parent,String screenName, String password){
-		super(getProtocol("AIM"),screenName,password);
+	public Model_chatClient(Controller_chatClient parent,String screenName, String password, boolean localChat){
+		super(getProtocol("AIM"),screenName,password,localChat);
+		this.localChat = localChat;
 		controller = parent;
 		this.setPassword(password);
 		this.setScreenName(screenName);
+		if(localChat && screenName.length()==0)
+			this.setScreenName("ME");
 	}
 
 	public String getScreenName() {
@@ -47,11 +54,29 @@ public class Model_chatClient extends CmdLineClientDemo{
 	}
 	
 	public boolean isOnline(){
+		if(localChat)
+			return true;
+		
 		return client.isOnline();
 	}
 	
 	public boolean startIMConversation() throws InterruptedException{
+		if(localChat)
+			return this.startIMConversation_local();
+		else
+			return this.startIMConversation_online();
 		
+		
+	}
+	
+	private boolean startIMConversation_local(){
+		IBuddy localBuddy = new myBuddy();
+		IBuddy[] localBuddies = {localBuddy};
+		controller.updateBuddies(localBuddies);
+		
+		return true;
+	}
+	private boolean startIMConversation_online() throws InterruptedException{
 		if (!connect()) {
 		    System.err.println("Error connecting to server");
 		    //System.exit(1);
@@ -73,54 +98,58 @@ public class Model_chatClient extends CmdLineClientDemo{
 		thread.start();
 		
 		return true;
-		
 	}
+	
 	
 	public void quitConnection(){
-		isUserQuit = true;
-	    client.disconnect();
+		if(!localChat){
+			isUserQuit = true;
+	    	client.disconnect();
+		}
 	}
 	
-	public void outgoing_sendIMMessage(String userName, String message){
-		 try {
-			 
-			 String finalMessage = message;
-             
-         	if (client.sendIM(userName, finalMessage) == false)
-         	    System.err.println("Failed to send message");
+	public void outgoing_sendIMMessage(String userName, String message) {
+		if (!localChat)
+			try {
 
-         		//lastIMRecipient = userName;
-             }
-             catch (NoSuchElementException nsee) {
-            	 System.err.println("Usage: im <userName> <message>");
-             }
-             catch(IOException e){
-            	 System.err.println("IO Exception; sendIMMessage\n"+e.getMessage()+e.getStackTrace());
-             }
+				String finalMessage = message;
+
+				if (client.sendIM(userName, finalMessage) == false)
+					System.err.println("Failed to send message");
+
+				// lastIMRecipient = userName;
+			} catch (NoSuchElementException nsee) {
+				System.err.println("Usage: im <userName> <message>");
+			} catch (IOException e) {
+				System.err.println("IO Exception; sendIMMessage\n"
+						+ e.getMessage() + e.getStackTrace());
+			}
 	}
 	
 	public void outgoing_broadcastIM(List<String> userNames,String message){
-		 try {
-	        	
-	        	if (!userNames.isEmpty() && message != null) {
-	        	    Iterator userNameIterator = userNames.iterator();
-	        	    
-	        	    while (userNameIterator.hasNext()) {
-	        		String userName = (String)userNameIterator.next();
-	        		
-	        		if (client.sendIM(userName, message) == false)
-	        		    System.err.println("Failed to send message to " + userName);
-	        	    }
-	        	    
-	        	    //continue; // success
-	        	}
-	            }
-	            catch (NoSuchElementException nsee) { }
-	            catch(IOException e){
-	            	 System.err.println("IO Exception; broadcastIM\n"+e.getMessage()+e.getStackTrace());
-	             }
-	            
-	            //System.err.println("Usage: broadcast <userName1>...<userNameN> msg: <message>");
+		if (!localChat)
+			try {
+
+				if (!userNames.isEmpty() && message != null) {
+					Iterator userNameIterator = userNames.iterator();
+
+					while (userNameIterator.hasNext()) {
+						String userName = (String) userNameIterator.next();
+
+						if (client.sendIM(userName, message) == false)
+							System.err.println("Failed to send message to "
+									+ userName);
+					}
+
+					// continue; // success
+				}
+			} catch (NoSuchElementException nsee) {
+			} catch (IOException e) {
+				System.err.println("IO Exception; broadcastIM\n"
+						+ e.getMessage() + e.getStackTrace());
+			}
+
+		// System.err.println("Usage: broadcast <userName1>...<userNameN> msg: <message>");
 	}
 	
 	public void incoming_IM(IMessage message){
@@ -151,6 +180,110 @@ public class Model_chatClient extends CmdLineClientDemo{
 	    		
 	    	}
 	    }
+	}
+	
+	class myBuddy implements IBuddy{
+
+		@Override
+		public String getCustomAwayMessage() {
+			// TODO Auto-generated method stub
+			return "Custom Away Message";
+		}
+
+		@Override
+		public String getGroup() {
+			// TODO Auto-generated method stub
+			return "Custom Group";
+		}
+
+		@Override
+		public int getIdleTime() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public String getName() {
+			// TODO Auto-generated method stub
+			return "Local Buddy";
+		}
+
+		@Override
+		public String getNickName() {
+			// TODO Auto-generated method stub
+			return "Local Buddy";
+		}
+
+		@Override
+		public String getOwner() {
+			// TODO Auto-generated method stub
+			return "Local Buddy";
+		}
+
+		@Override
+		public Properties getProperties() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public String getProperty(String arg0) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public int getProtocol() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public String getProtocolName() {
+			// TODO Auto-generated method stub
+			return "Local Buddy";
+		}
+
+		@Override
+		public Date getSignOnTimeStamp() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public int getStatus() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public String getStatusAsString() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Date getStatusTimeStamp() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public int getWarningPercent() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public boolean isMobile() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		
+		public String toString(){
+			return "Local Chat";
+		}
+		
 	}
 	
 	public void printMessage(IMessage message) {

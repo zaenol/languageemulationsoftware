@@ -43,65 +43,67 @@ public class CmdLineClientDemo {
     /**
      * Creates the demo using the specified protocol, client name, and password.
      */
-    public CmdLineClientDemo(int protocol, String clientName, String password) {
-	this.protocol = protocol;
-	this.clientName = clientName;
-
-	// create a IGateway instance to handle callback events
-	Gateway gateway = new Gateway(this);
-	
-	// now instantiate an IClient from the IClientFactory class.
-	// pass the constructor:
-	//   a reference to an IGateway,
-	//   the name of the IM Server, 
-	//   the user name, and 
-	//   the password
-	client = IClientFactory.factory(gateway, protocol, clientName, password);
-
-	if (client == null) {
-	    System.err.println("Client init error");
-	    System.exit(1);
-	}
-
-	// SAMETIME ids have 2 parts (FirstName LastName)
-	useFirstLastNaming = (protocol == IClient.SAMETIME);
-
-	// JBuddy automatically handles the Buddy List, Reverse List,
-	// Permit list, and Deny List, but references to these lists may be 
-	// obtained in the following manner:
-	buddyList = client.getBuddyList();
-	permitList = client.getPermitList();
-	denyList = client.getDenyList();
-        reverseList = null;
-        
-        if (protocol == IClient.JSC)
-            reverseList = ((IJscClient)client).getReverseList();
-        else if (protocol == IClient.MSN)
-            reverseList = ((IMsnClient)client).getReverseList();
-        
-	// Optionally, name the lists
-	buddyList.setName(clientName + "'s Buddy List");
-	permitList.setName(clientName + "'s Permit List");
-	denyList.setName(clientName + "'s Deny List");
-
-        if (reverseList != null)
-            reverseList.setName(clientName + "'s Reverse List");
-
-        if (isConferenceSupported()) {
-            // listen for incoming ConferenceService events
-            try {
-        	IConferenceService conferenceService = client.getConferenceService();
-        	conferenceService.addListener(conferenceServiceHandler);
-            }
-            catch (IOException ioe) {
-        	ioe.printStackTrace(); // shouldn't happen here
-            }
-        }
-	
-        if (isFileTransferSupported()) {
-            // listen for incoming FileSession invitations
-            client.addFileSessionInvitationListener(fileSessionInvitationHandler);
-        }
+    public CmdLineClientDemo(int protocol, String clientName, String password, boolean localChat) {
+    	if(!localChat){
+			this.protocol = protocol;
+			this.clientName = clientName;
+		
+			// create a IGateway instance to handle callback events
+			Gateway gateway = new Gateway(this);
+			
+			// now instantiate an IClient from the IClientFactory class.
+			// pass the constructor:
+			//   a reference to an IGateway,
+			//   the name of the IM Server, 
+			//   the user name, and 
+			//   the password
+			client = IClientFactory.factory(gateway, protocol, clientName, password);
+		
+			if (client == null) {
+			    System.err.println("Client init error");
+			    System.exit(1);
+			}
+		
+			// SAMETIME ids have 2 parts (FirstName LastName)
+			useFirstLastNaming = (protocol == IClient.SAMETIME);
+		
+			// JBuddy automatically handles the Buddy List, Reverse List,
+			// Permit list, and Deny List, but references to these lists may be 
+			// obtained in the following manner:
+			buddyList = client.getBuddyList();
+			permitList = client.getPermitList();
+			denyList = client.getDenyList();
+		        reverseList = null;
+		        
+		        if (protocol == IClient.JSC)
+		            reverseList = ((IJscClient)client).getReverseList();
+		        else if (protocol == IClient.MSN)
+		            reverseList = ((IMsnClient)client).getReverseList();
+		        
+			// Optionally, name the lists
+			buddyList.setName(clientName + "'s Buddy List");
+			permitList.setName(clientName + "'s Permit List");
+			denyList.setName(clientName + "'s Deny List");
+		
+		        if (reverseList != null)
+		            reverseList.setName(clientName + "'s Reverse List");
+		
+		        if (isConferenceSupported()) {
+		            // listen for incoming ConferenceService events
+		            try {
+		        	IConferenceService conferenceService = client.getConferenceService();
+		        	conferenceService.addListener(conferenceServiceHandler);
+		            }
+		            catch (IOException ioe) {
+		        	ioe.printStackTrace(); // shouldn't happen here
+		            }
+		        }
+			
+		        if (isFileTransferSupported()) {
+		            // listen for incoming FileSession invitations
+		            client.addFileSessionInvitationListener(fileSessionInvitationHandler);
+		        }
+    	}
     }
 
 
@@ -1210,7 +1212,7 @@ public class CmdLineClientDemo {
 		    // the echo of user input, so we cannot hide the user's password.
 		    String password = (String)argIterator.next();
 		
-		    CmdLineClientDemo demo = new CmdLineClientDemo(protocol, clientName, password);
+		    CmdLineClientDemo demo = new CmdLineClientDemo(protocol, clientName, password,false);
 		    demo.run();
 		}
 		catch (NoSuchElementException nsee) {

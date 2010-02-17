@@ -45,21 +45,17 @@ public class Controller_chatClient implements ActionListener {
 	
 	public boolean connect(String screenName,String password,boolean localChat){
 		
-		if(localChat)
-			return true;
-		else{
-			if(mcc != null){
-				mcc.quitConnection();
-			}
-			
-			mcc= new Model_chatClient(this,screenName,password);
-			
-			try {
-				return mcc.startIMConversation();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				return false;
-			}
+		if(mcc != null){
+			mcc.quitConnection();
+		}
+		
+		mcc= new Model_chatClient(this,screenName,password,localChat);
+		
+		try {
+			return mcc.startIMConversation();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			return false;
 		}
 		
 	}
@@ -94,6 +90,7 @@ public class Controller_chatClient implements ActionListener {
 		for(String s_message:message.getMessageToSend()){			
 			if(!message.isPostOriginalMessage())
 				vcc.postOutgoingMessage(mcc.getScreenName(), s_message);
+			
 			mcc.outgoing_sendIMMessage(buddy, s_message);
 		}
 		
