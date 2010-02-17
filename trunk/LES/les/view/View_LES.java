@@ -88,10 +88,15 @@ public class View_LES {
 		}
 	}
 	
+	public boolean isLocalChatButton(ActionEvent e){
+		if(e.getSource() == localChat)
+			return true;
+		return false;
+	}
+	
 	public boolean isConnectButton(ActionEvent e){
 		if(e.getSource() == connect)
 			return true;
-		
 		return false;
 	}
 	public boolean isModelEditorButton(ActionEvent e){

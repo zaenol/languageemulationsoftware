@@ -39,6 +39,8 @@ public class Controller_LES implements ActionListener {
 	
 	String fileName = "";
 	
+	String myName = "LocalChat";
+	
 	Element rootEle = null;
 	
 	public Controller_LES() throws InterruptedException{
@@ -111,9 +113,10 @@ public class Controller_LES implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if(loginScreen.isConnectButton(e)){
+		if(loginScreen.isConnectButton(e) || loginScreen.isLocalChatButton(e)){
 			String screenName = loginScreen.getScreenName();
 			String password = loginScreen.getPassword();
+			String subjectID = loginScreen.getSubjectID();
 			Date now = new Date();
 			fileName = loginScreen.getSubjectID()+"_"+now.toString();
 			if(screenName.length()>0 && password.length()>0){
@@ -122,10 +125,8 @@ public class Controller_LES implements ActionListener {
 				if(started)
 					chatClient.setVisible(true);
 				else
-					chatClient.setVisible(false);
-					
+					chatClient.setVisible(false);	
 			}
-			
 		}else if(loginScreen.isModelEditorButton(e)){
 			modelEditor.setVisible(true);
 		}
