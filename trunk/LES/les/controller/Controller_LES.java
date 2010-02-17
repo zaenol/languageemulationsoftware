@@ -43,6 +43,8 @@ public class Controller_LES implements ActionListener {
 	
 	Element rootEle = null;
 	
+	boolean localChat = false;
+	
 	public Controller_LES() throws InterruptedException{
 				
 		loginScreen = new View_LES(this);
@@ -114,19 +116,30 @@ public class Controller_LES implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if(loginScreen.isConnectButton(e) || loginScreen.isLocalChatButton(e)){
+			
 			String screenName = loginScreen.getScreenName();
 			String password = loginScreen.getPassword();
 			String subjectID = loginScreen.getSubjectID();
+			
 			Date now = new Date();
-			fileName = loginScreen.getSubjectID()+"_"+now.toString();
-			if(screenName.length()>0 && password.length()>0){
-				boolean started = chatClient.connect(screenName, password);
+			fileName = subjectID+"_"+now.toString();
+			if(subjectID.length()==0)
+				fileName = screenName+"_"+now.toString();
+			
+			localChat = false;
+			if(loginScreen.isLocalChatButton(e))
+				localChat = true;
+			
+
+			if((screenName.length()>0 && password.length()>0 && !localChat) || localChat ){
+				boolean started = chatClient.connect(screenName, password,localChat);
 				
 				if(started)
 					chatClient.setVisible(true);
 				else
 					chatClient.setVisible(false);	
 			}
+					
 		}else if(loginScreen.isModelEditorButton(e)){
 			modelEditor.setVisible(true);
 		}
