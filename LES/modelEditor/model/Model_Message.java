@@ -15,7 +15,7 @@ public class Model_Message {
 	private String originalMessage="";
 	
 	private String[] originalWords = {};
-	private String[] finalWords = {};
+	private String[] distoredWords = {};
 	private boolean[]  isDistorted = {};
 	private String[] partOfSpeech = {};
 	private String[] distortion = {};
@@ -29,7 +29,7 @@ public class Model_Message {
 		originalMessage = message+"";
 		
 		originalWords = originalMessage.split(" ");
-		finalWords = originalMessage.split(" ");
+		distoredWords = originalMessage.split(" ");
 		
 		partOfSpeech = new String[originalWords.length];
 		
@@ -69,9 +69,18 @@ public class Model_Message {
 		return originalMessage;
 	}
 	
-	public String[] getMessageToSend(){
+	public String[] getMessageToTransmit(){
 		String[] messages = {originalMessage};
 		return messages;
+	}
+	/**
+	 * This is used when wanting a consolodated version of the message to send but fits in one String.
+	 * @return
+	 */
+	public String getMessageToTransmit_toString(){
+		String s = ""+originalMessage;
+		
+		return s;
 	}
 
 	/**
@@ -94,11 +103,13 @@ public class Model_Message {
 		
 		if(dom!=null){
 			message_element = dom.createElement("Outgoing");
+			message_element.appendChild(makeWordElement("OriginalMessage",originalMessage));
+			
 			for(int i=0; i<originalWords.length;i++){
 				Element word_element = dom.createElement("Word");
 				
 				word_element.appendChild(makeWordElement("OriginalWord",originalWords[i]));
-				word_element.appendChild(makeWordElement("FinalWord",finalWords[i]));
+				word_element.appendChild(makeWordElement("DistortedWord",distoredWords[i]));
 				word_element.appendChild(makeWordElement("IsDistored",isDistorted[i]+""));
 				word_element.appendChild(makeWordElement("Distortion",distortion[i]+""));
 				word_element.appendChild(makeWordElement("PartOfSpeech",partOfSpeech[i]));

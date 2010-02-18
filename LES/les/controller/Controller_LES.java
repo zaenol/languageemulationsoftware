@@ -40,7 +40,7 @@ public class Controller_LES implements ActionListener {
 	
 	String fileName = "";
 	
-	String myName = "LocalChat";
+	String myName = "LocalSelf";
 	
 	Element rootEle = null;
 	
@@ -83,12 +83,12 @@ public class Controller_LES implements ActionListener {
 	
 	public void log_incomingMessage(IMessage message){
 		String[] messageArray = {message.getMessage()};
-		Element element = this.generateMessageXML(messageArray, message.getSender(), message.getRecipient(), "Incoming", null);
+		Element element = this.generateMessageXML(message.getMessage(), message.getSender(), myName, "Incoming", null);
 		this.addAndPrint(element);
 	}
 	public void log_outgoingMessage(Model_Message message,String sender,String recipient){
 		//Element element = this.generateMessageXML(sentMessage, sender, recipient, messageDirection, additionalInformation);
-		Element element = this.generateMessageXML(message.getMessageToSend(), sender, recipient, "Outgoing", message.getXML());
+		Element element = this.generateMessageXML(message.getMessageToTransmit_toString(), myName, recipient, "Outgoing", message.getXML());
 		this.addAndPrint(element);
 	}
 
@@ -129,8 +129,15 @@ public class Controller_LES implements ActionListener {
 			
 			Date now = new Date();
 			fileName = subjectID+"_"+now.toString();
+			
+			if(subjectID.length()==0){
+				if(screenName.length()>0)
+					myName = screenName;
+			}else
+				myName = subjectID;
+			
 			if(subjectID.length()==0)
-				fileName = screenName+"_"+now.toString();
+				fileName = myName+"_"+now.toString();
 			
 			localChat = false;
 			if(loginScreen.isLocalChatButton(e))
@@ -153,7 +160,7 @@ public class Controller_LES implements ActionListener {
 		
 	}
 
-	private Element generateMessageXML(String[] sentMessage,String sender, String recipient,String messageDirection,Element additionalInformation){
+	private Element generateMessageXML(String sentMessage,String sender, String recipient,String messageDirection,Element additionalInformation){
 		Element message_element=null;
 		
 		Date now = new Date();
@@ -164,19 +171,22 @@ public class Controller_LES implements ActionListener {
 		if(dom!=null){
 			message_element = dom.createElement("Message");
 			
-			String sentMessageString = "[";
+			String sentMessageString = sentMessage; 
+				/*"[";
 			if(sentMessage.length>0)
 				sentMessageString+=sentMessage[0];
 			for(int i=1; i<sentMessage.length;i++)
-				sentMessageString+=sentMessage[i];
-			sentMessageString+="]";
+				sentMessageString+=" "+sentMessage[i];
+			sentMessageString+="]";*/
 			
-			message_element.setAttribute("content", sentMessageString);
+			message_element.setAttribute("Direction", messageDirection);
+			message_element.setAttribute("TransmittedMessage", sentMessageString);			
+			
 			message_element.appendChild(this.makeWordElement("Date",DateFormat.getInstance().format(now)));
 			message_element.appendChild(this.makeWordElement("Sender", sender));
 			message_element.appendChild(this.makeWordElement("Recipient", recipient));
 			message_element.appendChild(this.makeWordElement("Direction",messageDirection));
-			message_element.appendChild(this.makeWordElement("Content",sentMessageString));
+			message_element.appendChild(this.makeWordElement("TransmittedMessage",sentMessageString));
 			if(additionalInformation!=null){
 				Node tempNode = dom.importNode(additionalInformation,true); //true if you want a deep copy
 				//domYouAreAddingTheNodeTo.appendNode(tempNode);
