@@ -184,104 +184,102 @@ public class Model_chatClient extends CmdLineClientDemo{
 	
 	class myBuddy implements IBuddy{
 
-		@Override
+
 		public String getCustomAwayMessage() {
 			// TODO Auto-generated method stub
 			return "Custom Away Message";
 		}
 
-		@Override
+
 		public String getGroup() {
 			// TODO Auto-generated method stub
 			return "Custom Group";
 		}
 
-		@Override
+
 		public int getIdleTime() {
 			// TODO Auto-generated method stub
 			return 0;
 		}
 
-		@Override
+
 		public String getName() {
 			// TODO Auto-generated method stub
 			return "Local Buddy";
 		}
 
-		@Override
+
 		public String getNickName() {
 			// TODO Auto-generated method stub
 			return "Local Buddy";
 		}
 
-		@Override
+
 		public String getOwner() {
 			// TODO Auto-generated method stub
 			return "Local Buddy";
 		}
 
-		@Override
+
 		public Properties getProperties() {
 			// TODO Auto-generated method stub
 			return null;
 		}
 
-		@Override
 		public String getProperty(String arg0) {
 			// TODO Auto-generated method stub
 			return null;
 		}
 
-		@Override
+
 		public int getProtocol() {
 			// TODO Auto-generated method stub
 			return 0;
 		}
 
-		@Override
 		public String getProtocolName() {
 			// TODO Auto-generated method stub
 			return "Local Buddy";
 		}
 
-		@Override
+
 		public Date getSignOnTimeStamp() {
 			// TODO Auto-generated method stub
 			return null;
 		}
 
-		@Override
+
 		public int getStatus() {
 			// TODO Auto-generated method stub
 			return 0;
 		}
 
-		@Override
+
 		public String getStatusAsString() {
 			// TODO Auto-generated method stub
 			return null;
 		}
 
-		@Override
+
 		public Date getStatusTimeStamp() {
 			// TODO Auto-generated method stub
 			return null;
 		}
 
-		@Override
+
 		public int getWarningPercent() {
 			// TODO Auto-generated method stub
 			return 0;
 		}
 
-		@Override
+
 		public boolean isMobile() {
 			// TODO Auto-generated method stub
 			return false;
 		}
 		
 		public String toString(){
-			return "Local Chat";
+			return "Local Buddy";
 		}
 		
 	}

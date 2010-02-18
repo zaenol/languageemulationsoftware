@@ -87,7 +87,7 @@ public class Controller_chatClient implements ActionListener {
 			parent.log_outgoingMessage(message, mcc.getScreenName(), buddy);
 		
 		
-		for(String s_message:message.getMessageToSend()){			
+		for(String s_message:message.getMessageToTransmit()){			
 			if(!message.isPostOriginalMessage())
 				vcc.postOutgoingMessage(mcc.getScreenName(), s_message);
 			
