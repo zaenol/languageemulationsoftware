@@ -2,8 +2,10 @@ package les.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
@@ -30,6 +32,8 @@ import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 //import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
+import html.*;
+
 public class Controller_LES implements ActionListener {
 	
 	Controller_chatClient chatClient;
@@ -37,6 +41,9 @@ public class Controller_LES implements ActionListener {
 	View_LES loginScreen;
 	
 	Document dom = null;
+	
+	Tag body = null;
+	Tag html_title = null;
 	
 	String fileName = "";
 	
@@ -54,10 +61,21 @@ public class Controller_LES implements ActionListener {
 		modelEditor = new Controller_modelEditor();
 		
 		this.initDom();
+		this.initHTML();
 		
 		rootEle = dom.createElement("Conversation");
 		dom.appendChild(rootEle);
 		
+		
+	}
+	
+	private void initHTML(){
+		body = new Tag("body");
+		Tag head = new Tag("head");
+		html_title = new Tag("title");
+		html_title.add("Conversation");
+		head.add(html_title);
+		body.add(head);
 	}
 	
 	private void initDom(){
@@ -83,17 +101,64 @@ public class Controller_LES implements ActionListener {
 	
 	public void log_incomingMessage(IMessage message){
 		String[] messageArray = {message.getMessage()};
-		Element element = this.generateMessageXML(message.getMessage(), message.getSender(), myName, "Incoming", null);
-		this.addAndPrint(element);
+		//Date now = new Date();
+		//Element element = this.generateMessageXML(message.getMessage(), message.getSender(), myName, "Incoming",now, null);
+		//this.addAndPrint(element);
+		this.log_message(message.getMessage(),messageArray, message.getSender(), myName, "Incoming","blue", null);
 	}
 	public void log_outgoingMessage(Model_Message message,String sender,String recipient){
 		//Element element = this.generateMessageXML(sentMessage, sender, recipient, messageDirection, additionalInformation);
-		Element element = this.generateMessageXML(message.getMessageToTransmit_toString(), myName, recipient, "Outgoing", message.getXML());
-		this.addAndPrint(element);
+		
+		//Element element = this.generateMessageXML(message.getMessageToTransmit_toString(), myName, recipient, "Outgoing",now, message.getXML());
+		//this.addAndPrint(element);
+		
+		this.log_message(message.getMessageToTransmit_toString(),message.getMessageToTransmit(), myName, recipient, "Outgoing", "red", message.getXML());
+	}
+	private void log_message(String message,String[] subMessages, String sender,String recipient,String direction,String color,Element additionalInformation){
+		Date now = new Date();
+		
+		Element xml_element = this.generateMessageXML(message, sender, recipient, "Outgoing",now, additionalInformation);
+		this.addAndPrint_XML(xml_element);
+		
+		for(String s:subMessages){
+			Tag html_element = this.generateMessageHTML(s, sender, now, color);
+			this.addAndPrint_HTML(html_element);
+		}
+		
 	}
 
-	private void addAndPrint(Element message){
-		rootEle.appendChild(message);
+	private void addAndPrint_HTML(Tag html_message){
+		String home = FileSystemView.getFileSystemView().getHomeDirectory().toString();
+		
+		String sep = File.separator;
+		
+		/*
+		 * HTML PRINTING AND ADDING
+		 */
+		try{
+			body.add(html_message);
+			//body.add(new Tag("br", false));
+			Tag html = new Tag("html");
+			html.add(body);
+			File output = new File(home+sep+"Desktop"+sep+fileName+".html");
+			FileWriter fstream = new FileWriter(output);
+			BufferedWriter out = new BufferedWriter(fstream);
+			out.write(html.toString());
+			out.close();			
+		} catch(IOException ie) {
+		    ie.printStackTrace();
+		}
+	}
+	
+	private void addAndPrint_XML(Element xml_message){
+		String home = FileSystemView.getFileSystemView().getHomeDirectory().toString();
+		
+		String sep = File.separator;
+		
+		/*
+		 * XML PRINTING AND ADDING
+		 */
+		rootEle.appendChild(xml_message);
 		try
 		{
 			//print
@@ -103,9 +168,7 @@ public class Controller_LES implements ActionListener {
 			//to generate output to console use this serializer
 			//XMLSerializer serializer = new XMLSerializer(System.out, format);
 
-			String home = FileSystemView.getFileSystemView().getHomeDirectory().toString();
 			
-			String sep = File.separator;
 			
 			File output = new File(home+sep+"Desktop"+sep+fileName+".xml");
 			
@@ -118,6 +181,8 @@ public class Controller_LES implements ActionListener {
 		} catch(IOException ie) {
 		    ie.printStackTrace();
 		}
+		
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -139,6 +204,11 @@ public class Controller_LES implements ActionListener {
 			if(subjectID.length()==0)
 				fileName = myName+"_"+now.toString();
 			
+			html_title.set(0, fileName);
+			Tag h1 = new Tag("h1");
+			h1.add(myName+" Conversation on "+now.toString());
+			body.add(h1);
+			
 			localChat = false;
 			if(loginScreen.isLocalChatButton(e))
 				localChat = true;
@@ -159,11 +229,22 @@ public class Controller_LES implements ActionListener {
 			
 		
 	}
+	
+	private Tag generateMessageHTML(String sentMessage,String sender,Date now,String color){
+		Tag br = new Tag("div");
+		
+		String time = DateFormat.getTimeInstance(DateFormat.SHORT).format(now);
+		
+		Tag font = new Tag("font","color=\""+color+"\"");
+		font.add(sender+" ("+time+"): ");
+		br.add(font);
+		br.add(sentMessage);
+		return br;
+	}
 
-	private Element generateMessageXML(String sentMessage,String sender, String recipient,String messageDirection,Element additionalInformation){
+	private Element generateMessageXML(String sentMessage,String sender, String recipient,String messageDirection,Date now,Element additionalInformation){
 		Element message_element=null;
 		
-		Date now = new Date();
 		
 		if(dom==null)
 			this.initDom();
