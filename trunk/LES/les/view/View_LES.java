@@ -45,6 +45,7 @@ public class View_LES {
 		userName = new TextEntry("User Name:");
 		loginPanel.add(userName);
 		
+		
 		password = new TextEntry("Password:");
 		loginPanel.add(password);
 		
@@ -54,6 +55,7 @@ public class View_LES {
 		connect = new JButton("Connect");
 		connect.addActionListener(controller);
 		loginPanel.add(connect);
+		connect.setEnabled(false);
 		
 		localChat = new JButton("Local Chat");
 		localChat.addActionListener(controller);
@@ -77,6 +79,7 @@ public class View_LES {
 			
 			label.setText(entryLabel);
 			
+			this.entry.addKeyListener(controller);
 			
 			this.add(label);
 			this.add(entry);
@@ -85,6 +88,11 @@ public class View_LES {
 		}
 		public String getEnteredText(){
 			return entry.getText();
+		}
+		public boolean isEmpty(){
+			if(entry.getText().length()==0)
+				return true;
+			return false;
 		}
 	}
 	
@@ -113,6 +121,14 @@ public class View_LES {
 	}
 	public String getSubjectID() {
 		return subjectID.getEnteredText();
+	}
+
+	public void updateUI() {
+		if(!userName.isEmpty() && !password.isEmpty())
+			connect.setEnabled(true);
+		else
+			connect.setEnabled(false);
+		
 	}
 	
 
