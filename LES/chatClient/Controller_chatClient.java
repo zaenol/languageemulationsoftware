@@ -2,6 +2,8 @@ package chatClient;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -23,7 +25,7 @@ import modelEditor.model.Model_Message;
 import chatClient.model.Model_chatClient;
 import chatClient.view.View_chatClient;
 
-public class Controller_chatClient implements ActionListener {
+public class Controller_chatClient implements ActionListener, ItemListener {
 
 	View_chatClient vcc;
 	Model_chatClient mcc;
@@ -110,6 +112,13 @@ public class Controller_chatClient implements ActionListener {
 	}
 	public void setVisible(boolean visible){
 		vcc.setVisible(visible);
+	}
+
+
+	public void itemStateChanged(ItemEvent e) {
+		if(vcc!=null)
+			vcc.updateUsability();
+		
 	}
 	
 

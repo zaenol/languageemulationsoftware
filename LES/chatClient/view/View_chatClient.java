@@ -67,6 +67,7 @@ public class View_chatClient {
 		
 		buddyList = new JComboBox();
 		buddyList.setMaximumSize(new Dimension(clientMesageTextAreaWidth,70));
+		buddyList.addItemListener(controller);
 		resetBuddyList();
 		
 		/* FOR MORE INFO ABOUT JTEXTPANE AND CREATING STYLIZED TEXT PLEASE SEE
@@ -146,6 +147,18 @@ public class View_chatClient {
 		conversation.append(from+" ("+timestamp+"):"+tab+message + newline);
 	}
 
+	public void updateUsability(){
+		if(buddyList.getSelectedIndex()>0){
+			inputPanel.setEnabled(true);
+			sendButton.setEnabled(true);
+		}else{
+			inputPanel.setEnabled(false);
+			sendButton.setEnabled(false);
+		}
+			
+		
+	}
+	
 	public void updateBuddies(IBuddy[] buddies) {
 		String currentBuddy = getSelectedBuddyName();
 		

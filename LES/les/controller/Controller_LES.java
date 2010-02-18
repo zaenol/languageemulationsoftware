@@ -2,6 +2,8 @@ package les.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -34,7 +36,7 @@ import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
 import html.*;
 
-public class Controller_LES implements ActionListener {
+public class Controller_LES implements ActionListener, KeyListener {
 	
 	Controller_chatClient chatClient;
 	Controller_modelEditor modelEditor;
@@ -101,16 +103,11 @@ public class Controller_LES implements ActionListener {
 	
 	public void log_incomingMessage(IMessage message){
 		String[] messageArray = {message.getMessage()};
-		//Date now = new Date();
-		//Element element = this.generateMessageXML(message.getMessage(), message.getSender(), myName, "Incoming",now, null);
-		//this.addAndPrint(element);
+
 		this.log_message(message.getMessage(),messageArray, message.getSender(), myName, "Incoming","blue", null);
 	}
 	public void log_outgoingMessage(Model_Message message,String sender,String recipient){
-		//Element element = this.generateMessageXML(sentMessage, sender, recipient, messageDirection, additionalInformation);
-		
-		//Element element = this.generateMessageXML(message.getMessageToTransmit_toString(), myName, recipient, "Outgoing",now, message.getXML());
-		//this.addAndPrint(element);
+
 		
 		this.log_message(message.getMessageToTransmit_toString(),message.getMessageToTransmit(), myName, recipient, "Outgoing", "red", message.getXML());
 	}
@@ -283,6 +280,22 @@ public class Controller_LES implements ActionListener {
 		Text word_text = dom.createTextNode(elementContent);
 		word_element.appendChild(word_text);		
 		return word_element;
+	}
+
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void keyTyped(KeyEvent e) {
+		if(loginScreen != null)
+			loginScreen.updateUI();
+		
 	}
 
 }
