@@ -129,7 +129,7 @@ public class View_chatClient {
 		if(buddyList.getSelectedIndex() == 0)
 			return "Select Buddy to IM with";
 		
-		String currentBuddy = ((IBuddy) buddyList.getSelectedItem()).getName();
+		String currentBuddy = ((BuddyWrapper) buddyList.getSelectedItem()).getName();
 		return currentBuddy;
 	}
 	
@@ -167,9 +167,30 @@ public class View_chatClient {
 		//myBuddies = buddies;
 		
 		for(IBuddy buddy:buddies){
-			buddyList.addItem(buddy);
+			BuddyWrapper myBuddy = new BuddyWrapper(buddy);
+			buddyList.addItem(myBuddy);
 			if(buddy.getName().equals(currentBuddy))
-				buddyList.setSelectedItem(buddy);
+				buddyList.setSelectedItem(myBuddy);
+		}
+		
+	}
+	private class BuddyWrapper{
+		private IBuddy _buddy;
+		public BuddyWrapper(IBuddy buddy){
+			_buddy = buddy;
+		}
+		
+		public String getName(){
+			return _buddy.getName();
+		}
+		public IBuddy getBuddy(){
+			return _buddy;
+		}
+		
+		public String toString(){
+			String s = _buddy.getName();
+			
+			return s;			
 		}
 		
 	}
