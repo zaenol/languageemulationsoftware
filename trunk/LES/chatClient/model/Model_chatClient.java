@@ -77,8 +77,8 @@ public class Model_chatClient extends CmdLineClientDemo{
 				e.printStackTrace();
 			} 
 
-			IBuddyList list = client.getBuddyList();
-			IBuddy[] buddies = list.getBuddies();
+			//IBuddyList list = client.getBuddyList();
+			IBuddy[] buddies = buddyList.getBuddies();
 			controller.updateBuddies(buddies);
 			
 				
@@ -239,8 +239,8 @@ public class Model_chatClient extends CmdLineClientDemo{
 	    		long currentTime = System.currentTimeMillis();
 	    		if(currentTime-lastTime > 60000*5){
 	    			
-	    			IBuddyList list = client.getBuddyList();
-	    			IBuddy[] buddies = list.getBuddies();
+	    			//IBuddyList list = client.getBuddyList();
+	    			IBuddy[] buddies = buddyList.getBuddies();
 	    			controller.updateBuddies(buddies);
 	    			
 	    			lastTime = System.currentTimeMillis();
