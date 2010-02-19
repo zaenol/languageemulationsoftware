@@ -254,7 +254,7 @@ public class Model_chatClient extends CmdLineClientDemo{
 
 		public int getStatus() {
 			// TODO Auto-generated method stub
-			return 0;
+			return IBuddy.ONLINE;
 		}
 
 

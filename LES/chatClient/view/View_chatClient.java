@@ -169,9 +169,14 @@ public class View_chatClient {
 		
 		for(IBuddy buddy:buddies){
 			BuddyWrapper myBuddy = new BuddyWrapper(buddy);
-			buddyList.addItem(myBuddy);
-			if(buddy.getName().equals(currentBuddy))
-				buddyList.setSelectedItem(myBuddy);
+			
+			if(myBuddy.getStatus() != IBuddy.OFFLINE){
+			
+				buddyList.addItem(myBuddy);
+				if(buddy.getName().equals(currentBuddy))
+					buddyList.setSelectedItem(myBuddy);
+			
+			}
 		}
 		
 	}
@@ -191,8 +196,56 @@ public class View_chatClient {
 		public String toString(){
 			String s = _buddy.getName();
 			
+			s +=" ("+this.getStatusName(getStatus())+")";
+			
 			return s;			
 		}
-		
+		public int getStatus(){
+			return _buddy.getStatus();
+		}
+	    public String getStatusName(int status) {
+	    	switch (status) {
+	    	case IBuddy.ATLUNCH:
+	    	    return "ATLUNCH";
+	    	case IBuddy.AWAY:
+	    	    return "AWAY";
+	    	case IBuddy.BRB:
+	    	    return "BRB";
+	    	case IBuddy.BUSY:
+	    	    return "BUSY";
+	    	case IBuddy.CUSTOM_AWAY:
+	    	    return "CUSTOM_AWAY";
+	    	case IBuddy.DND:
+	    	    return "DND";
+	    	case IBuddy.FREE_TO_CHAT:
+	    	    return "FREE_TO_CHAT";
+	    	case IBuddy.IDLE:
+	    	    return "IDLE";
+	    	case IBuddy.INVISIBLE:
+	    	    return "INVISIBLE";
+	    	case IBuddy.NA:
+	    	    return "NA";
+	    	case IBuddy.NOT_AT_DESK:
+	    	    return "NOT_AT_DESK";
+	    	case IBuddy.NOT_AT_HOME:
+	    	    return "NOT_AT_HOME";
+	    	case IBuddy.NOT_IN_OFFICE:
+	    	    return "NOT_IN_OFFICE";
+	    	case IBuddy.OCCUPIED:
+	    	    return "OCCUPIED";
+	    	case IBuddy.OFFLINE:
+	    	    return "OFFLINE";
+	    	case IBuddy.ON_VACATION:
+	    	    return "ON_VACATION";
+	    	case IBuddy.ONLINE:
+	    	    return "ONLINE";
+	    	case IBuddy.ONPHONE:
+	    	    return "ONPHONE";
+	    	case IBuddy.STEPPED_OUT:
+	    	    return "STEPPED_OUT";
+	    	default:
+	    	    return "UNKNOWN";
+	    	}   
+	        }
 	}
 }
