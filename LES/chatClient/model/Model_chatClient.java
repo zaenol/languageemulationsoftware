@@ -1,6 +1,7 @@
 package chatClient.model;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,7 +28,13 @@ public class Model_chatClient extends CmdLineClientDemo{
 	
 	boolean localChat = false;
 	
-	Thread thread;
+	IBuddy[] buddies={};
+	
+	ArrayList<String> tempBuddies;
+	
+	String groupName = "UIUCLES";
+	
+	chatListener thread;
 
 	public Model_chatClient(Controller_chatClient parent,String screenName, String password, boolean localChat){
 		super(getProtocol("AIM"),screenName,password,localChat);
@@ -37,6 +44,7 @@ public class Model_chatClient extends CmdLineClientDemo{
 		this.setScreenName(screenName);
 		if(localChat && screenName.length()==0)
 			this.setScreenName("ME");
+		tempBuddies = new ArrayList<String>();
 	}
 
 	public String getScreenName() {
@@ -54,7 +62,56 @@ public class Model_chatClient extends CmdLineClientDemo{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+	public void addTempBuddy(String name){
+		String nickName = "";
+
+		try {
+			client.addBuddy(name, nickName, groupName);
+			client.sendConfigToServer();
+			tempBuddies.add(name);
+			
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+
+			IBuddyList list = client.getBuddyList();
+			IBuddy[] buddies = list.getBuddies();
+			controller.updateBuddies(buddies);
+			
+				
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	public void removeTempBuddy(String name){
+		 try {
+			client.removeBuddy(name, groupName);
+			client.sendConfigToServer();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		    
+	}
+	public void updateBuddies(IBuddy[] buddies) {
+		this.buddies = buddies;
+	}
+	public boolean containsBuddy(IBuddy buddy){
+		return containsBuddy(buddy.getName());
+	}
+	public boolean containsBuddy(String buddy){
+		
+		for(IBuddy buddie:buddies)
+			if(buddie.getName().equals(buddy))
+				return true;
+		
+		return false;
+	}
 	public boolean isOnline(){
 		if(localChat)
 			return true;
@@ -105,6 +162,14 @@ public class Model_chatClient extends CmdLineClientDemo{
 	
 	public void quitConnection(){
 		if(!localChat){
+			IBuddy[] buddies_replacement = {};
+			buddies = buddies_replacement;
+			
+			for(String name:tempBuddies){
+				this.removeTempBuddy(name);
+			}
+			tempBuddies = new ArrayList<String>();
+			
 			isUserQuit = true;
 	    	client.disconnect();
 	    	thread.interrupt();
@@ -183,6 +248,7 @@ public class Model_chatClient extends CmdLineClientDemo{
 	    		
 	    	}
 	    }
+
 	}
 	
 	class myBuddy implements IBuddy{

@@ -111,10 +111,15 @@ public class Controller_chatClient implements ActionListener, ItemListener, Wind
 		if(parent != null)
 			parent.log_incomingMessage(message);
 		vcc.postIncomingMessage(message.getSender(), message.getMessage());		
+		String senderName = message.getSender();
+		if(!mcc.containsBuddy(senderName)){
+			mcc.addTempBuddy(senderName);
+		}
 	}
 
 	public void updateBuddies(IBuddy[] buddies) {
 		vcc.updateBuddies(buddies);
+		mcc.updateBuddies(buddies);
 		
 	}
 	public void setVisible(boolean visible){

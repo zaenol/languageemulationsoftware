@@ -412,7 +412,7 @@ public class CmdLineClientDemo {
 	return false;
     }
 
-    private void remindSendConfig() {
+    protected void remindSendConfig() {
         if (isSendConfigSupported())
             System.out.println("Use 'sendconfig' to save your changes");
     }

@@ -161,6 +161,8 @@ public class View_chatClient {
 	}
 	
 	public void updateBuddies(IBuddy[] buddies) {
+		System.out.println("Update Buddies");
+		
 		String currentBuddy = getSelectedBuddyName();
 		
 		resetBuddyList();
