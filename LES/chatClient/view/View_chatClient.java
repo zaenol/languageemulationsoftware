@@ -172,13 +172,13 @@ public class View_chatClient {
 		for(IBuddy buddy:buddies){
 			BuddyWrapper myBuddy = new BuddyWrapper(buddy);
 			
-			if(myBuddy.getStatus() != IBuddy.OFFLINE){
+			//if(myBuddy.getStatus() != IBuddy.OFFLINE){
 			
 				buddyList.addItem(myBuddy);
 				if(buddy.getName().equals(currentBuddy))
 					buddyList.setSelectedItem(myBuddy);
 			
-			}
+			//}
 		}
 		
 	}

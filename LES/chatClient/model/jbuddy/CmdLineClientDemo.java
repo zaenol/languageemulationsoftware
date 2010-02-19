@@ -25,7 +25,7 @@ public class CmdLineClientDemo {
     boolean useFirstLastNaming; // if 2 arguments are needed for login and buddy names (ie: "firstname lastname")
     public boolean isUserQuit; // prevents reconnecting in the Gateway.connectionLost() method
     
-    IBuddyList buddyList;
+    protected IBuddyList buddyList;
     IBuddyList reverseList;
     IBuddyList denyList;
     IBuddyList permitList;
