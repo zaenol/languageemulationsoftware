@@ -59,6 +59,7 @@ public class View_chatClient {
 
 		chatWindow.setSize(clientWidth, clientHeight);
 		chatWindow.setResizable(false);
+		chatWindow.addWindowListener(controller);
 		
 		fullPanel = new JPanel();
 		fullPanel.setLayout(new BoxLayout(fullPanel, BoxLayout.Y_AXIS));

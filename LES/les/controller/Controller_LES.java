@@ -58,17 +58,23 @@ public class Controller_LES implements ActionListener, KeyListener {
 	public Controller_LES() throws InterruptedException{
 				
 		loginScreen = new View_LES(this);
+		
+		modelEditor = new Controller_modelEditor();
+
+		init();		
+		
+	}
+	
+	private void init() throws InterruptedException{
+		loginScreen.updateUI();
 		chatClient = new Controller_chatClient();
 		chatClient.setParent(this);
-		modelEditor = new Controller_modelEditor();
 		
 		this.initDom();
 		this.initHTML();
 		
 		rootEle = dom.createElement("Conversation");
 		dom.appendChild(rootEle);
-		
-		
 	}
 	
 	private void initHTML(){
@@ -214,9 +220,10 @@ public class Controller_LES implements ActionListener, KeyListener {
 			if((screenName.length()>0 && password.length()>0 && !localChat) || localChat ){
 				boolean started = chatClient.connect(screenName, password,localChat);
 				
-				if(started)
+				if(started){
 					chatClient.setVisible(true);
-				else
+					loginScreen.disableUI();
+				}else
 					chatClient.setVisible(false);	
 			}
 					
@@ -296,6 +303,21 @@ public class Controller_LES implements ActionListener, KeyListener {
 		if(loginScreen != null)
 			loginScreen.updateUI();
 		
+	}
+	public void chatSessionClosed(){
+		try {
+			
+		
+			init();
+			
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
+	public String getMyName(){
+		return myName+"";
 	}
 
 }

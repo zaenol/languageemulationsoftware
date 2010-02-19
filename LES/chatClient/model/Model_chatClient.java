@@ -26,6 +26,8 @@ public class Model_chatClient extends CmdLineClientDemo{
 	Controller_chatClient controller;
 	
 	boolean localChat = false;
+	
+	Thread thread;
 
 	public Model_chatClient(Controller_chatClient parent,String screenName, String password, boolean localChat){
 		super(getProtocol("AIM"),screenName,password,localChat);
@@ -94,7 +96,7 @@ public class Model_chatClient extends CmdLineClientDemo{
 		IBuddy[] buddies = list.getBuddies();
 		controller.updateBuddies(buddies);
 		
-		Thread thread = new chatListener();
+		thread = new chatListener();
 		thread.start();
 		
 		return true;
@@ -105,6 +107,7 @@ public class Model_chatClient extends CmdLineClientDemo{
 		if(!localChat){
 			isUserQuit = true;
 	    	client.disconnect();
+	    	thread.interrupt();
 		}
 	}
 	
