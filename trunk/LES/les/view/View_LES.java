@@ -128,7 +128,12 @@ public class View_LES {
 			connect.setEnabled(true);
 		else
 			connect.setEnabled(false);
+		localChat.setEnabled(true);
 		
+	}
+	public void disableUI(){
+		connect.setEnabled(false);
+		localChat.setEnabled(false);
 	}
 	
 

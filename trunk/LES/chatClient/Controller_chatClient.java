@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -25,7 +27,7 @@ import modelEditor.model.Model_Message;
 import chatClient.model.Model_chatClient;
 import chatClient.view.View_chatClient;
 
-public class Controller_chatClient implements ActionListener, ItemListener {
+public class Controller_chatClient implements ActionListener, ItemListener, WindowListener {
 
 	View_chatClient vcc;
 	Model_chatClient mcc;
@@ -88,16 +90,21 @@ public class Controller_chatClient implements ActionListener, ItemListener {
 		if(parent != null)
 			parent.log_outgoingMessage(message, mcc.getScreenName(), buddy);
 		
+		String screenName = mcc.getScreenName();
+		if(parent != null){
+			screenName = parent.getMyName();
+		}
+		
 		
 		for(String s_message:message.getMessageToTransmit()){			
 			if(!message.isPostOriginalMessage())
-				vcc.postOutgoingMessage(mcc.getScreenName(), s_message);
+				vcc.postOutgoingMessage(screenName, s_message);
 			
 			mcc.outgoing_sendIMMessage(buddy, s_message);
 		}
 		
 		if(message.isPostOriginalMessage())
-			vcc.postOutgoingMessage(mcc.getScreenName(), message.getOriginalMessage());
+			vcc.postOutgoingMessage(screenName, message.getOriginalMessage());
 	}
 	
 	public void incomingMessage(IMessage message){
@@ -118,6 +125,58 @@ public class Controller_chatClient implements ActionListener, ItemListener {
 	public void itemStateChanged(ItemEvent e) {
 		if(vcc!=null)
 			vcc.updateUsability();
+		
+	}
+
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		mcc.quitConnection();
+		if(parent != null){
+			parent.chatSessionClosed();
+		}
+		
+	}
+
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 	
