@@ -120,7 +120,7 @@ public class Controller_LES implements ActionListener, KeyListener {
 	private void log_message(String message,String[] subMessages, String sender,String recipient,String direction,String color,Element additionalInformation){
 		Date now = new Date();
 		
-		Element xml_element = this.generateMessageXML(message, sender, recipient, "Outgoing",now, additionalInformation);
+		Element xml_element = this.generateMessageXML(message, sender, recipient, direction,now, additionalInformation);
 		this.addAndPrint_XML(xml_element);
 		
 		for(String s:subMessages){
