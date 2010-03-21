@@ -1,12 +1,22 @@
 package modelEditor.model;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import opennlp.maxent.MaxentModel;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
+
+import opennlp.tools.dictionary.Dictionary;
+import opennlp.tools.util.InvalidFormatException;
 /**
  * @author jmh
  *
@@ -26,6 +36,9 @@ public class Model_Message {
 	Document dom = null;
 	
 	public Model_Message(String message){
+		//InputStream in = getClass().getResourceAsStream("/modelEditor/openNLP/tag.bin.gz");
+		//Dictionary dict = new Dictionary(in);
+		
 		originalMessage = message+"";
 		
 		originalWords = originalMessage.split(" ");
