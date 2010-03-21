@@ -134,21 +134,21 @@ public class Controller_chatClient implements ActionListener, ItemListener, Wind
 	}
 
 
-	@Override
+	//@Override
 	public void windowActivated(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 
-	@Override
+	//@Override
 	public void windowClosed(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 
-	@Override
+	//@Override
 	public void windowClosing(WindowEvent e) {
 		mcc.quitConnection();
 		if(parent != null){
@@ -158,28 +158,28 @@ public class Controller_chatClient implements ActionListener, ItemListener, Wind
 	}
 
 
-	@Override
+	//@Override
 	public void windowDeactivated(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 
-	@Override
+	//@Override
 	public void windowDeiconified(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 
-	@Override
+	//@Override
 	public void windowIconified(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 
-	@Override
+	//@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
