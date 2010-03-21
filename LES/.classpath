@@ -8,5 +8,9 @@
 	<classpathentry kind="lib" path="xerces/xercesImpl.jar"/>
 	<classpathentry kind="lib" path="xerces/xercesSamples.jar"/>
 	<classpathentry kind="lib" path="xerces/xml-apis.jar"/>
+	<classpathentry kind="lib" path="modelEditor/openNLP/jwnl-1.3.3.jar"/>
+	<classpathentry kind="lib" path="modelEditor/openNLP/maxent-2.5.2.jar"/>
+	<classpathentry kind="lib" path="modelEditor/openNLP/trove.jar"/>
+	<classpathentry kind="lib" path="modelEditor/openNLP/opennlp-tools-1.4.3.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
