@@ -29,9 +29,9 @@ import opennlp.tools.postag.POSTaggerME;
 
 public class learningOpenNLP {
 
-	public learningOpenNLP() {
+	public learningOpenNLP(String paragraph) {
 		try {
-			String[] sents = sentences();
+			String[] sents = sentences(paragraph);
 			for(String sent:sents){
 				//tokenize(sent);
 				System.out.println(sent);
@@ -50,8 +50,8 @@ public class learningOpenNLP {
 		}
 	}
 	
-	public String[] sentences() throws IOException{
-		String paragraph  = "This isn't the greatest example sentence in the world because I've seen better.  Neither is this one.  This one's not bad, though.";
+	public String[] sentences(String paragraph) throws IOException{
+		
 		 
 		// the sentence detector and tokenizer constructors
 		// take paths to their respective models
@@ -136,8 +136,9 @@ public class learningOpenNLP {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		String paragraph  = "This isn't the greatest example sentence in the world because I've seen better.  Neither is this one.  This one's not bad, though.";
 		// TODO Auto-generated method stub
-		learningOpenNLP lonlp = new learningOpenNLP();
+		learningOpenNLP lonlp = new learningOpenNLP(paragraph);
 	}
 
 }
