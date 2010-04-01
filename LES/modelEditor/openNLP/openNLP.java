@@ -27,18 +27,34 @@ import opennlp.tools.postag.POSTaggerME;
  * 
  */
 
-public class learningOpenNLP {
+public class openNLP {
+	boolean debugOut = false;
 
-	public learningOpenNLP(String paragraph) {
+	public openNLP() {
+		
+	}
+	
+	public ArrayList<ArrayList<String>> runNLP(String paragraph) {
+		ArrayList<ArrayList<String>> result = new ArrayList();;
+		ArrayList<String> all_tokens = new ArrayList<String>();
+		ArrayList<String> all_tags = new ArrayList<String>();
+		result.add(all_tokens);
+		result.add(all_tags);
+		
 		try {
 			String[] sents = sentences(paragraph);
+			
 			for(String sent:sents){
 				//tokenize(sent);
-				System.out.println(sent);
+				if(debugOut)
+					System.out.println(sent);
 				List<String> tokens = tokenizer(sent);
-				List tags = tag(tokens);
-				for(Object o:tags)
-					System.out.println("\t\t"+o);
+				List<String> tags = tag(tokens);
+				all_tokens.addAll(tokens);
+				all_tags.addAll(tags);
+				if(debugOut)
+					for(Object o:tags)
+						System.out.println("\t\t"+o);
 			}
 				
 		} catch (IOException e) {
@@ -48,6 +64,7 @@ public class learningOpenNLP {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return result;
 	}
 	
 	public String[] sentences(String paragraph) throws IOException{
@@ -99,10 +116,12 @@ public class learningOpenNLP {
 			String tok = tokens[j]+"";
 		    tokenList.add(tok);
 		    sb.append(tok).append(" ");
-		    System.out.println("\t\t"+tok);
+		    if(debugOut)
+		    	System.out.println("\t\t"+tok);
 		}
 		String text = sb.substring(0, sb.length() - 1).toString();
-		System.out.println("\t"+text);
+		if(debugOut)
+			System.out.println("\t"+text);
 		return tokenList;
 	}
 	
@@ -132,13 +151,23 @@ public class learningOpenNLP {
 	
 
 
+	public boolean isDebugOut() {
+		return debugOut;
+	}
+
+	public void setDebugOut(boolean debugOut) {
+		this.debugOut = debugOut;
+	}
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		String paragraph  = "This isn't the greatest example sentence in the world because I've seen better.  Neither is this one.  This one's not bad, though.";
 		// TODO Auto-generated method stub
-		learningOpenNLP lonlp = new learningOpenNLP(paragraph);
+		openNLP lonlp = new openNLP();
+		lonlp.setDebugOut(true);
+		lonlp.runNLP(paragraph);
 	}
 
 }

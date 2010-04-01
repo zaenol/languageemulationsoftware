@@ -7,6 +7,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -23,6 +24,7 @@ import com.zion.jbuddy.IMessage;
 
 import les.controller.Controller_LES;
 import modelEditor.model.Model_Message;
+import modelEditor.openNLP.openNLP;
 
 import chatClient.model.Model_chatClient;
 import chatClient.view.View_chatClient;
@@ -34,10 +36,12 @@ public class Controller_chatClient implements ActionListener, ItemListener, Wind
 	Controller_LES parent = null;
 	boolean localChat = false;
 	
-
+	openNLP onlp;
 	
 	public Controller_chatClient() throws InterruptedException{
 		vcc= new View_chatClient(this);
+		
+		onlp = new openNLP();
 		
 		//mcc.startIMConversation();
 	}
@@ -82,7 +86,12 @@ public class Controller_chatClient implements ActionListener, ItemListener, Wind
 	}
 	
 	private void outgoingMessage(String buddy, String messageTyped){
-		Model_Message message = new Model_Message(messageTyped);
+		ArrayList<ArrayList<String>> opennlp = onlp.runNLP(messageTyped);
+		
+		ArrayList<String> tokens = opennlp.get(0);
+		ArrayList<String> tags = opennlp.get(1);
+		
+		Model_Message message = new Model_Message(messageTyped,tokens,tags);
 		
 		if(parent != null)
 			message = parent.distortMessage(message);

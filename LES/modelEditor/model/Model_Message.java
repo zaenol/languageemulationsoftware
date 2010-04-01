@@ -4,11 +4,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import modelEditor.openNLP.openNLP;
 import opennlp.maxent.MaxentModel;
 
 import org.w3c.dom.Document;
@@ -35,10 +37,24 @@ public class Model_Message {
 	
 	Document dom = null;
 	
-	public Model_Message(String message){
+	public Model_Message(String message, ArrayList<String> tokens, ArrayList<String> tags){
 		//InputStream in = getClass().getResourceAsStream("/modelEditor/openNLP/tag.bin.gz");
 		//Dictionary dict = new Dictionary(in);
+		this.init(message, tokens, tags);
 		
+	}
+	public Model_Message(String message){
+
+		openNLP onlp = new openNLP();
+		ArrayList<ArrayList<String>> opennlp = onlp.runNLP(message);
+		
+		ArrayList<String> tokens = opennlp.get(0);
+		ArrayList<String> tags = opennlp.get(1);
+		
+		this.init(message, tokens, tags);
+		
+	}
+	private void init(String message, ArrayList<String> tokens, ArrayList<String> tags){
 		originalMessage = message+"";
 		
 		originalWords = originalMessage.split(" ");
@@ -61,6 +77,7 @@ public class Model_Message {
 		this.initDom();
 		
 	}
+	
 	private void initDom(){
 		//get an instance of factory
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -140,5 +157,9 @@ public class Model_Message {
 		Text word_text = dom.createTextNode(elementContent);
 		word_element.appendChild(word_text);		
 		return word_element;
+	}
+	
+	private class model_message_word{
+		
 	}
 }
