@@ -98,9 +98,6 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
     		return matchClass(source.getSuperclass(),target,depth+1);
     	return false;
     }
-	public Model_Message parseString(String message){
-		return this.parseString(new Model_Message(message));
-	}
 	
 	public Model_Message parseString(Model_Message messages) {
 		return model.parseMessage(messages);
