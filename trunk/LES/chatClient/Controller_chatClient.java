@@ -18,13 +18,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
+import NLP.openNLP.openNLP;
+
 import com.zion.jbuddy.IBuddy;
 import com.zion.jbuddy.IMessage;
 
 
 import les.controller.Controller_LES;
 import modelEditor.model.Model_Message;
-import modelEditor.openNLP.openNLP;
 
 import chatClient.model.Model_chatClient;
 import chatClient.view.View_chatClient;
