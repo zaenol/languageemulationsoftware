@@ -48,6 +48,8 @@ public class Model_Message {
 		
 	}
 	public Model_Message(String message){
+		
+		System.out.println("Bad Model Message... forced local NLP!");
 
 		openNLP onlp = new openNLP();
 		ArrayList<ArrayList<String>> opennlp = onlp.runNLP(message);
