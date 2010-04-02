@@ -56,12 +56,15 @@ public class Controller_LES implements ActionListener, KeyListener {
 	boolean localChat = false;
 	
 	public Controller_LES() throws InterruptedException{
+			
 				
 		loginScreen = new View_LES(this);
 		
+		init();	
+		
 		modelEditor = new Controller_modelEditor();
 
-		init();		
+		
 		
 	}
 	

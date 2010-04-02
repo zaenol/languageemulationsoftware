@@ -32,8 +32,50 @@ import opennlp.tools.postag.POSTaggerME;
 public class openNLP implements Gen_NLP{
 	boolean debugOut = false;
 
+	opennlp.tools.lang.english.Tokenizer tokenizer;
+	SentenceDetectorME sdetector;
+	
+	POSTaggerME tagger;
+	
 	public openNLP() {
 		
+		try {
+			System.out.println("Loading...");
+			tokenizer = new opennlp.tools.lang.english.Tokenizer("NLP/openNLP/tokenize/EnglishTok.bin.gz");
+			sdetector =  new SentenceDetector("NLP/openNLP/sentdetect/EnglishSD.bin.gz");
+			
+			boolean useTagDict = true;
+			boolean useCaseInsensitiveTagDict = false;
+
+			System.out.println("Loading... 1");
+			
+			int beamSize = Parser.defaultBeamSize;
+			double advancePercentage = Parser.defaultAdvancePercentage;
+			opennlp.tools.parser.Parser parser = TreebankParser.getParser(
+			        "NLP/openNLP/parser", useTagDict, useCaseInsensitiveTagDict,
+			        beamSize, advancePercentage);
+			
+			System.out.println("Loading... 2");
+			
+			String tagBiGz = "NLP/openNLP/postag/tag.bin.gz";
+			String tagdict = "NLP/openNLP/postag/tagdict";
+			
+			System.out.println("Loading... 3");
+			
+			SuffixSensitiveGISModelReader modelReader = (new SuffixSensitiveGISModelReader(new File(tagBiGz)));
+			MaxentModel model = modelReader.getModel();
+			
+			System.out.println("Loading... 4");
+			
+			POSDictionary dictionary = new POSDictionary(tagdict);
+			
+			tagger = new POSTaggerME(model,dictionary);
+			System.out.println("Loading... Done");
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public ArrayList<ArrayList<String>> runNLP(String paragraph) {
@@ -79,12 +121,14 @@ public class openNLP implements Gen_NLP{
 		 
 		// the sentence detector and tokenizer constructors
 		// take paths to their respective models
-		SentenceDetectorME sdetector =
-		    new SentenceDetector("NLP/openNLP/sentdetect/EnglishSD.bin.gz");
-		Tokenizer tokenizer = new Tokenizer("NLP/openNLP/tokenize/EnglishTok.bin.gz");
+		
+		//SentenceDetectorME sdetector =  new SentenceDetector("NLP/openNLP/sentdetect/EnglishSD.bin.gz");
+		//Tokenizer tokenizer = new Tokenizer("NLP/openNLP/tokenize/EnglishTok.bin.gz");
 		 
 		// the parser takes the path to the parser models
 		// directory and a few other options
+		
+		/*
 		boolean useTagDict = true;
 		boolean useCaseInsensitiveTagDict = false;
 
@@ -93,6 +137,7 @@ public class openNLP implements Gen_NLP{
 		opennlp.tools.parser.Parser parser = TreebankParser.getParser(
 		        "NLP/openNLP/parser", useTagDict, useCaseInsensitiveTagDict,
 		        beamSize, advancePercentage);
+		*/
 		 
 		// break a paragraph into sentences
 		
@@ -111,7 +156,7 @@ public class openNLP implements Gen_NLP{
 		// get the tokenizer to break apart the sentence
 		
 		
-		opennlp.tools.lang.english.Tokenizer tokenizer = new opennlp.tools.lang.english.Tokenizer("NLP/openNLP/tokenize/EnglishTok.bin.gz");
+		
 		String[] tokens = tokenizer.tokenize(sent);
 		 
 		// build a string to parse as well as a list of tokens
@@ -133,6 +178,7 @@ public class openNLP implements Gen_NLP{
 	}
 	
 	public List tag(List<String> tokenList) throws IOException, InvalidFormatException{
+		/*
 		String tagBiGz = "NLP/openNLP/postag/tag.bin.gz";
 		String tagdict = "NLP/openNLP/postag/tagdict";
 		
@@ -140,14 +186,16 @@ public class openNLP implements Gen_NLP{
 		
 		SuffixSensitiveGISModelReader modelReader = (new SuffixSensitiveGISModelReader(new File(tagBiGz)));
 		MaxentModel model = modelReader.getModel();
+		*/
 		
 		//InputStream in = getClass().getResourceAsStream("modelEditor/openNLP/postag/tagdict");
 		
 		//InputStream in = new FileInputStream(tagBiGz);
 		
-		POSDictionary dictionary = new POSDictionary(tagdict);
+		//POSDictionary dictionary = new POSDictionary(tagdict);
 		
-		POSTaggerME tagger = new POSTaggerME(model,dictionary);
+		//POSTaggerME tagger = new POSTaggerME(model,dictionary);
+		
 		List tags = tagger.tag(tokenList);
 		return tags;
 		
