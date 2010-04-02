@@ -10,12 +10,13 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import modelEditor.openNLP.openNLP;
 import opennlp.maxent.MaxentModel;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
+
+import NLP.openNLP.openNLP;
 
 import opennlp.tools.dictionary.Dictionary;
 import opennlp.tools.util.InvalidFormatException;
@@ -26,12 +27,15 @@ import opennlp.tools.util.InvalidFormatException;
 public class Model_Message {
 	private String originalMessage="";
 	
+	/*
 	private String[] originalWords = {};
 	private String[] distoredWords = {};
 	private boolean[]  isDistorted = {};
 	private String[] partOfSpeech = {};
 	private String[] distortion = {};
 	private boolean[] newMessageAfterWord = {};
+	*/
+	private ArrayList<fullWord> words;
 		
 	private boolean postOriginalMessage=false;
 	
@@ -57,6 +61,40 @@ public class Model_Message {
 	private void init(String message, ArrayList<String> tokens, ArrayList<String> tags){
 		originalMessage = message+"";
 		
+		String[] originalWords = originalMessage.split(" ");
+		
+		
+		int tIndex = 0;
+		
+		for(int oIndex = 0; oIndex<originalWords.length; oIndex++){
+			String oWord = originalWords[oIndex];
+			String tWord = tokens.get(tIndex);
+			
+			ArrayList<String> _tokens = new ArrayList<String>();
+			ArrayList<String> _tags = new ArrayList<String>();
+			
+			_tokens.add(tWord);			
+			_tags.add(tags.get(tIndex));
+			
+			tIndex++;
+			
+			while(!oWord.equals(tWord)){
+				
+				tWord+=tokens.get(tIndex);
+				_tokens.add(tokens.get(tIndex));
+				_tags.add(tags.get(tIndex));
+				
+				tIndex++;
+			}
+			//make a word object
+			fullWord word = new fullWord(oWord,_tokens,_tags); 
+			
+			//add word object to list!
+			
+		}		
+		
+		words = new ArrayList<fullWord>();
+		/*
 		originalWords = originalMessage.split(" ");
 		distoredWords = originalMessage.split(" ");
 		
@@ -73,6 +111,7 @@ public class Model_Message {
 		distortion = new String [originalWords.length];
 		for(int i=0; i<distortion.length;i++)
 			distortion[i] = "";
+		*/
 		
 		this.initDom();
 		
@@ -135,6 +174,7 @@ public class Model_Message {
 			message_element = dom.createElement("Outgoing");
 			message_element.appendChild(makeWordElement("OriginalMessage",originalMessage));
 			
+			/*
 			for(int i=0; i<originalWords.length;i++){
 				Element word_element = dom.createElement("Word");
 				
@@ -147,6 +187,7 @@ public class Model_Message {
 				
 				message_element.appendChild(word_element);
 			}
+			*/
 			
 		}
 		
@@ -159,7 +200,15 @@ public class Model_Message {
 		return word_element;
 	}
 	
-	private class model_message_word{
-		
+	private class fullWord{
+		public fullWord(String oWord, ArrayList<String> tokens, ArrayList<String> tags){
+			System.out.println(oWord+":   ("+tokens+")  ("+tags+")");
+		}
+	
+		public Element getXML(){
+			Element word_element = dom.createElement("Word");
+			
+			return word_element;
+		}
 	}
 }
