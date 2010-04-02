@@ -18,6 +18,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
+import NLP.Gen_NLP;
 import NLP.openNLP.openNLP;
 
 import com.zion.jbuddy.IBuddy;
@@ -37,12 +38,14 @@ public class Controller_chatClient implements ActionListener, ItemListener, Wind
 	Controller_LES parent = null;
 	boolean localChat = false;
 	
-	openNLP onlp;
+	Gen_NLP nlp;
+	boolean openNLP = true;
 	
 	public Controller_chatClient() throws InterruptedException{
 		vcc= new View_chatClient(this);
 		
-		onlp = new openNLP();
+		if(openNLP)
+			nlp = new openNLP();
 		
 		//mcc.startIMConversation();
 	}
@@ -87,7 +90,7 @@ public class Controller_chatClient implements ActionListener, ItemListener, Wind
 	}
 	
 	private void outgoingMessage(String buddy, String messageTyped){
-		ArrayList<ArrayList<String>> opennlp = onlp.runNLP(messageTyped);
+		ArrayList<ArrayList<String>> opennlp = nlp.runNLP(messageTyped);
 		
 		ArrayList<String> tokens = opennlp.get(0);
 		ArrayList<String> tags = opennlp.get(1);

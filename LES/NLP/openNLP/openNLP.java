@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import NLP.Gen_NLP;
+
 import opennlp.maxent.MaxentModel;
 import opennlp.maxent.io.SuffixSensitiveGISModelReader;
 import opennlp.tools.lang.english.SentenceDetector;
@@ -27,7 +29,7 @@ import opennlp.tools.postag.POSTaggerME;
  * 
  */
 
-public class openNLP {
+public class openNLP implements Gen_NLP{
 	boolean debugOut = false;
 
 	public openNLP() {
