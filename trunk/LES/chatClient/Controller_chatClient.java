@@ -41,6 +41,7 @@ public class Controller_chatClient implements ActionListener, ItemListener, Wind
 	Gen_NLP nlp;
 	boolean openNLP = true;
 	
+	
 	public Controller_chatClient() throws InterruptedException{
 		vcc= new View_chatClient(this);
 		
@@ -50,6 +51,13 @@ public class Controller_chatClient implements ActionListener, ItemListener, Wind
 		//mcc.startIMConversation();
 	}
 	
+	public boolean isLoaded(){
+		if(nlp != null)
+			if(nlp.isLoaded())
+				return true;
+		
+		return false;
+	}
 	
 	public boolean connect(String screenName,String password){
 		return connect(screenName, password,false);
