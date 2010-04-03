@@ -1,5 +1,9 @@
 package modelEditor.distortions;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -14,13 +18,13 @@ import modelEditor.distortions.Anomic_correction_omissions.model;
 import modelEditor.distortions.Anomic_correction_omissions.view;
 import modelEditor.model.Model_Message;
 
-public class Anomic_correction_pauses extends AC_Distortion_Independent implements ChangeListener {
+public class Other_DistortionAwareness extends AC_Distortion_Independent implements ItemListener {
 
 	model m;
 	view v;
 	
-	public Anomic_correction_pauses() {
-		super("Pauses", false, false, false, false,true);
+	public Other_DistortionAwareness() {
+		super("Distortion Awarness", false, false, false, false,true);
 		m = new model();
 		v = new view();
 	}
@@ -41,46 +45,58 @@ public class Anomic_correction_pauses extends AC_Distortion_Independent implemen
 	}
 	
 	public class view{
-		JSlider slider;
+		JCheckBox slider;
 		JLabel label;
 		
 		public view(){
-			label = new JLabel("Value of "+" 0%", JLabel.CENTER);
-			label.setAlignmentX(JPanel.CENTER_ALIGNMENT);
-			bodyPanel.add(label);
+			//label = new JLabel("Value of "+" 0%", JLabel.CENTER);
+			//label.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+			//bodyPanel.add(label);
 			
-			slider = new JSlider(JSlider.HORIZONTAL, 0, 50, 0);
-			slider.setMajorTickSpacing(10);
-			slider.setMinorTickSpacing(2);
-			slider.setPaintTicks(true);
-			slider.setPaintLabels(true);
-			slider.addChangeListener(Anomic_correction_pauses.this);
+			slider = new JCheckBox("Subject is Aware of Their Errors",true);
+			slider.setSelected(true);
+			
+			
+			slider.addItemListener(Other_DistortionAwareness.this);
 			bodyPanel.add(slider);
 		}
 		public void update(){
-			label.setText("Value of "+slider.getValue()+"%");
+			String not = "";
+			if(!slider.isSelected())
+				not = "not ";
+			
+			slider.setText("Subject is "+not+"Aware of Their Errors");
 		}
-		public int getSliderValue(){
-			return slider.getValue();
+		public boolean isSelected(){
+			return slider.isSelected();
 		}
 	}
 	public class model{
-		int oldValue = 0;
+		boolean selected = true;
 		public model(){
 			
 		}
-		public int getOldValue() {
-			return oldValue;
+		public boolean isSelected() {
+			return selected;
 		}
-		public void setOldValue(int oldValue) {
-			this.oldValue = oldValue;
+		public void setSelected(boolean selected) {
+			this.selected = selected;
 		}
+
 		
 	}
+	/*
 	public void stateChanged(ChangeEvent e) {
 		v.update();
 		//fireDoubleEvent(new Double(v.getSliderValue()-m.getOldValue()));
 		m.setOldValue(v.getSliderValue());		
+	}*/
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		// TODO Auto-generated method stub
+		v.update();
+		m.setSelected(e.getStateChange() == ItemEvent.SELECTED);
+		
 	}
 
 }

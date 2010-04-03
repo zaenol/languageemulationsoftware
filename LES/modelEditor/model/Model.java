@@ -47,5 +47,9 @@ public class Model extends Model_findDistortions{
 	public Classification getNonFluencyDist() {
 		return nonFluencyDist;
 	}
+	
+	public Classification getOtherDist(){
+		return otherDist;
+	}
     
 }

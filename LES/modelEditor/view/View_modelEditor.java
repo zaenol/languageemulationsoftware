@@ -24,7 +24,7 @@ public class View_modelEditor {
 	JPanel distortionFunctionPanel=new JPanel(new GridLayout(1,1));
 	JPanel distortionNonFluencyPanel=new JPanel(new GridLayout(1,1));
 	
-	JPanel otherPanel=new JPanel(new GridLayout(1,1));
+	JPanel distortionOtherPanel=new JPanel(new GridLayout(1,1));
 	
 	//JPanel distortionClassifications;
 	JTabbedPane tabbedPane = new JTabbedPane();
@@ -44,7 +44,7 @@ public class View_modelEditor {
 		tabbedPane.addTab("Distortion of Inflection", null, distortionInflectionPanel,"-- --");
 		tabbedPane.addTab("Distortion of Function Words", null, distortionFunctionPanel,"-- --");
 		tabbedPane.addTab("Distortion Non Fluency", null, distortionNonFluencyPanel,"-- --");
-		tabbedPane.addTab("Other", null, otherPanel,"Other Errors and Corrections");
+		tabbedPane.addTab("Other", null, distortionOtherPanel,"Other Errors and Corrections");
 		
 		//distortionClassifications.add(west);
 		//distortionClassifications.add(east);
@@ -77,6 +77,11 @@ public class View_modelEditor {
 		distortionNonFluencyPanel.removeAll();
 		distortionNonFluencyPanel.add(panel);
 		frame.setVisible(frame.isVisible());		
+	}
+	public void setOtherPnale(JPanel panel){
+		distortionOtherPanel.removeAll();
+		distortionOtherPanel.add(panel);
+		frame.setVisible(frame.isVisible());
 	}
 
 }
