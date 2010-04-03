@@ -40,6 +40,8 @@ public class View_LES {
 		loginFrame = new JFrame();
 		loginFrame.setSize(400, 300);
 		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		loginFrame.getContentPane().setLayout(new BoxLayout(loginFrame.getContentPane(), BoxLayout.Y_AXIS));
+		loginFrame.setResizable(false);
 		
 		loginPanel = new JPanel();
 		loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));
@@ -84,6 +86,8 @@ public class View_LES {
 		
 		loadingPanel = new JPanel();
 		loadingPanel.setLayout(new BoxLayout(loadingPanel, BoxLayout.Y_AXIS));
+		imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
 		loadingPanel.add(imageLabel);
 		loginFrame.add(loadingPanel);
 		
@@ -99,7 +103,6 @@ public class View_LES {
 			//loginFrame.add(loginPanel);
 			loadingPanel.setVisible(false);
 			loginPanel.setVisible(true);
-			loginFrame.repaint();
 			
 		}else{
 			
