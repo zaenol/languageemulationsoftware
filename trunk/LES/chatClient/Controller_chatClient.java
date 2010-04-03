@@ -19,6 +19,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
 import NLP.Gen_NLP;
+import NLP.StringObject;
 import NLP.openNLP.openNLP;
 
 import com.zion.jbuddy.IBuddy;
@@ -98,10 +99,10 @@ public class Controller_chatClient implements ActionListener, ItemListener, Wind
 	}
 	
 	private void outgoingMessage(String buddy, String messageTyped){
-		ArrayList<ArrayList<String>> opennlp = nlp.runNLP(messageTyped);
+		ArrayList<ArrayList<StringObject>> opennlp = nlp.runNLP(messageTyped);
 		
-		ArrayList<String> tokens = opennlp.get(0);
-		ArrayList<String> tags = opennlp.get(1);
+		ArrayList<StringObject> tokens = opennlp.get(0);
+		ArrayList<StringObject> tags = opennlp.get(1);
 		
 		Model_Message message = new Model_Message(messageTyped,tokens,tags);
 		
