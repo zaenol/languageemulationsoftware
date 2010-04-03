@@ -9,14 +9,19 @@ public abstract class AC_Distortion extends AC_Element {
 	private boolean DISTORTION_INFLECTION = false;
 	private boolean DISTORTION_FUNCTION = false;
 	private boolean DISTORTION_NONFLUENCY = false;
+	private boolean DISTORTION_OTHER = false;
 	
-	public AC_Distortion(String id, boolean distortion_word, boolean distorition_inflection, boolean distortion_function, boolean distortion_nonfluency) {
+	public AC_Distortion(String id, boolean distortion_word, boolean distorition_inflection, boolean distortion_function, boolean distortion_nonfluency, boolean distortionOther) {
 		super(id);
 		this.setDISTORTION_WORD(distortion_word);
 		this.setDISTORTION_INFLECTION(distorition_inflection);
 		this.setDISTORITION_FUNCTION(distortion_function);
 		this.setDISTORITION_NONFLUENCY(distortion_nonfluency);
 		
+		this.setDISTORTION_OTHER(distortionOther);
+		
+		if(!DISTORTION_WORD && !DISTORTION_INFLECTION && !DISTORTION_FUNCTION && !DISTORTION_NONFLUENCY && !DISTORTION_OTHER)
+			this.setDISTORTION_OTHER(true);
 	}
 
 	public boolean isDISTORTION_WORD() {
@@ -49,6 +54,14 @@ public abstract class AC_Distortion extends AC_Element {
 
 	public void setDISTORITION_NONFLUENCY(boolean distortion_nonfluency) {
 		DISTORTION_NONFLUENCY = distortion_nonfluency;
+	}
+
+	public boolean isDISTORTION_OTHER() {
+		return DISTORTION_OTHER;
+	}
+
+	public void setDISTORTION_OTHER(boolean distortionOther) {
+		DISTORTION_OTHER = distortionOther;
 	}
 
 	

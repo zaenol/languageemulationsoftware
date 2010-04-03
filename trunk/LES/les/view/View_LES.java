@@ -82,11 +82,13 @@ public class View_LES {
 		loginPanel.setVisible(false);
 		URL in = getClass().getResource("loading.gif");
 		ImageIcon ii = new ImageIcon(in);
+		
 		imageLabel.setIcon(ii);
 		
 		loadingPanel = new JPanel();
-		loadingPanel.setLayout(new BoxLayout(loadingPanel, BoxLayout.Y_AXIS));
-		imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		//loadingPanel.setLayout(new BoxLayout(loadingPanel, BoxLayout.Y_AXIS));
+		//imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		//imageLabel.setLocation(-40, 100);
 		
 		loadingPanel.add(imageLabel);
 		loginFrame.add(loadingPanel);
@@ -105,7 +107,7 @@ public class View_LES {
 			loginPanel.setVisible(true);
 			
 		}else{
-			System.out.println("loading");
+			
 			loginPanel.setVisible(false);
 			loadingPanel.setVisible(true);
 			

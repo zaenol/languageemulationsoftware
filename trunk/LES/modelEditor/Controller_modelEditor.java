@@ -16,6 +16,7 @@ public class Controller_modelEditor {
 		view.setInflectionPanel(model.getInflectionDist().getGUI());
 		view.setNonFluencyPanel(model.getNonFluencyDist().getGUI());
 		view.setFunctionWordPanel(model.getFunctionDist().getGUI());
+		view.setOtherPnale(model.getOtherDist().getGUI());
 	}
 	
 

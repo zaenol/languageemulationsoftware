@@ -20,7 +20,8 @@ public abstract class Model_findDistortions {
 	Classification wordDist;
 	Classification inflectionDist;
 	Classification functionDist;
-	Classification nonFluencyDist;	
+	Classification nonFluencyDist;
+	Classification otherDist;
 	
 	FilenameFilter filter = new FilenameFilter() {
         public boolean accept(File dir, String name) {
@@ -34,6 +35,7 @@ public abstract class Model_findDistortions {
     	inflectionDist = new Classification("Inflection Distortions");
     	functionDist = new Classification("Function Word Distortions");
     	nonFluencyDist = new Classification("Non Fluency Distortions");
+    	otherDist = new Classification("Other Distortions");
     }
     
     /**
@@ -58,6 +60,7 @@ public abstract class Model_findDistortions {
 					boolean isInflDist = distInstance.isDISTORTION_INFLECTION();
 					boolean isNFluDist = distInstance.isDISTORTION_NONFLUENCY();
 					boolean isFuncDist = distInstance.isDISTORTION_FUNCTION();
+					boolean isOtheDist = distInstance.isDISTORTION_OTHER();
 					
 					if(isWordDist)
 						wordDist.addDistortion(distConstructor, distInstance);
@@ -67,6 +70,8 @@ public abstract class Model_findDistortions {
 						nonFluencyDist.addDistortion(distConstructor, distInstance);
 					if(isFuncDist)
 						functionDist.addDistortion(distConstructor, distInstance);
+					if(isOtheDist)
+						otherDist.addDistortion(distConstructor, distInstance);
 		
 				}else{
 					System.out.println("-"+cls);
