@@ -37,6 +37,8 @@ public class openNLP implements Gen_NLP{
 	
 	POSTaggerME tagger;
 	
+	boolean loaded = false;
+	
 	public openNLP() {
 		
 		try {
@@ -71,6 +73,7 @@ public class openNLP implements Gen_NLP{
 			
 			tagger = new POSTaggerME(model,dictionary);
 			System.out.println("Loading... Done");
+			loaded = true;
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -78,6 +81,12 @@ public class openNLP implements Gen_NLP{
 		}
 	}
 	
+	
+	public boolean isLoaded() {
+		return loaded;
+	}
+
+
 	public ArrayList<ArrayList<String>> runNLP(String paragraph) {
 		ArrayList<ArrayList<String>> result = new ArrayList();;
 		ArrayList<String> all_tokens = new ArrayList<String>();

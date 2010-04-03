@@ -64,6 +64,10 @@ public class Controller_LES implements ActionListener, KeyListener {
 		
 		modelEditor = new Controller_modelEditor();
 
+		while(chatClient == null || !chatClient.isLoaded()){
+			
+		}
+		loginScreen.setLoading(false);
 		
 		
 	}

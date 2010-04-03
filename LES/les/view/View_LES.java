@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
+import java.net.URL;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,7 +28,9 @@ public class View_LES {
 	TextEntry subjectID;
 	JButton connect;
 	JButton localChat;
-	JButton startModelEditor;;
+	JButton startModelEditor;
+	
+	JPanel loadingPanel;
 	
 	Controller_LES controller;
 	
@@ -65,7 +69,50 @@ public class View_LES {
 		startModelEditor.addActionListener(controller);
 		loginPanel.add(startModelEditor);
 		
+		
+		/*
+		 * 
+		 * Loading Screen
+		 * 
+		 */
+		
+		JLabel imageLabel = new JLabel();
+		loginPanel.setVisible(false);
+		URL in = getClass().getResource("loading.gif");
+		ImageIcon ii = new ImageIcon(in);
+		imageLabel.setIcon(ii);
+		
+		loadingPanel = new JPanel();
+		loadingPanel.setLayout(new BoxLayout(loadingPanel, BoxLayout.Y_AXIS));
+		loadingPanel.add(imageLabel);
+		loginFrame.add(loadingPanel);
+		
+		this.setLoading(true);
+		
 		loginFrame.setVisible(true);
+	}
+	
+	public void setLoading(boolean loading){
+		
+		if(!loading){
+			//loginFrame.removeAll();
+			//loginFrame.add(loginPanel);
+			loadingPanel.setVisible(false);
+			loginPanel.setVisible(true);
+			loginFrame.repaint();
+			
+		}else{
+			
+			loadingPanel.setVisible(true);
+			loginPanel.setVisible(false);
+			
+			
+			//loginFrame.removeAll();
+			//JLabel load = new JLabel("Loading....");
+			
+			//loginFrame.add(load);
+		}
+		
 	}
 	
 	
