@@ -7,7 +7,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import NLP.Gen_NLP;
+import NLP.StringObject;
 
 import opennlp.maxent.MaxentModel;
 import opennlp.maxent.io.SuffixSensitiveGISModelReader;
@@ -81,10 +83,10 @@ public class openNLP implements Gen_NLP{
 	}
 
 
-	public ArrayList<ArrayList<String>> runNLP(String paragraph) {
-		ArrayList<ArrayList<String>> result = new ArrayList();;
-		ArrayList<String> all_tokens = new ArrayList<String>();
-		ArrayList<String> all_tags = new ArrayList<String>();
+	public ArrayList<ArrayList<StringObject>> runNLP(String paragraph) {
+		ArrayList<ArrayList<StringObject>> result = new ArrayList();;
+		ArrayList<StringObject> all_tokens = new ArrayList<StringObject>();
+		ArrayList<StringObject> all_tags = new ArrayList<StringObject>();
 		result.add(all_tokens);
 		result.add(all_tags);
 		
@@ -97,8 +99,10 @@ public class openNLP implements Gen_NLP{
 					System.out.println(sent);
 				List<String> tokens = tokenizer(sent);
 				List<String> tags = tag(tokens);
-				all_tokens.addAll(tokens);
-				all_tags.addAll(tags);
+				for(int i=0; i<tokens.size();i++){
+					all_tokens.add(new StringObject(tokens.get(i)));
+					all_tags.add(new StringObject(tags.get(i)));
+				}
 				if(debugOut)
 					for(Object o:tags)
 						System.out.println("\t\t"+o);
@@ -112,8 +116,8 @@ public class openNLP implements Gen_NLP{
 			e.printStackTrace();
 		}
 		if(all_tokens.size()==0){
-			all_tokens.add(paragraph);
-			all_tags.add("FAIL");
+			all_tokens.add(new StringObject(paragraph));
+			all_tags.add(new StringObject("FAIL"));
 		}
 			
 		return result;

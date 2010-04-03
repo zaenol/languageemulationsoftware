@@ -64,15 +64,14 @@ public class Controller_LES implements ActionListener, KeyListener {
 		
 		modelEditor = new Controller_modelEditor();
 
-		while(chatClient == null || !chatClient.isLoaded()){
-			
-		}
-		loginScreen.setLoading(false);
+		
 		
 		
 	}
 	
 	private void init() throws InterruptedException{
+		loginScreen.setLoading(true);
+		
 		loginScreen.updateUI();
 		chatClient = new Controller_chatClient();
 		chatClient.setParent(this);
@@ -82,6 +81,11 @@ public class Controller_LES implements ActionListener, KeyListener {
 		
 		rootEle = dom.createElement("Conversation");
 		dom.appendChild(rootEle);
+		
+		while(chatClient == null || !chatClient.isLoaded()){
+			
+		}
+		loginScreen.setLoading(false);
 	}
 	
 	private void initHTML(){

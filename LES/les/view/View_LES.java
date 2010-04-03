@@ -105,9 +105,10 @@ public class View_LES {
 			loginPanel.setVisible(true);
 			
 		}else{
-			
-			loadingPanel.setVisible(true);
+			System.out.println("loading");
 			loginPanel.setVisible(false);
+			loadingPanel.setVisible(true);
+			
 			
 			
 			//loginFrame.removeAll();
