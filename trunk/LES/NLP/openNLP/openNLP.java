@@ -42,14 +42,12 @@ public class openNLP implements Gen_NLP{
 	public openNLP() {
 		
 		try {
-			System.out.println("Loading...");
 			tokenizer = new opennlp.tools.lang.english.Tokenizer("NLP/openNLP/tokenize/EnglishTok.bin.gz");
 			sdetector =  new SentenceDetector("NLP/openNLP/sentdetect/EnglishSD.bin.gz");
 			
 			boolean useTagDict = true;
 			boolean useCaseInsensitiveTagDict = false;
 
-			System.out.println("Loading... 1");
 			
 			int beamSize = Parser.defaultBeamSize;
 			double advancePercentage = Parser.defaultAdvancePercentage;
@@ -57,22 +55,18 @@ public class openNLP implements Gen_NLP{
 			        "NLP/openNLP/parser", useTagDict, useCaseInsensitiveTagDict,
 			        beamSize, advancePercentage);
 			
-			System.out.println("Loading... 2");
 			
 			String tagBiGz = "NLP/openNLP/postag/tag.bin.gz";
 			String tagdict = "NLP/openNLP/postag/tagdict";
 			
-			System.out.println("Loading... 3");
 			
 			SuffixSensitiveGISModelReader modelReader = (new SuffixSensitiveGISModelReader(new File(tagBiGz)));
 			MaxentModel model = modelReader.getModel();
 			
-			System.out.println("Loading... 4");
 			
 			POSDictionary dictionary = new POSDictionary(tagdict);
 			
 			tagger = new POSTaggerME(model,dictionary);
-			System.out.println("Loading... Done");
 			loaded = true;
 			
 		} catch (IOException e) {
