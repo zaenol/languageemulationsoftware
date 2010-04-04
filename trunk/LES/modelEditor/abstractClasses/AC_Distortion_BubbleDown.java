@@ -8,7 +8,7 @@ import javax.swing.JCheckBox;
 import modelEditor.eventsListeners.BubbleDown_Event;
 import modelEditor.eventsListeners.BubbleDown_Listener;
 
-public abstract class AC_Distortion_BubbleDown extends AC_Distortion implements BubbleDown_Listener {
+public abstract class AC_Distortion_BubbleDown extends AC_Distortion_BubbleUp implements BubbleDown_Listener {
 	
 	private double severityValue_global = 100;
 	private double severityValue_local = 100;

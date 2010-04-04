@@ -232,13 +232,13 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 		JPanel correctness;
 		JLabel correctnessLabel;
 		JSlider correctnessSlider;
-		String correctnessTitle = "Correctness = ";
+		String correctnessTitle = "Correctness ~= ";
 		
 		JPanel rate;
 		JLabel rateLabel;
 		JSlider rateSlider;
 		//String rateTitle = "Circumlocutions = ";
-		String rateTitle2 = "% Circumlocution";
+		String rateTitle2 = "% Probability of "+getID();
 		
 		boolean isBubbleDown=false;
 		boolean isBubbleUp=false;
@@ -341,7 +341,7 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 				overlimit = " | OVER LIMIT !!!";
 			}else
 				rateLabel.setForeground(Color.black);
-			rateLabel.setText(netRateAdjustment*-1+rateTitle2);
+			rateLabel.setText(round2Decimals(netRateAdjustment*-1)+rateTitle2);
 			correctnessLabel.setText(correctnessTitle+correctnessSlider.getValue()+"%");
 		}
 		
