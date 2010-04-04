@@ -91,7 +91,7 @@ public class Other_DistortionAwareness extends AC_Distortion_Independent impleme
 		//fireDoubleEvent(new Double(v.getSliderValue()-m.getOldValue()));
 		m.setOldValue(v.getSliderValue());		
 	}*/
-	@Override
+	//@Override
 	public void itemStateChanged(ItemEvent e) {
 		// TODO Auto-generated method stub
 		v.update();
