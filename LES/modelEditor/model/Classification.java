@@ -237,8 +237,8 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 		JPanel rate;
 		JLabel rateLabel;
 		JSlider rateSlider;
-		String rateTitle = "Circumlocutions = ";
-		String rateTitle2 = "% Remaining";
+		//String rateTitle = "Circumlocutions = ";
+		String rateTitle2 = "% Circumlocution";
 		
 		boolean isBubbleDown=false;
 		boolean isBubbleUp=false;
@@ -277,7 +277,7 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 			correctnessSlider.addChangeListener(Classification.this);
 			correctness.add(correctnessSlider);
 			
-			rateLabel = new JLabel(rateTitle+" 0% | 0"+rateTitle2, JLabel.CENTER);
+			rateLabel = new JLabel("0"+rateTitle2, JLabel.CENTER);
 		    rateLabel.setAlignmentX(rate.CENTER_ALIGNMENT);
 		    rate.add(rateLabel);
 			
@@ -287,7 +287,7 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 			rateSlider.setPaintTicks(true);
 			rateSlider.setPaintLabels(true);
 			rateSlider.addChangeListener(Classification.this);
-			rate.add(rateSlider);
+			//rate.add(rateSlider);
 			
 			
 		}
@@ -337,11 +337,11 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 		public void update(double netRateAdjustment){
 			String overlimit = "";
 			if(netRateAdjustment < 0){
-				rateLabel.setForeground(Color.red);
+				//rateLabel.setForeground(Color.red);
 				overlimit = " | OVER LIMIT !!!";
 			}else
 				rateLabel.setForeground(Color.black);
-			rateLabel.setText(rateTitle+rateSlider.getValue()+"% | "+netRateAdjustment+rateTitle2+overlimit);
+			rateLabel.setText(netRateAdjustment*-1+rateTitle2);
 			correctnessLabel.setText(correctnessTitle+correctnessSlider.getValue()+"%");
 		}
 		
