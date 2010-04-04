@@ -38,6 +38,8 @@ public class Model_Message {
 	private boolean[] newMessageAfterWord = {};
 	*/
 	private ArrayList<fullWord> _words;
+	private ArrayList<tagWord> _tagWords;
+	
 	private ArrayList<StringObject> _tokens;
 	private ArrayList<StringObject> _tags;
 	private ArrayList<StringObject> _distortions;
@@ -71,8 +73,11 @@ public class Model_Message {
 	private void init(String message, ArrayList<StringObject> tokens, ArrayList<StringObject> tags){
 		originalMessage = message+"";
 		
-		String[] originalWords = originalMessage.split(" ");
+		String[] originalWords = originalMessage.replace("  ", " ").split(" ");
+		
 		_words = new ArrayList<fullWord>();
+		_tagWords = new ArrayList<tagWord>();
+		
 		_distortions = new ArrayList<StringObject>();
 		_distortionType = new ArrayList<StringObject>();
 		_isDistorted = new ArrayList<BooleanObject>();
@@ -92,13 +97,15 @@ public class Model_Message {
 			ArrayList<BooleanObject> word_isDistorted = new ArrayList<BooleanObject>();
 			ArrayList<BooleanObject> word_newMessageAfterWord = new ArrayList<BooleanObject>();
 			
+			if(tIndex>=tokens.size())
+				System.out.println("problem");
 			
-			StringObject tWord = tokens.get(tIndex);
+			StringObject tWord = new StringObject(tokens.get(tIndex).getValue());
 			this.init_addToArrays(tIndex,tokens,tags,word_tokens,word_tags,word_distortions,word_distortionTypes,word_isDistorted,word_newMessageAfterWord);
 			
 			tIndex++;
 			
-			while(!oWord.equals(tWord)){
+			while(!oWord.equals(tWord.getValue()) && tIndex<tokens.size()){
 				
 				tWord.append(tokens.get(tIndex));
 				this.init_addToArrays(tIndex,tokens,tags,word_tokens,word_tags,word_distortions,word_distortionTypes,word_isDistorted,word_newMessageAfterWord);
@@ -126,6 +133,9 @@ public class Model_Message {
 		wordDistortionTypes.add(_distortionType.get(tIndex));
 		wordIsDistorted.add(_isDistorted.get(tIndex));
 		wordNewMessageAfterWord.add(_newMessageAfterWord.get(tIndex));
+		
+		tagWord tagWord = new tagWord(tokens.get(tIndex),tags.get(tIndex),_distortions.get(tIndex),_distortionType.get(tIndex),_isDistorted.get(tIndex),_newMessageAfterWord.get(tIndex));
+		_tagWords.add(tagWord);
 	}
 	
 	
@@ -216,9 +226,25 @@ public class Model_Message {
 	
 
 	
+	
 	private class fullWord{
+		String oWord;
+		ArrayList<StringObject> tokens;
+		ArrayList<StringObject> tags;
+		ArrayList<StringObject> Distortions;
+		ArrayList<StringObject> DistortionTypes;
+		ArrayList<BooleanObject> IsDistorted;
+		ArrayList<BooleanObject> NewMessageAfterWord;
+		
 		public fullWord(String oWord, ArrayList<StringObject> tokens, ArrayList<StringObject> tags, ArrayList<StringObject> Distortions, ArrayList<StringObject> DistortionTypes, ArrayList<BooleanObject> IsDistorted, ArrayList<BooleanObject> NewMessageAfterWord){
-			System.out.println(oWord+":   ("+tokens+")  ("+tags+")");
+			//System.out.println(oWord+":   ("+tokens+")  ("+tags+")");
+			this.oWord = oWord;
+			this.tokens = tokens;
+			this.tags = tags;
+			this.Distortions = Distortions; 
+			this.DistortionTypes = DistortionTypes;
+			this.IsDistorted = IsDistorted;
+			this.NewMessageAfterWord = NewMessageAfterWord;
 		}
 	
 		public Element getXML(){
