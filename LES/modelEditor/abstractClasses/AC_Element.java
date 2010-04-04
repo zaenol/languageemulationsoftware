@@ -80,9 +80,19 @@ public abstract class AC_Element implements I_Element {
 		masterPanel.setBorder(BorderFactory.createLineBorder(color));
 	}
 
-	public double roundFourDecimals(double d) {
+	public double round4Decimals(double d) {
     	DecimalFormat twoDForm = new DecimalFormat("#.####");
     	return Double.valueOf(twoDForm.format(d));
 	}
+	public double round2Decimals(double d) {
+    	DecimalFormat twoDForm = new DecimalFormat("#.##");
+    	return Double.valueOf(twoDForm.format(d));
+	}
 
+	
+	public String getID() {
+		return ID;
+	}
+
+	
 }

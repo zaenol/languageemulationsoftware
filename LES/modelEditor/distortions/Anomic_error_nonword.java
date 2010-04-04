@@ -28,6 +28,7 @@ public class Anomic_error_nonword extends AC_Distortion_BubbleDown implements Ch
 
 	public void update() {
 		m.update();
+		fireDoubleEvent(new Double(m.getChnage()*100));
 		v.update();
 
 	}
@@ -64,11 +65,23 @@ public class Anomic_error_nonword extends AC_Distortion_BubbleDown implements Ch
 	private class model{
 		double d_errorProbability = 0;
 		
+		double oldValue = 0;
 		public model(){
 			
 		}
+		public double getOldValue() {
+			return oldValue;
+		}
+		public void setOldValue(double oldValue) {
+			this.oldValue = oldValue;
+		}
+		
+		public double getChnage(){
+			return getD_errorProbability()-getOldValue();
+		}
 		
 		public void update(){
+			setOldValue(d_errorProbability);
 			double x = getSeverityValue_local()/100;
 			d_errorProbability = 0.0391*Math.pow(x,2) - 0.4101*x + 0.369;
 			if(d_errorProbability<0)
@@ -88,7 +101,7 @@ public class Anomic_error_nonword extends AC_Distortion_BubbleDown implements Ch
 		
 		JSlider slider_localValue;
 		JLabel label_localValue;
-		String string_localValue = "Local Correctness: ";
+		String string_localValue = "Locally Simulated Correctness: ";
 		
 		public view(){
 			l_errorProbability = new JLabel();
@@ -117,7 +130,7 @@ public class Anomic_error_nonword extends AC_Distortion_BubbleDown implements Ch
 		}
 		
 		public void update(){
-			l_errorProbability.setText(s_errorProbability+roundFourDecimals(getD_errorProbability()));
+			l_errorProbability.setText(s_errorProbability+round4Decimals(getD_errorProbability()));
 
 			slider_localValue.setEnabled(isReleased());
 			label_localValue.setText(string_localValue+this.slider_localValue.getValue()+"%");
