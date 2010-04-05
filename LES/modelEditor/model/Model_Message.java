@@ -26,7 +26,7 @@ import opennlp.tools.util.InvalidFormatException;
  * @author jmh
  *
  */
-public class Model_Message {
+public class Model_Message extends Model_Message_Parent {
 	private String originalMessage="";
 	
 	/*
@@ -49,15 +49,17 @@ public class Model_Message {
 		
 	private boolean postOriginalMessage=false;
 	
-	Document dom = null;
+	
 	
 	public Model_Message(String message, ArrayList<StringObject> tokens, ArrayList<StringObject> tags){
+		super();
 		//InputStream in = getClass().getResourceAsStream("/modelEditor/openNLP/tag.bin.gz");
 		//Dictionary dict = new Dictionary(in);
 		this.init(message, tokens, tags);
 		
 	}
 	public Model_Message(String message){
+		super();
 		
 		System.out.println("Bad Model Message... forced local NLP!");
 
@@ -116,7 +118,7 @@ public class Model_Message {
 		}
 		
 		
-		this.init_Dom();
+		init_Dom();
 		
 	}
 	
@@ -143,22 +145,7 @@ public class Model_Message {
 		_newMessageAfterWord.add(newMessageAfterWord);
 	}
 	
-	private void init_Dom(){
-		//get an instance of factory
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		try {
-			//get an instance of builder
-			DocumentBuilder db = dbf.newDocumentBuilder();
-	
-			//create an instance of DOM
-			dom = db.newDocument();
-			
-		}catch(ParserConfigurationException pce) {
-			//dump it
-			System.out.println("Error while trying to instantiate DocumentBuilder " + pce);
-			System.exit(1);
-		}
-	}
+
 	
 	public String getOriginalMessage(){
 		return originalMessage;
@@ -198,7 +185,7 @@ public class Model_Message {
 		
 		if(dom!=null){
 			message_element = dom.createElement("Outgoing");
-			message_element.appendChild(makeWordElement("OriginalMessage",originalMessage));
+			message_element.appendChild(makeElementWithText("OriginalMessage",originalMessage));
 			
 			for(int i=0; i<_words.size();i++){
 				message_element.appendChild(_words.get(i).getXML());
@@ -208,12 +195,9 @@ public class Model_Message {
 		
 		return message_element;
 	}
-	private Element makeWordElement(String elementName, String elementContent){
-		Element word_element = dom.createElement(elementName);
-		Text word_text = dom.createTextNode(elementContent);
-		word_element.appendChild(word_text);		
-		return word_element;
-	}
+	
+	
+
 	
 	
 
@@ -230,22 +214,13 @@ public class Model_Message {
 		}
 	
 		public Element getXML(){
-			Element word_element = dom.createElement("Word");
+			Element word_element = dom.createElement("FullWord");
 			
-			/*
-			for(int i=0; i<originalWords.length;i++){
-				Element word_element = dom.createElement("Word");
-				
-				word_element.appendChild(makeWordElement("OriginalWord",originalWords[i]));
-				word_element.appendChild(makeWordElement("DistortedWord",distoredWords[i]));
-				word_element.appendChild(makeWordElement("IsDistored",isDistorted[i]+""));
-				word_element.appendChild(makeWordElement("Distortion",distortion[i]+""));
-				word_element.appendChild(makeWordElement("PartOfSpeech",partOfSpeech[i]));
-				word_element.appendChild(makeWordElement("NewMessageAfterWord",newMessageAfterWord[i]+""));
-				
-				message_element.appendChild(word_element);
+			
+			for(int i=0; i<posWords.size();i++){
+				word_element.appendChild(posWords.get(i).getXML());
 			}
-			*/
+			
 			
 			return word_element;
 		}
