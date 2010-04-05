@@ -135,7 +135,10 @@ public class PosWord{
 			return true;
 		if(tag.equals("NPS")) //Proper noun, plural
 			return true;
-		
+		if(tag.equals("NNP")) //Proper noun, singular
+			return true;
+		if(tag.equals("NNPS")) //Proper noun, plural
+			return true;
 		return false;
 	}		
 	
