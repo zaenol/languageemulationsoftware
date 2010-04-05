@@ -89,8 +89,7 @@ public class Model_Message {
 		
 		for(int oIndex = 0; oIndex<originalWords.length; oIndex++){
 			String oWord = originalWords[oIndex];
-
-			
+	
 			
 			ArrayList<PosWord> word_posWords = new ArrayList<PosWord>();
 			
@@ -98,15 +97,14 @@ public class Model_Message {
 				System.out.println("problem");
 			
 			StringObject tWord = new StringObject(tokens.get(tIndex).getValue());
-			this.init_addToArrays(tIndex,tokens,tags);
+			word_posWords.add(this.init_addToArrays(tIndex,tokens,tags));
 			
 			tIndex++;
 			
 			while(!oWord.equals(tWord.getValue()) && tIndex<tokens.size()){
 				
 				tWord.append(tokens.get(tIndex));
-				PosWord posWord = this.init_addToArrays(tIndex,tokens,tags);
-				
+				word_posWords.add(this.init_addToArrays(tIndex,tokens,tags));				
 				tIndex++;
 			}
 			
