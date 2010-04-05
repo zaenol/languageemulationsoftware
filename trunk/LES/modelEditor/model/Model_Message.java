@@ -38,11 +38,11 @@ public class Model_Message {
 	private boolean[] newMessageAfterWord = {};
 	*/
 	private ArrayList<fullWord> _words;
-	private ArrayList<tagWord> _tagWords;
+	private ArrayList<PosWord> _tagWords;
 	
 	private ArrayList<StringObject> _tokens;
 	private ArrayList<StringObject> _tags;
-	private ArrayList<StringObject> _distortions;
+	private ArrayList<StringObject> _distortedWord;
 	private ArrayList<BooleanObject> _isDistorted;
 	private ArrayList<StringObject> _distortionType;
 	private ArrayList<BooleanObject> _newMessageAfterWord;
@@ -76,9 +76,9 @@ public class Model_Message {
 		String[] originalWords = originalMessage.replace("  ", " ").split(" ");
 		
 		_words = new ArrayList<fullWord>();
-		_tagWords = new ArrayList<tagWord>();
+		_tagWords = new ArrayList<PosWord>();
 		
-		_distortions = new ArrayList<StringObject>();
+		_distortedWord = new ArrayList<StringObject>();
 		_distortionType = new ArrayList<StringObject>();
 		_isDistorted = new ArrayList<BooleanObject>();
 		_newMessageAfterWord = new ArrayList<BooleanObject>();
@@ -92,28 +92,30 @@ public class Model_Message {
 
 			ArrayList<StringObject> word_tokens = new ArrayList<StringObject>();
 			ArrayList<StringObject> word_tags = new ArrayList<StringObject>();
-			ArrayList<StringObject> word_distortions = new ArrayList<StringObject>();
+			ArrayList<StringObject> word_distortedWord = new ArrayList<StringObject>();
 			ArrayList<StringObject> word_distortionTypes = new ArrayList<StringObject>();
 			ArrayList<BooleanObject> word_isDistorted = new ArrayList<BooleanObject>();
 			ArrayList<BooleanObject> word_newMessageAfterWord = new ArrayList<BooleanObject>();
+			
+			ArrayList<PosWord> word_posWords = new ArrayList<PosWord>();
 			
 			if(tIndex>=tokens.size())
 				System.out.println("problem");
 			
 			StringObject tWord = new StringObject(tokens.get(tIndex).getValue());
-			this.init_addToArrays(tIndex,tokens,tags,word_tokens,word_tags,word_distortions,word_distortionTypes,word_isDistorted,word_newMessageAfterWord);
+			this.init_addToArrays(tIndex,tokens,tags,word_tokens,word_tags,word_distortedWord,word_distortionTypes,word_isDistorted,word_newMessageAfterWord);
 			
 			tIndex++;
 			
 			while(!oWord.equals(tWord.getValue()) && tIndex<tokens.size()){
 				
 				tWord.append(tokens.get(tIndex));
-				this.init_addToArrays(tIndex,tokens,tags,word_tokens,word_tags,word_distortions,word_distortionTypes,word_isDistorted,word_newMessageAfterWord);
+				PosWord posWord = this.init_addToArrays(tIndex,tokens,tags,word_tokens,word_tags,word_distortedWord,word_distortionTypes,word_isDistorted,word_newMessageAfterWord);
 				
 				tIndex++;
 			}
 			//make a word object
-			fullWord word = new fullWord(oWord,word_tokens,word_tags,word_distortions,word_distortionTypes,word_isDistorted,word_newMessageAfterWord); 
+			fullWord word = new fullWord(oWord,word_posWords); 
 			
 			//add word object to list!
 			_words.add(word);
@@ -124,18 +126,20 @@ public class Model_Message {
 		
 	}
 	
-	private void init_addToArrays(int tIndex,ArrayList<StringObject> tokens, ArrayList<StringObject> tags, ArrayList<StringObject> wordTokens, ArrayList<StringObject> wordTags, ArrayList<StringObject> wordDistortions, ArrayList<StringObject> wordDistortionTypes, ArrayList<BooleanObject> wordIsDistorted, ArrayList<BooleanObject> wordNewMessageAfterWord){
+	private PosWord init_addToArrays(int tIndex,ArrayList<StringObject> tokens, ArrayList<StringObject> tags, ArrayList<StringObject> wordTokens, ArrayList<StringObject> wordTags, ArrayList<StringObject> wordDistortedWord, ArrayList<StringObject> wordDistortionTypes, ArrayList<BooleanObject> wordIsDistorted, ArrayList<BooleanObject> wordNewMessageAfterWord){
 		
 		init_createEmptyElements();
+		
 		wordTokens.add(tokens.get(tIndex));
 		wordTags.add(tags.get(tIndex));
-		wordDistortions.add(_distortions.get(tIndex));
+		wordDistortedWord.add(_distortedWord.get(tIndex));
 		wordDistortionTypes.add(_distortionType.get(tIndex));
 		wordIsDistorted.add(_isDistorted.get(tIndex));
 		wordNewMessageAfterWord.add(_newMessageAfterWord.get(tIndex));
 		
-		tagWord tagWord = new tagWord(tokens.get(tIndex),tags.get(tIndex),_distortions.get(tIndex),_distortionType.get(tIndex),_isDistorted.get(tIndex),_newMessageAfterWord.get(tIndex));
+		PosWord tagWord = new PosWord(tokens.get(tIndex),tags.get(tIndex),_distortedWord.get(tIndex),_distortionType.get(tIndex),_isDistorted.get(tIndex),_newMessageAfterWord.get(tIndex));
 		_tagWords.add(tagWord);
+		return tagWord;
 	}
 	
 	
@@ -145,7 +149,7 @@ public class Model_Message {
 		BooleanObject isDistorted = new BooleanObject(false);
 		BooleanObject newMessageAfterWord = new BooleanObject(false);
 		
-		_distortions.add(distortion);
+		_distortedWord.add(distortion);
 		_distortionType.add(distortionType);
 		_isDistorted.add(isDistorted);
 		_newMessageAfterWord.add(newMessageAfterWord);
@@ -229,22 +233,18 @@ public class Model_Message {
 	
 	private class fullWord{
 		String oWord;
-		ArrayList<StringObject> tokens;
-		ArrayList<StringObject> tags;
-		ArrayList<StringObject> Distortions;
-		ArrayList<StringObject> DistortionTypes;
-		ArrayList<BooleanObject> IsDistorted;
-		ArrayList<BooleanObject> NewMessageAfterWord;
+		//ArrayList<StringObject> tokens;
+		//ArrayList<StringObject> tags;
+		//ArrayList<StringObject> Distortions;
+		//ArrayList<StringObject> DistortionTypes;
+		//ArrayList<BooleanObject> IsDistorted;
+		//ArrayList<BooleanObject> NewMessageAfterWord;
+		ArrayList<PosWord> posWords;
 		
-		public fullWord(String oWord, ArrayList<StringObject> tokens, ArrayList<StringObject> tags, ArrayList<StringObject> Distortions, ArrayList<StringObject> DistortionTypes, ArrayList<BooleanObject> IsDistorted, ArrayList<BooleanObject> NewMessageAfterWord){
+		public fullWord(String oWord, ArrayList<PosWord> posWords){
 			//System.out.println(oWord+":   ("+tokens+")  ("+tags+")");
 			this.oWord = oWord;
-			this.tokens = tokens;
-			this.tags = tags;
-			this.Distortions = Distortions; 
-			this.DistortionTypes = DistortionTypes;
-			this.IsDistorted = IsDistorted;
-			this.NewMessageAfterWord = NewMessageAfterWord;
+			this.posWords = posWords;
 		}
 	
 		public Element getXML(){
