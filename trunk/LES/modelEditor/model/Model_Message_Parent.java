@@ -1,5 +1,7 @@
 package modelEditor.model;
 
+import java.util.ArrayList;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -32,32 +34,46 @@ public class Model_Message_Parent{
 		}
 	}
 	
-	protected Element makeElementWithText(String elementName, String elementContent){
+	protected Element makeElementWithIndextedChildren(String elementName, ArrayList<String>children){
+		return this.makeElementWithIndextedChildren(elementName, children, "");
+	}
+	protected Element makeElementWithIndextedChildren(String elementName, ArrayList<String>children,String label){
+		Element word_element = dom.createElement(elementName);
+		
+		for(int i=0; i<children.size();i++){
+			word_element.appendChild(makeElementWithTextBody(label+i,children.get(i)));
+		}
+		
+		return word_element;
+	}
+	
+	
+	protected Element makeElementWithTextBody(String elementName, String elementContent){
 		Element word_element = dom.createElement(elementName);
 		Text word_text = dom.createTextNode(elementContent);
 		word_element.appendChild(word_text);		
 		return word_element;
 	}
-	protected Element makeElementWithText(String elementName, StringObject elementContent){
-		return makeElementWithText(elementName,elementContent.getValue()+"");
+	protected Element makeElementWithTextBody(String elementName, StringObject elementContent){
+		return makeElementWithTextBody(elementName,elementContent.getValue()+"");
 	}
-	protected Element makeElementWithText(String elementName, BooleanObject elementContent){
-		return makeElementWithText(elementName,elementContent.getValue());
+	protected Element makeElementWithTextBody(String elementName, BooleanObject elementContent){
+		return makeElementWithTextBody(elementName,elementContent.getValue());
 	}
-	protected Element makeElementWithText(String elementName, boolean elementContent){
-		return makeElementWithText(elementName,elementContent+"");
+	protected Element makeElementWithTextBody(String elementName, boolean elementContent){
+		return makeElementWithTextBody(elementName,elementContent+"");
 	}
 	
-	public void setElementAttribute(Element e, String attributeName, String attributeValue){
+	protected void setElementAttribute(Element e, String attributeName, String attributeValue){
 		e.setAttribute(attributeName, attributeValue);
 	}
-	public void setElementAttribute(Element e, String attributeName, StringObject attributeValue){
+	protected void setElementAttribute(Element e, String attributeName, StringObject attributeValue){
 		this.setElementAttribute(e, attributeName, attributeValue.getValue());
 	}
-	public void setElementAttribute(Element e, String attributeName, BooleanObject attributeValue){
+	protected void setElementAttribute(Element e, String attributeName, BooleanObject attributeValue){
 		this.setElementAttribute(e, attributeName, attributeValue.getValue());
 	}
-	public void setElementAttribute(Element e, String attributeName, boolean attributeValue){
+	protected void setElementAttribute(Element e, String attributeName, boolean attributeValue){
 		this.setElementAttribute(e, attributeName, attributeValue+"");
 	}
 
@@ -94,6 +110,15 @@ public class Model_Message_Parent{
 		public String getToken(){
 			return token.getValue();
 		}
+		public String getTokenAsWord(){
+			
+			if(token.equals("'ll"))
+				return "will";
+			if(token.equals("'ll"))
+				return "will";
+			
+			return token.getValue();		
+		}
 		public String getTag(){
 			return tag.getValue();
 		}
@@ -124,24 +149,24 @@ public class Model_Message_Parent{
 			
 				Element word_element = dom.createElement("POSWord");
 				
-				word_element.appendChild(makeElementWithText("OriginalWord",token));
+				word_element.appendChild(makeElementWithTextBody("OriginalWord",token));
 				
 				Element posElement = dom.createElement("PartOfSpeech");
 					setElementAttribute(posElement, "value", tag);
-					posElement.appendChild(makeElementWithText("OtherOrPuncturation",pos_isUnclassified()));
-					posElement.appendChild(makeElementWithText("FunctionWord",pos_isFunctionWord()));
-					posElement.appendChild(makeElementWithText("ContentWord",pos_getContentWordType()));
+					posElement.appendChild(makeElementWithTextBody("OtherOrPuncturation",pos_isUnclassified()));
+					posElement.appendChild(makeElementWithTextBody("FunctionWord",pos_isFunctionWord()));
+					posElement.appendChild(makeElementWithTextBody("ContentWord",pos_getContentWordType()));
 				word_element.appendChild(posElement);
 				
-				word_element.appendChild(makeElementWithText("NewMessageAfterWord",newMessageAfterWord));
+				word_element.appendChild(makeElementWithTextBody("NewMessageAfterWord",newMessageAfterWord));
 				
 				Element distortedElement = dom.createElement("IsDistored");
 				
 				if(distorted.getValue()){
-					distortedElement.appendChild(makeElementWithText("DistortedWord",distortedWord));
-					distortedElement.appendChild(makeElementWithText("DistortionType",distortionType));
+					distortedElement.appendChild(makeElementWithTextBody("DistortedWord",distortedWord));
+					distortedElement.appendChild(makeElementWithTextBody("DistortionType",distortionType));
 				}else{
-					distortedElement = makeElementWithText("IsDistored","null");
+					distortedElement = makeElementWithTextBody("IsDistored","null");
 				}
 				
 				setElementAttribute(distortedElement, "value", distorted);
@@ -176,6 +201,12 @@ public class Model_Message_Parent{
 			if(tag.equals("CD")) // Cardinal Number
 				return true;
 			if(pos_isPunctuation())
+				return true;
+			return false;
+		}
+		
+		public boolean pos_isPossessiveEnding(){
+			if(tag.equals("POS")) //Possessive ending
 				return true;
 			return false;
 		}

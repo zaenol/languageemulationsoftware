@@ -185,7 +185,7 @@ public class Model_Message extends Model_Message_Parent {
 		
 		if(dom!=null){
 			message_element = dom.createElement("Outgoing");
-			message_element.appendChild(makeElementWithText("OriginalMessage",originalMessage));
+			message_element.appendChild(makeElementWithTextBody("OriginalMessage",originalMessage));
 			
 			for(int i=0; i<_words.size();i++){
 				message_element.appendChild(_words.get(i).getXML());
@@ -212,10 +212,44 @@ public class Model_Message extends Model_Message_Parent {
 			this.oWord = oWord;
 			this.posWords = posWords;
 		}
+		
+		public String getOriginalWord(){
+			return oWord;
+		}
+		
+		public boolean isNewMessageAfterWord(){
+			return posWords.get(posWords.size()-1).isNewMessageAfterWord();
+		}
+		
+		public ArrayList<String> getFinalWord(){
+			ArrayList<String> finalWord = new ArrayList<String>();
+			
+			
+			String currentMessage = "";
+			
+			PosWord _posWord = posWords.get(0);
+			
+			for(int i=1; i<posWords.size();i++){
+				PosWord posWord = posWords.get(i);
+
+				if(posWord.isNewMessageAfterWord()){
+					finalWord.add(currentMessage);
+					currentMessage="";
+				}
+					
+				
+			}
+			
+			if(currentMessage.length()!=0)
+				finalWord.add(currentMessage);
+			
+			return finalWord;
+		}
 	
 		public Element getXML(){
 			Element word_element = dom.createElement("FullWord");
-			
+			word_element.appendChild(makeElementWithTextBody("OriginalWord",getOriginalWord()));
+			word_element.appendChild(makeElementWithIndextedChildren("FinalWord",getFinalWord(),"Word"));
 			
 			for(int i=0; i<posWords.size();i++){
 				word_element.appendChild(posWords.get(i).getXML());
