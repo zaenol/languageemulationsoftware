@@ -214,8 +214,6 @@ public class Model_Message_Parent{
 				return true;
 			if(tag.equals("POS")) //Possessive ending
 				return true;
-			if(tag.equals("SYM")) //Symbol
-				return true;
 			if(tag.equals("CD")) // Cardinal Number
 				return true;
 			if(pos_isPunctuation())
@@ -233,6 +231,18 @@ public class Model_Message_Parent{
 			if(tag.equals(".")) //Ending punctuation
 				return true;
 			if(tag.equals(",")) //Comma
+				return true;
+			if(tag.equals("$")) //$
+				return true;
+			if(tag.equals("-LRB-")) //(
+				return true;
+			if(tag.equals("-RRB-")) //)
+				return true;
+			if(tag.equals(":")) //- ; :
+				return true;
+			if(tag.equals("''")) //
+				return true;
+			if(tag.equals("SYM")) //Symbol
 				return true;
 			return false;
 		}
@@ -282,6 +292,7 @@ public class Model_Message_Parent{
 			return false;
 		}
 		public boolean pos_isNoun(){
+			
 			if(tag.equals("NN")) //Noun, singular or mass
 				return true;
 			if(tag.equals("NNS")) //Noun, plural
