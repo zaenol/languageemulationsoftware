@@ -152,15 +152,35 @@ public class Model_Message extends Model_Message_fullWord {
 	}
 	
 	public String[] getMessageToTransmit(){
-		String[] messages = {originalMessage};
-		return messages;
+		ArrayList<String> messages = new ArrayList();
+		
+		String message = "";
+		for(int i=0; i<_words.size();i++){
+			ArrayList<String>words = _words.get(i).getWord_PostDist();
+			
+			for(int j=0; j<words.size();j++){
+				message+=words.get(j)+" ";
+				if(j!=words.size()-1 && message.length()!=0){
+					messages.add(message);
+					message = "";
+				}
+			}
+			
+			if(_words.get(i).isNewMessageAfterFullWord() && message.length()!=0){
+				messages.add(message);
+				message = "";
+			}
+			
+		}
+		
+		return (String[]) messages.toArray();
 	}
 	/**
 	 * This is used when wanting a consolodated version of the message to send but fits in one String.
 	 * @return
 	 */
 	public String getMessageToTransmit_toString(){
-		String s = ""+originalMessage;
+		String s = ""+getMessageToTransmit();
 		
 		return s;
 	}

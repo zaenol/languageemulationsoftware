@@ -131,7 +131,7 @@ public class Controller_LES implements ActionListener, KeyListener {
 	private void log_message(String message,String[] subMessages, String sender,String recipient,String direction,String color,Element additionalInformation){
 		Date now = new Date();
 		
-		Element xml_element = this.generateMessageXML(message, sender, recipient, direction,now, additionalInformation);
+		Element xml_element = this.generateMessageXML(message,subMessages, sender, recipient, direction,now, additionalInformation);
 		this.addAndPrint_XML(xml_element);
 		
 		for(String s:subMessages){
@@ -257,7 +257,7 @@ public class Controller_LES implements ActionListener, KeyListener {
 		return br;
 	}
 
-	private Element generateMessageXML(String sentMessage,String sender, String recipient,String messageDirection,Date now,Element additionalInformation){
+	private Element generateMessageXML(String sentMessage,String[] subMessages,String sender, String recipient,String messageDirection,Date now,Element additionalInformation){
 		Element message_element=null;
 		
 		
@@ -282,7 +282,14 @@ public class Controller_LES implements ActionListener, KeyListener {
 			message_element.appendChild(this.makeWordElement("Sender", sender));
 			message_element.appendChild(this.makeWordElement("Recipient", recipient));
 			message_element.appendChild(this.makeWordElement("Direction",messageDirection));
-			message_element.appendChild(this.makeWordElement("TransmittedMessage",sentMessageString));
+			
+			Element transmitted_element = dom.createElement("TransmittedMessage");
+			for(int i=0; i<subMessages.length;i++){
+				transmitted_element.appendChild(this.makeWordElement("Message"+i,subMessages[i]));
+			}			
+			message_element.appendChild(transmitted_element);		
+			
+			
 			if(additionalInformation!=null){
 				Node tempNode = dom.importNode(additionalInformation,true); //true if you want a deep copy
 				//domYouAreAddingTheNodeTo.appendNode(tempNode);

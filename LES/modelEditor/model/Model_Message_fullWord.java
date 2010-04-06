@@ -90,7 +90,8 @@ public class Model_Message_fullWord extends Model_Message_posWord{
 								else//prior word is not distorted
 									currentMessage += _posWord.getTokenAsWord();
 								
-								finalWord.add(currentMessage);
+								if(currentMessage.length() != 0)
+									finalWord.add(currentMessage);
 								currentMessage= "";
 								
 								if(posWord.isDistorted()){//current word is distorted
@@ -112,7 +113,8 @@ public class Model_Message_fullWord extends Model_Message_posWord{
 						}
 						
 						if(posWord.isNewMessageAfterWord()){
-							finalWord.add(currentMessage);
+							if(currentMessage.length() != 0)
+								finalWord.add(currentMessage);
 							currentMessage= "";
 						}
 						
