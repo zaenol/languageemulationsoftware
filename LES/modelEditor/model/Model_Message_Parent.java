@@ -111,7 +111,8 @@ public class Model_Message_Parent{
 			return token.getValue();
 		}
 		public String getTokenAsWord(){
-			
+			//http://en.wiktionary.org/wiki/Category:English_contractions
+			//http://www.textfixer.com/resources/english-contractions-list.php
 			if(token.equals("'ll"))
 				return "will";
 			if(token.equals("'ll"))
