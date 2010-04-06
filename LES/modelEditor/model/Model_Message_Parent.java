@@ -113,10 +113,27 @@ public class Model_Message_Parent{
 		public String getTokenAsWord(){
 			//http://en.wiktionary.org/wiki/Category:English_contractions
 			//http://www.textfixer.com/resources/english-contractions-list.php
+			if(token.equals("'t"))
+				return "not";
 			if(token.equals("'ll"))
 				return "will";
-			if(token.equals("'ll"))
+			if(token.equals("wo"))
 				return "will";
+			if(token.equals("'d"))
+				return "had";
+			if(token.equals("n't"))
+				return "not";
+			if(token.equals("ai"))
+				return "am";
+			if(token.equals("ca"))
+				return "can";
+			if(token.equals("'m"))
+				return "am";
+			if(token.equals("'s") && !this.pos_isPossessiveEnding())
+				return "is/us";
+			if(token.equals("'ve"))
+				return "have";
+				
 			
 			return token.getValue();		
 		}
