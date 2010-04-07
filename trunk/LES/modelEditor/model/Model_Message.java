@@ -227,6 +227,9 @@ public class Model_Message extends Model_Message_fullWord {
 		
 		return message_element;
 	}
+	public ArrayList<PosWord> get_tagWords() {
+		return _tagWords;
+	}
 	
 	
 }

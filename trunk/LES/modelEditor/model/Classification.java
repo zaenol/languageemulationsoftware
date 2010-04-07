@@ -31,6 +31,7 @@ import modelEditor.eventsListeners.BubbleDown_Listener;
 import modelEditor.eventsListeners.BubbleUp_Event;
 import modelEditor.eventsListeners.BubbleUp_Listener;
 import modelEditor.interfaces.I_Element;
+import modelEditor.model.Model_Message_posWord.PosWord;
 
 public class Classification extends AC_Element implements BubbleUp_Listener, ChangeListener{
 	
@@ -99,6 +100,10 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
     		return matchClass(source.getSuperclass(),target,depth+1);
     	return false;
     }
+	
+	public void parseMessageWord(PosWord posWord){
+		System.out.println("This should not be called");
+	}
 	
 	public Model_Message parseMessage(Model_Message messages) {
 		return model.parseMessage(messages);

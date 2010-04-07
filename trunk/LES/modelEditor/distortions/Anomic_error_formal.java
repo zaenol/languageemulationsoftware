@@ -13,6 +13,7 @@ import org.w3c.dom.Document;
 
 import modelEditor.abstractClasses.AC_Distortion_BubbleDown;
 import modelEditor.model.Model_Message;
+import modelEditor.model.Model_Message_posWord.PosWord;
 
 public class Anomic_error_formal extends AC_Distortion_BubbleDown implements ChangeListener {
 
@@ -43,10 +44,11 @@ public class Anomic_error_formal extends AC_Distortion_BubbleDown implements Cha
 		return null;
 	}
 
-	public Model_Message parseMessage(Model_Message messages) {
-		// TODO Auto-generated method stub
-		return messages;
+
+	public void parseMessageWord(PosWord posWord){
+		
 	}
+
 
 	public void setValuesFromXML_local(Document dom) {
 		// TODO Auto-generated method stub
