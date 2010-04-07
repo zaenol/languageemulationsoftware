@@ -2,6 +2,10 @@ package modelEditor.abstractClasses;
 
 import modelEditor.eventsListeners.BubbleUp_Listener;
 import modelEditor.eventsListeners.BubbleUp_Event;
+import modelEditor.model.Model_Message;
+import modelEditor.model.Model_Message_posWord.PosWord;
+
+import java.util.ArrayList;
 import java.util.Vector;
 
 public abstract class AC_Distortion_BubbleUp extends AC_Distortion{
@@ -28,6 +32,18 @@ public abstract class AC_Distortion_BubbleUp extends AC_Distortion{
 		
 		for(BubbleUp_Listener listen:listeners)
 			listen.bubbleUpEventDetected(event);
+	}
+	
+	public Model_Message parseMessage(Model_Message messages){
+		Model_Message myMessage = messages;
+		ArrayList<PosWord>words = myMessage.get_tagWords();
+		
+		for(PosWord word:words){
+			this.parseMessageWord(word);
+		}
+		
+		
+		return myMessage;
 	}
 
 }

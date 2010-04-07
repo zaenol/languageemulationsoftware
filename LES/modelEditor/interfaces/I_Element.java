@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import modelEditor.model.Model_Message;
+import modelEditor.model.Model_Message_posWord.PosWord;
 
 import org.w3c.dom.Document;
 
@@ -23,6 +24,8 @@ public interface I_Element{
 	 * @param messages
 	 */
 	public abstract Model_Message parseMessage(Model_Message messages);
+	
+	public abstract void parseMessageWord(PosWord posWord);
 	
 	/**
 	 * Forces all instantiations of distortions to create an ID value

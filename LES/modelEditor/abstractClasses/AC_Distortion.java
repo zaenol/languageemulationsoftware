@@ -1,6 +1,7 @@
 package modelEditor.abstractClasses;
 
 import modelEditor.interfaces.I_Element;
+import modelEditor.model.Model_Message;
 
 
 public abstract class AC_Distortion extends AC_Element {
@@ -63,8 +64,6 @@ public abstract class AC_Distortion extends AC_Element {
 	public void setDISTORTION_OTHER(boolean distortionOther) {
 		DISTORTION_OTHER = distortionOther;
 	}
-
-	
 
 	
 }

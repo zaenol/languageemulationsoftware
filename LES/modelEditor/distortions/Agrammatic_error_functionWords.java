@@ -13,6 +13,7 @@ import modelEditor.abstractClasses.AC_Distortion_Independent;
 import modelEditor.distortions.Anomic_correction_omissions.model;
 import modelEditor.distortions.Anomic_correction_omissions.view;
 import modelEditor.model.Model_Message;
+import modelEditor.model.Model_Message_posWord.PosWord;
 
 public class Agrammatic_error_functionWords  extends AC_Distortion_Independent implements ChangeListener  {
 
@@ -35,6 +36,12 @@ public class Agrammatic_error_functionWords  extends AC_Distortion_Independent i
 		// TODO Auto-generated method stub
 		return messages;
 	}
+	
+
+	public void parseMessageWord(PosWord posWord){
+		
+	}
+
 
 	public void setValuesFromXML_local(Document dom) {
 		// TODO Auto-generated method stub
