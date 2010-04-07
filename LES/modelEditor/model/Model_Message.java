@@ -152,7 +152,7 @@ public class Model_Message extends Model_Message_fullWord {
 	}
 	
 	public String[] getMessageToTransmit(){
-		ArrayList<String> messages = new ArrayList();
+		ArrayList<String> messages = new ArrayList<String>();
 		
 		String message = "";
 		for(int i=0; i<_words.size();i++){
@@ -160,7 +160,8 @@ public class Model_Message extends Model_Message_fullWord {
 			
 			for(int j=0; j<words.size();j++){
 				message+=words.get(j)+" ";
-				if(j!=words.size()-1 && message.length()!=0){
+				boolean isLastElement = (j!=words.size()-1 && words.size() > 1 );
+				if(isLastElement && message.length()>0){
 					messages.add(message);
 					message = "";
 				}
@@ -172,17 +173,28 @@ public class Model_Message extends Model_Message_fullWord {
 			}
 			
 		}
+		if(message.length()!=0){
+				messages.add(message);
+		}
 		
-		return (String[]) messages.toArray();
+		String arr[] = new String[messages.size()];
+		arr = messages.toArray(arr);
+		
+		return arr;
 	}
 	/**
 	 * This is used when wanting a consolodated version of the message to send but fits in one String.
 	 * @return
 	 */
 	public String getMessageToTransmit_toString(){
-		String s = ""+getMessageToTransmit();
+		String s = "{";
+		String[] msgs = getMessageToTransmit();
+		for(String msg:msgs){
+			s+=msg+"//";
+		}
+		s = s.substring(0, s.length()-3);
 		
-		return s;
+		return s+"}";
 	}
 
 	/**
