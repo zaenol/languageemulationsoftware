@@ -143,5 +143,8 @@ public class Model_Message_fullWord extends Model_Message_posWord{
 			
 			return word_element;
 		}
+		public String toString(){
+			return "["+oWord+"]";
+		}
 	}
 }
