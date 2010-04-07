@@ -25,7 +25,6 @@ public interface I_Element{
 	 */
 	public abstract Model_Message parseMessage(Model_Message messages);
 	
-	public abstract void parseMessageWord(PosWord posWord);
 	
 	/**
 	 * Forces all instantiations of distortions to create an ID value

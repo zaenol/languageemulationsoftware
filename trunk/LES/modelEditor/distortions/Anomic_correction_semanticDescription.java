@@ -41,7 +41,10 @@ public class Anomic_correction_semanticDescription extends
 		// TODO Auto-generated method stub
 
 	}
-	
+	public double getProbability() {
+		// TODO Auto-generated method stub
+		return m.getOldValue();
+	}
 	public class view{
 		JSlider slider;
 		JLabel label;

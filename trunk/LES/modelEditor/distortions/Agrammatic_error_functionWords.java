@@ -38,9 +38,10 @@ public class Agrammatic_error_functionWords  extends AC_Distortion_Independent i
 	}
 	
 
+	/*
 	public void parseMessageWord(PosWord posWord){
 		
-	}
+	}*/
 
 
 	public void setValuesFromXML_local(Document dom) {

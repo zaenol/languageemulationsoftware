@@ -24,9 +24,10 @@ public class Agrammatic_error_inflectionalMorphology extends AC_Distortion_Indep
 	}
 	
 
+	/*
 	public void parseMessageWord(PosWord posWord){
 		
-	}
+	}*/
 
 
 	public void setValuesFromXML_local(Document dom) {

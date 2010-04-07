@@ -38,6 +38,10 @@ public class Anomic_correction_omissions extends AC_Distortion_BubbleUp implemen
 		// TODO Auto-generated method stub
 
 	}
+	public double getProbability() {
+		// TODO Auto-generated method stub
+		return m.getOldValue();
+	}
 	
 	public class view{
 		JSlider slider;

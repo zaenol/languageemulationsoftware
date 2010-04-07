@@ -101,10 +101,6 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
     	return false;
     }
 	
-	public void parseMessageWord(PosWord posWord){
-		System.out.println("This should not be called");
-	}
-	
 	public Model_Message parseMessage(Model_Message messages) {
 		return model.parseMessage(messages);
 	}
@@ -194,8 +190,32 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 			/*
 			 * BUBBLE UP DISTORTIONS - ROLL OVERAL PROBABILITY FIRST, THEN ACREW VALUES TO SEE WHO TAKES IT HOME
 			 */
-			Random r = new Random();
 			
+			if(bubbleUpDistortions.size()>0){
+				Random randomGen = new Random();
+				ArrayList<PosWord>words = lastEdit.get_tagWords();
+				
+				for(PosWord word:words){
+				
+					double random = randomGen.nextDouble();
+					
+					if(random<Math.abs(ratePointAdjustment)){
+						double runningBaseline = 0d;
+						boolean found = false;
+						
+						for(int i=0; i<bubbleUpDistortions.size() && !found; i++){
+							AC_Distortion_BubbleUp distortion = bubbleUpDistortions.get(i);
+							double runningMax = runningBaseline+distortion.getProbability();
+							if(runningBaseline<=random && random<runningMax){
+								distortion.parseMessageWord(word);
+								found = true;
+							}
+							runningBaseline = runningMax;
+						}
+						
+					}					
+				}			
+			}
 			
 			return lastEdit;
 		}

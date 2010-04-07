@@ -37,9 +37,10 @@ public class Anomic_correction_pauses extends AC_Distortion_Independent implemen
 	}
 	
 
+	/*
 	public void parseMessageWord(PosWord posWord){
 		
-	}
+	}*/
 
 
 	public void setValuesFromXML_local(Document dom) {

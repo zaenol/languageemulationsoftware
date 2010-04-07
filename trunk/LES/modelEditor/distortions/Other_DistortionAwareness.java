@@ -39,9 +39,10 @@ public class Other_DistortionAwareness extends AC_Distortion_Independent impleme
 		// TODO Auto-generated method stub
 		return messages;
 	}
+	/*
 	public void parseMessageWord(PosWord posWord){
 		
-	}
+	}*/
 
 	public void setValuesFromXML_local(Document dom) {
 		// TODO Auto-generated method stub
