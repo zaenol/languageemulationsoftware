@@ -17,7 +17,7 @@ public class Agrammatic_error_inflectionalMorphology extends AC_Distortion_Indep
 		return null;
 	}
 
-	public Model_Message parseString(Model_Message messages) {
+	public Model_Message parseMessage(Model_Message messages) {
 		// TODO Auto-generated method stub
 		return messages;
 	}

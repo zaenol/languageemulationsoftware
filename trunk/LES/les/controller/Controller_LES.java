@@ -115,7 +115,7 @@ public class Controller_LES implements ActionListener, KeyListener {
 	}
 	
 	public Model_Message distortMessage(Model_Message message){	
-		return message;
+		return modelEditor.distortMessage(message);
 	}
 	
 	public void log_incomingMessage(IMessage message){

@@ -34,7 +34,7 @@ public class Other_DistortionAwareness extends AC_Distortion_Independent impleme
 		return null;
 	}
 
-	public Model_Message parseString(Model_Message messages) {
+	public Model_Message parseMessage(Model_Message messages) {
 		// TODO Auto-generated method stub
 		return messages;
 	}

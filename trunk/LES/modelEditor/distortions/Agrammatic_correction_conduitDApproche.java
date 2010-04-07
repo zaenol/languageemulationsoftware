@@ -17,7 +17,7 @@ public class Agrammatic_correction_conduitDApproche extends AC_Distortion_Indepe
 		return null;
 	}
 
-	public Model_Message parseString(Model_Message messages) {
+	public Model_Message parseMessage(Model_Message messages) {
 		// TODO Auto-generated method stub
 		return messages;
 	}

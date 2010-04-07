@@ -43,7 +43,7 @@ public class Anomic_error_formal extends AC_Distortion_BubbleDown implements Cha
 		return null;
 	}
 
-	public Model_Message parseString(Model_Message messages) {
+	public Model_Message parseMessage(Model_Message messages) {
 		// TODO Auto-generated method stub
 		return messages;
 	}

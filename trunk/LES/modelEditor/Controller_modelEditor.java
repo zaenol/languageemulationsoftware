@@ -1,6 +1,7 @@
 package modelEditor;
 
 import modelEditor.model.Model;
+import modelEditor.model.Model_Message;
 import modelEditor.view.View_modelEditor;
 
 public class Controller_modelEditor {
@@ -19,6 +20,9 @@ public class Controller_modelEditor {
 		view.setOtherPnale(model.getOtherDist().getGUI());
 	}
 	
+	public Model_Message distortMessage(Model_Message message){
+		return model.distortMessage(message);
+	}
 
 	public void setVisible(boolean visible){
 		view.setVisible(visible);
