@@ -24,11 +24,12 @@ public class Model extends Model_findDistortions{
 		//Model_Message mm = new Model_Message(message);
 		Model_Message mm = message;
 		
-		mm = nonFluencyDist.parseString(mm);
-		mm = otherDist.parseString(mm); 
-		mm = wordDist.parseString(mm);
-		mm = inflectionDist.parseString(mm);
-		mm = functionDist.parseString(mm);
+		mm = nonFluencyDist.parseMessage(mm);
+		mm = otherDist.parseMessage(mm);
+		mm = functionDist.parseMessage(mm);
+		mm = wordDist.parseMessage(mm);
+		mm = inflectionDist.parseMessage(mm);
+		
 		
 		
 		return mm;

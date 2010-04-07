@@ -99,7 +99,7 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
     	return false;
     }
 	
-	public Model_Message parseString(Model_Message messages) {
+	public Model_Message parseMessage(Model_Message messages) {
 		return model.parseMessage(messages);
 	}
 	
@@ -175,7 +175,7 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 			Model_Message lastEdit = messages;
 			
 			for(AC_Distortion distortion:allDistortions){
-				lastEdit = distortion.parseString(messages);
+				lastEdit = distortion.parseMessage(messages);
 			}			
 			return lastEdit;
 		}

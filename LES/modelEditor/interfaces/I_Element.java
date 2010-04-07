@@ -21,7 +21,7 @@ public interface I_Element{
 	 * Given a series of messages to send, apply specific distorition.  Then calls
 	 * @param messages
 	 */
-	public abstract Model_Message parseString(Model_Message messages);
+	public abstract Model_Message parseMessage(Model_Message messages);
 	
 	/**
 	 * Forces all instantiations of distortions to create an ID value
