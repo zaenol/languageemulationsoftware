@@ -160,15 +160,18 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 		
 		public synchronized void addBubbleDownDistortion(AC_Distortion_BubbleDown bubbleDown){
 			bubbleDownDistortions.add(bubbleDown);
-			allDistortions.add(bubbleDown);
+			if(!allDistortions.contains(bubbleDown))
+				allDistortions.add(bubbleDown);
 		}
 		public void addBubbleUpDistortion(AC_Distortion_BubbleUp bubbleUp){
 			bubbleUpDistortions.add(bubbleUp);
-			allDistortions.add(bubbleUp);
+			if(!allDistortions.contains(bubbleUp))
+				allDistortions.add(bubbleUp);
 		}
 		public void addIndeptDistortion(AC_Distortion_Independent indept){
 			indeptDistortions.add(indept);
-			allDistortions.add(indept);
+			if(!allDistortions.contains(indept))
+				allDistortions.add(indept);
 		}
 
 		public Model_Message parseMessage(Model_Message messages){
@@ -176,7 +179,8 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 			
 			for(AC_Distortion distortion:allDistortions){
 				lastEdit = distortion.parseMessage(messages);
-			}			
+			}
+			
 			return lastEdit;
 		}
 		public void setXML(Document dom){
