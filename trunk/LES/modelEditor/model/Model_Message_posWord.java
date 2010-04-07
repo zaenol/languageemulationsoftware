@@ -1,11 +1,36 @@
 package modelEditor.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.w3c.dom.Element;
 
 import NLP.BooleanObject;
 import NLP.StringObject;
 
 public class Model_Message_posWord extends Model_Message_GlobalFunctions{
+	protected String[] functionWordArray = { "the", "of", "and", "to", "a",
+			"in", "that", "is", "was", "he", "for", "it", "with", "as", "his",
+			"on", "be", "at", "by", "i", "this", "had", "not", "are", "but",
+			"from", "or", "have", "an", "they", "which", "one", "you", "were",
+			"her", "all", "she", "there", "would", "their", "we", "him",
+			"been", "has", "when", "who", "will", "more", "no", "if", "out",
+			"so", "said", "what", "up", "its", "about", "into", "than", "them",
+			"can", "only", "other", "new", "some", "could", "time", "these",
+			"two", "may", "then", "do", "first", "any", "my", "now", "such",
+			"like", "our", "over", "man", "me", "even", "most", "made",
+			"after", "also", "did", "many", "before", "must", "through",
+			"back", "years", "where", "much", "your", "way", "well", "down",
+			"should", "because", "each", "just", "those", "people", "mr",
+			"how", "too", "little", "state", "good", "very", "make", "world",
+			"still", "own", "see", "men", "work", "long", "get", "here",
+			"between", "both", "life", "being", "under", "never", "day",
+			"same", "another", "know", "while", "last", "might", "us", "great",
+			"old", "year", "off", "come", "since", "against", "go", "came",
+			"right", "used", "take", "three" };
+	protected ArrayList<String> functionWordList = new ArrayList(Arrays.asList(functionWordArray));
+
 	public class PosWord{
 		StringObject token;
 		StringObject tag;
@@ -211,46 +236,50 @@ public class Model_Message_posWord extends Model_Message_GlobalFunctions{
 				
 		
 		public boolean pos_isVerb(){
-			if(tag.equals("VB")) //Verb, base form
-				return true;
-			if(tag.equals("VBD")) //Verb, past tense
-				return true;
-			if(tag.equals("VBG")) //Verb, gerund or present participle
-				return true;
-			if(tag.equals("VBN")) //Verb, past participle
-				return true;
-			if(tag.equals("VBP")) //Verb, non-3rd person singular present
-				return true;
-			if(tag.equals("VBZ")) //Verb, 3rd person singular present
-				return true;
+			if(!pos_isFunctionWord()){
+				if(tag.equals("VB")) //Verb, base form
+					return true;
+				if(tag.equals("VBD")) //Verb, past tense
+					return true;
+				if(tag.equals("VBG")) //Verb, gerund or present participle
+					return true;
+				if(tag.equals("VBN")) //Verb, past participle
+					return true;
+				if(tag.equals("VBP")) //Verb, non-3rd person singular present
+					return true;
+				if(tag.equals("VBZ")) //Verb, 3rd person singular present
+					return true;
+			}
 			
 			return false;
 		}
 		public boolean pos_isNoun(){
-			
-			if(tag.equals("NN")) //Noun, singular or mass
-				return true;
-			if(tag.equals("NNS")) //Noun, plural
-				return true;
-			if(tag.equals("NP")) //Proper noun, singular
-				return true;
-			if(tag.equals("NPS")) //Proper noun, plural
-				return true;
-			if(tag.equals("NNP")) //Proper noun, singular
-				return true;
-			if(tag.equals("NNPS")) //Proper noun, plural
-				return true;
+			if(!pos_isFunctionWord()){
+				if(tag.equals("NN")) //Noun, singular or mass
+					return true;
+				if(tag.equals("NNS")) //Noun, plural
+					return true;
+				if(tag.equals("NP")) //Proper noun, singular
+					return true;
+				if(tag.equals("NPS")) //Proper noun, plural
+					return true;
+				if(tag.equals("NNP")) //Proper noun, singular
+					return true;
+				if(tag.equals("NNPS")) //Proper noun, plural
+					return true;
+			}
 			return false;
 		}		
 		
 		public boolean pos_isAdj(){
-			if(tag.equals("JJ")) //Adjective
-				return true;
-			if(tag.equals("JJR")) //Adjective, comparative
-				return true;
-			if(tag.equals("JJS")) //Adjective, superlative
-				return true;
-			
+			if(!pos_isFunctionWord()){
+				if(tag.equals("JJ")) //Adjective
+					return true;
+				if(tag.equals("JJR")) //Adjective, comparative
+					return true;
+				if(tag.equals("JJS")) //Adjective, superlative
+					return true;
+			}
 			return false;
 		}
 		public boolean pos_isAdVerb(){
@@ -270,6 +299,8 @@ public class Model_Message_posWord extends Model_Message_GlobalFunctions{
 		
 		public boolean pos_isFunctionWord(){
 			if(pos_isProNoun()||pos_isArticle()||pos_isAdpositions()||pos_isConjunction()||pos_isAuxiliaryVerb()||pos_isInterjection()||pos_isParticles()||pos_isExpletives()||pos_isProSentences())
+				return true;
+			if(functionWordList.contains(this.getTokenAsWord()))
 				return true;
 			
 			return false;
