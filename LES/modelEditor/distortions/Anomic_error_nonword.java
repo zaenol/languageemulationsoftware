@@ -59,7 +59,10 @@ public class Anomic_error_nonword extends AC_Distortion_BubbleDown implements Ch
 		update();
 		
 	}
-	
+	public double getProbability() {
+		// TODO Auto-generated method stub
+		return getD_errorProbability();
+	}
 	public double getD_errorProbability() {
 		return m.getD_errorProbability();
 	}

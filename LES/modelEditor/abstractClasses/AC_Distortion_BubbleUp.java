@@ -34,7 +34,7 @@ public abstract class AC_Distortion_BubbleUp extends AC_Distortion{
 			listen.bubbleUpEventDetected(event);
 	}
 	
-	public Model_Message parseMessage(Model_Message messages){
+	final public Model_Message parseMessage(Model_Message messages){
 		Model_Message myMessage = messages;
 		ArrayList<PosWord>words = myMessage.get_tagWords();
 		
@@ -46,4 +46,6 @@ public abstract class AC_Distortion_BubbleUp extends AC_Distortion{
 		return myMessage;
 	}
 
+	public abstract void parseMessageWord(PosWord posWord);
+	public abstract double getProbability();
 }

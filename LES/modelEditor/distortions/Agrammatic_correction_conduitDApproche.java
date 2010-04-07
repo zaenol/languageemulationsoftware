@@ -24,9 +24,10 @@ public class Agrammatic_correction_conduitDApproche extends AC_Distortion_Indepe
 	}
 	
 
+	/*
 	public void parseMessageWord(PosWord posWord){
 		
-	}
+	}*/
 
 
 	public void setValuesFromXML_local(Document dom) {

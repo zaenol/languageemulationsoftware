@@ -58,6 +58,11 @@ public class Anomic_error_unrelated extends AC_Distortion_BubbleDown implements 
 		
 	}
 	
+	public double getProbability() {
+		// TODO Auto-generated method stub
+		return getD_errorProbability();
+	}
+	
 	public double getD_errorProbability() {
 		return m.getD_errorProbability();
 	}
@@ -139,4 +144,5 @@ public class Anomic_error_unrelated extends AC_Distortion_BubbleDown implements 
 			label_localValue.setVisible(isReleased());
 		}
 	}
+
 }

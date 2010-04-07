@@ -39,7 +39,6 @@ public class Anomic_error_mixed extends AC_Distortion_BubbleDown implements Chan
 		return null;
 	}
 
-
 	public void parseMessageWord(PosWord posWord){
 		
 	}
@@ -59,7 +58,10 @@ public class Anomic_error_mixed extends AC_Distortion_BubbleDown implements Chan
 		update();
 		
 	}
-	
+	public double getProbability() {
+		// TODO Auto-generated method stub
+		return getD_errorProbability();
+	}
 	public double getD_errorProbability() {
 		return m.getD_errorProbability();
 	}
