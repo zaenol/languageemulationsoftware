@@ -1,5 +1,8 @@
 package modelEditor.distortions;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -33,20 +36,42 @@ public class Agrammatic_error_functionWords  extends AC_Distortion_Independent i
 	}
 
 	public Model_Message parseMessage(Model_Message messages) {
-		// TODO Auto-generated method stub
-		return messages;
+		Random randomGen = new Random();
+		Model_Message myMessages = messages;
+		
+		ArrayList<PosWord>words = myMessages.get_tagWords();
+		
+		for(PosWord word:words){
+		
+			double random = randomGen.nextDouble();
+			
+			if(random<Math.abs(getProbability()/100d))
+						parseMessageWord(word);
+			
+		}					
+			
+		
+		return myMessages;
 	}
 	
 
-	/*
+	
 	public void parseMessageWord(PosWord posWord){
-		
-	}*/
+		if(posWord.pos_isFunctionWord()){
+			//System.out.println("Drop Function Word ("+posWord.getToken()+")");
+			posWord.setDistorted("DROP_FUNCTION_WORDS", "");
+		}
+	}
 
 
 	public void setValuesFromXML_local(Document dom) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public double getProbability() {
+		// TODO Auto-generated method stub
+		return m.getOldValue();
 	}
 
 	public class view{

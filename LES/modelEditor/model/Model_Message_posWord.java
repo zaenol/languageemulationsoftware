@@ -28,6 +28,12 @@ public class Model_Message_posWord extends Model_Message_GlobalFunctions{
 		}
 		
 		
+		public void setDistorted(String dType, String dWord){
+			distorted.setValue(true);
+			distortionType.setValue(dType);
+			distortedWord.setValue(dWord);
+		}
+		
 		public boolean isDistorted(){
 			return distorted.getValue();
 		}
