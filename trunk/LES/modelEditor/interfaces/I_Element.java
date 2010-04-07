@@ -17,6 +17,7 @@ public interface I_Element{
 	public abstract Document getXML();
 	public abstract void setValuesFromXML_local(Document dom);
 	public abstract void setValuesFromXML();
+	
 	/**
 	 * Given a series of messages to send, apply specific distorition.  Then calls
 	 * @param messages

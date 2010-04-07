@@ -14,7 +14,7 @@ import modelEditor.distortions.Anomic_correction_omissions.model;
 import modelEditor.distortions.Anomic_correction_omissions.view;
 import modelEditor.model.Model_Message;
 
-public class Agrammatic_error_functionWords  extends AC_Distortion_BubbleUp implements ChangeListener  {
+public class Agrammatic_error_functionWords  extends AC_Distortion_Independent implements ChangeListener  {
 
 	model m;
 	view v;
@@ -81,7 +81,7 @@ public class Agrammatic_error_functionWords  extends AC_Distortion_BubbleUp impl
 	}
 	public void stateChanged(ChangeEvent e) {
 		v.update();
-		fireDoubleEvent(new Double(v.getSliderValue()-m.getOldValue()));
+		//fireDoubleEvent(new Double(v.getSliderValue()-m.getOldValue()));
 		m.setOldValue(v.getSliderValue());		
 	}
 

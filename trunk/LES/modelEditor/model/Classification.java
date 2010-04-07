@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -177,9 +178,19 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 		public Model_Message parseMessage(Model_Message messages){
 			Model_Message lastEdit = messages;
 			
-			for(AC_Distortion distortion:allDistortions){
+			/*
+			 * INDEPENDENT DISTORTIONS - JUST ASK EACH DISTORTION TO RUN THEMSELVES
+			 */
+			
+			for(AC_Distortion distortion:indeptDistortions){
 				lastEdit = distortion.parseMessage(messages);
 			}
+			
+			/*
+			 * BUBBLE UP DISTORTIONS - ROLL OVERAL PROBABILITY FIRST, THEN ACREW VALUES TO SEE WHO TAKES IT HOME
+			 */
+			Random r = new Random();
+			
 			
 			return lastEdit;
 		}
