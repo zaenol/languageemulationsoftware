@@ -84,6 +84,7 @@ public abstract class Model_findDistortions {
   
         	
         }
+        System.out.println("debug");
     }
     
     private AC_Distortion createInstanceOfDistortion(Constructor distortionToCreate) {
