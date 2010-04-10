@@ -6,10 +6,10 @@ import modelEditor.abstractClasses.AC_Distortion_Independent;
 import modelEditor.model.Model_Message;
 import modelEditor.model.Model_Message_posWord.PosWord;
 
-public class Agrammatic_error_inflectionalMorphology extends AC_Distortion_Independent {
+public class Agrammatic_error_inflectionalMorphologyOfVerbs extends AC_Distortion_Independent {
 
-	public Agrammatic_error_inflectionalMorphology() {
-		super("Inflectional Morphology", false, true, false, false);
+	public Agrammatic_error_inflectionalMorphologyOfVerbs() {
+		super("Inflectional Morphology of Verbs", false, true, false, false);
 		// TODO Auto-generated constructor stub
 	}
 
