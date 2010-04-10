@@ -197,23 +197,25 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 				
 				for(PosWord word:words){
 				
-					double random = randomGen.nextDouble();
-					
-					if(random<Math.abs(ratePointAdjustment)){
-						double runningBaseline = 0d;
-						boolean found = false;
+					if(!word.isDistorted()){
+						double random = randomGen.nextDouble();
 						
-						for(int i=0; i<bubbleUpDistortions.size() && !found; i++){
-							AC_Distortion_BubbleUp distortion = bubbleUpDistortions.get(i);
-							double runningMax = runningBaseline+distortion.getProbability();
-							if(runningBaseline<=random && random<runningMax){
-								distortion.parseMessageWord(word);
-								found = true;
+						if(random<Math.abs(ratePointAdjustment)){
+							double runningBaseline = 0d;
+							boolean found = false;
+							
+							for(int i=0; i<bubbleUpDistortions.size() && !found; i++){
+								AC_Distortion_BubbleUp distortion = bubbleUpDistortions.get(i);
+								double runningMax = runningBaseline+distortion.getProbability();
+								if(runningBaseline<=random && random<runningMax){
+									distortion.parseMessageWord(word);
+									found = true;
+								}
+								runningBaseline = runningMax;
 							}
-							runningBaseline = runningMax;
-						}
-						
-					}					
+							
+						}	
+					}
 				}			
 			}
 			
@@ -317,7 +319,7 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 			correctnessSlider.addChangeListener(Classification.this);
 			correctness.add(correctnessSlider);
 			
-			rateLabel = new JLabel("0"+rateTitle2, JLabel.CENTER);
+			rateLabel = new JLabel("* 0"+rateTitle2, JLabel.CENTER);
 		    rateLabel.setAlignmentX(rate.CENTER_ALIGNMENT);
 		    rate.add(rateLabel);
 			
@@ -381,7 +383,7 @@ public class Classification extends AC_Element implements BubbleUp_Listener, Cha
 				overlimit = " | OVER LIMIT !!!";
 			}else
 				rateLabel.setForeground(Color.black);
-			rateLabel.setText(round2Decimals(netRateAdjustment*-1)+rateTitle2);
+			rateLabel.setText("* "+round2Decimals(netRateAdjustment*-1)+rateTitle2);
 			correctnessLabel.setText(correctnessTitle+correctnessSlider.getValue()+"%");
 		}
 		

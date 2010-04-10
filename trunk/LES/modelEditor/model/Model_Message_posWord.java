@@ -58,6 +58,9 @@ public class Model_Message_posWord extends Model_Message_GlobalFunctions{
 			distortionType.setValue(dType);
 			distortedWord.setValue(dWord);
 		}
+		public void setPause(){
+			newMessageAfterWord.setValue(true);
+		}
 		
 		public boolean isDistorted(){
 			return distorted.getValue();

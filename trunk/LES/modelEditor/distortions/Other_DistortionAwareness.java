@@ -36,8 +36,11 @@ public class Other_DistortionAwareness extends AC_Distortion_Independent impleme
 	}
 
 	public Model_Message parseMessage(Model_Message messages) {
-		// TODO Auto-generated method stub
-		return messages;
+		Model_Message myMessages = messages;
+		
+		myMessages.setPostOriginalMessage(true);
+		
+		return myMessages;
 	}
 	/*
 	public void parseMessageWord(PosWord posWord){

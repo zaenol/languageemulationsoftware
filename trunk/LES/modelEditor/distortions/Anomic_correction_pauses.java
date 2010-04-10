@@ -1,5 +1,8 @@
 package modelEditor.distortions;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -32,15 +35,27 @@ public class Anomic_correction_pauses extends AC_Distortion_Independent implemen
 	}
 
 	public Model_Message parseMessage(Model_Message messages) {
-		// TODO Auto-generated method stub
-		return messages;
+		Random randomGen = new Random();
+		
+		Model_Message myMessages = messages;
+		
+		ArrayList<PosWord>words = myMessages.get_tagWords();
+		
+		for(PosWord word:words){
+			double random = randomGen.nextDouble()*100;
+			if(random<Math.abs(m.getOldValue())){
+				this.parseMessageWord(word);
+			}
+		}
+		
+		return myMessages;
 	}
 	
 
-	/*
+	
 	public void parseMessageWord(PosWord posWord){
-		
-	}*/
+		posWord.setPause();
+	}
 
 
 	public void setValuesFromXML_local(Document dom) {
