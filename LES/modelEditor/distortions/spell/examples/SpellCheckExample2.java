@@ -39,14 +39,14 @@ import modelEditor.distortions.spell.event.StringWordTokenizer;
  */
 public class SpellCheckExample2 implements SpellCheckListener {
 
-  private static String dictFile = "dict/english.0";
+  private static String dictFile = "modelEditor/distortions/spell/examples/dict/english.0";
   private SpellChecker spellCheck = null;
 
 
   public SpellCheckExample2(String phoneticFileName) {
     try {
 
-      BufferedReader in = new BufferedReader(new FileReader("example2.txt"));
+      BufferedReader in = new BufferedReader(new FileReader("modelEditor/distortions/spell/examples/example2.txt"));
       File phonetic = null;
       if (phoneticFileName != null)
         phonetic = new File(phoneticFileName);
