@@ -57,7 +57,7 @@ public class Agrammatic_error_functionWords  extends AC_Distortion_Independent i
 
 	
 	public void parseMessageWord(PosWord posWord){
-		if(posWord.pos_isFunctionWord()){
+		if(posWord.pos_isFunctionWord() && !posWord.isDistorted()){
 			//System.out.println("Drop Function Word ("+posWord.getToken()+")");
 			posWord.setDistorted("DROP_FUNCTION_WORDS", "");
 		}

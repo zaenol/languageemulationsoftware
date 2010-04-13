@@ -13,6 +13,12 @@ import modelEditor.abstractClasses.AC_Distortion_BubbleDown;
 import modelEditor.model.Model_Message;
 import modelEditor.model.Model_Message_posWord.PosWord;
 
+
+/**
+ * @author jmh
+ * elbow -> ‘‘knee’’;	orange -> ‘‘apple’’
+ *
+ */
 public class Anomic_error_semantic extends AC_Distortion_BubbleDown implements ChangeListener{
 
 	model m;
