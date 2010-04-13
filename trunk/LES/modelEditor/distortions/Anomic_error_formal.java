@@ -15,6 +15,13 @@ import modelEditor.abstractClasses.AC_Distortion_BubbleDown;
 import modelEditor.model.Model_Message;
 import modelEditor.model.Model_Message_posWord.PosWord;
 
+/**
+ * @author jmh
+ * 
+ * (e.g., population -> ‘‘pollution’’)
+ * small differences in the word construction.... use rhyming
+ *
+ */
 public class Anomic_error_formal extends AC_Distortion_BubbleDown implements ChangeListener {
 
 

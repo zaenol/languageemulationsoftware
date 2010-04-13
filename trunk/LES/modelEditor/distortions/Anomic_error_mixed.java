@@ -13,6 +13,12 @@ import modelEditor.abstractClasses.AC_Distortion_BubbleDown;
 import modelEditor.model.Model_Message;
 import modelEditor.model.Model_Message_posWord.PosWord;
 
+/**
+ * @author jmh
+ * Mixed errors are lexical substitutions that resemble the target 
+ * both semantically and phonologically (e.g., start -> ‘‘stop,’’ snail -> ‘‘snake’’).
+ *
+ */
 public class Anomic_error_mixed extends AC_Distortion_BubbleDown implements ChangeListener{
 
 	model m;

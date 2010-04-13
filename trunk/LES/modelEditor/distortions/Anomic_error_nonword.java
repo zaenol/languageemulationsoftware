@@ -13,6 +13,11 @@ import modelEditor.abstractClasses.AC_Distortion_BubbleDown;
 import modelEditor.model.Model_Message;
 import modelEditor.model.Model_Message_posWord.PosWord;
 
+/**
+ * @author jmh
+ * nonwords	(e.g.,	castle -> ‘‘kaksel’’)
+ *
+ */
 public class Anomic_error_nonword extends AC_Distortion_BubbleDown implements ChangeListener{
 
 	model m;
