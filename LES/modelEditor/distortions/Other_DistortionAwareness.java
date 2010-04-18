@@ -39,7 +39,7 @@ public class Other_DistortionAwareness extends AC_Distortion_Independent impleme
 		Model_Message myMessages = messages;
 		
 		if(m.isSelected())
-			myMessages.setPostOriginalMessage(true);
+			myMessages.setPostOriginalMessage(false);
 		
 		return myMessages;
 	}

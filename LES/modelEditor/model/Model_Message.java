@@ -156,6 +156,7 @@ public class Model_Message extends Model_Message_fullWord {
 		
 		String message = "";
 		for(int i=0; i<_words.size();i++){
+			fullWord curWord = _words.get(i);
 			ArrayList<String>words = _words.get(i).getWord_PostDist();
 			
 			for(int j=0; j<words.size();j++){

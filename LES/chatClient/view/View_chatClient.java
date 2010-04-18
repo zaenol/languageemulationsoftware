@@ -49,6 +49,8 @@ public class View_chatClient {
 	
 	Controller_chatClient controller;
 	
+	String noBuddyText = "Select Buddy to IM with";
+	
 	//IBuddy[] myBuddies;
 	
 	public View_chatClient(Controller_chatClient parent) {
@@ -128,10 +130,15 @@ public class View_chatClient {
 	}
 	public String getSelectedBuddyName(){
 		if(buddyList.getSelectedIndex() == 0)
-			return "Select Buddy to IM with";
+			return noBuddyText;
 		
 		String currentBuddy = ((BuddyWrapper) buddyList.getSelectedItem()).getName();
 		return currentBuddy;
+	}
+	public boolean selectedBuddyIsReal(){
+		if(this.getSelectedBuddyName().equals(noBuddyText))
+			return false;
+		return true;
 	}
 	
 	public void postIncomingMessage(String from, String message){

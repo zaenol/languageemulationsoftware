@@ -10,6 +10,8 @@ import NLP.BooleanObject;
 import NLP.StringObject;
 
 public class Model_Message_posWord extends Model_Message_GlobalFunctions{
+	boolean debug= true;
+	
 	protected String[] functionWordArray = { "the", "of", "and", "to", "a",
 			"in", "that", "is", "was", "he", "for", "it", "with", "as", "his",
 			"on", "be", "at", "by", "i", "this", "had", "not", "are", "but",
@@ -54,6 +56,8 @@ public class Model_Message_posWord extends Model_Message_GlobalFunctions{
 		
 		
 		public void setDistorted(String dType, String dWord){
+			if(debug)
+				System.out.println("> "+dType+": "+this.getToken()+"("+this.getTokenAsWord()+") -> "+dWord);
 			distorted.setValue(true);
 			distortionType.setValue(dType);
 			distortedWord.setValue(dWord);
@@ -124,6 +128,9 @@ public class Model_Message_posWord extends Model_Message_GlobalFunctions{
 			this.newMessageAfterWord.setValue(newMessageAfterWord);
 		}
 	
+		public String toString(){
+			return "<"+this.getToken()+" - "+this.getTokenAsWord()+">";
+		}
 	
 	
 		public Element getXML(){
@@ -272,7 +279,17 @@ public class Model_Message_posWord extends Model_Message_GlobalFunctions{
 					return true;
 			}
 			return false;
-		}		
+		}
+		
+		public boolean pos_isNounNotProperNoun(){
+			if(!pos_isFunctionWord()){
+				if(tag.equals("NN")) //Noun, singular or mass
+					return true;
+				if(tag.equals("NNS")) //Noun, plural
+					return true;
+			}
+			return false;
+		}
 		
 		public boolean pos_isAdj(){
 			if(!pos_isFunctionWord()){
