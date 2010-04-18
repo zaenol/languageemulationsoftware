@@ -1,6 +1,9 @@
 package modelEditor.distortions;
 
 import java.awt.Component;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 import javax.swing.JLabel;
 import javax.swing.JSlider;
@@ -10,6 +13,7 @@ import javax.swing.event.ChangeListener;
 import org.w3c.dom.Document;
 
 import modelEditor.abstractClasses.AC_Distortion_BubbleDown;
+import modelEditor.distortions.spelling.JaSpellWidget;
 import modelEditor.model.Model_Message;
 import modelEditor.model.Model_Message_posWord.PosWord;
 
@@ -20,6 +24,17 @@ import modelEditor.model.Model_Message_posWord.PosWord;
  */
 public class Anomic_error_nonword extends AC_Distortion_BubbleDown implements ChangeListener{
 
+	String[] _consonants = {"b", "c", "d", "f", "g", "h", "i", "j", "k", "l", "m", "n", "p", 
+			"q", "r", "s", "t", "v", "w","","sh","ch","br","gr"};
+	String[] _vowels = {"a","e","i","o","u","y"};
+	
+	ArrayList<String> consonants;
+	ArrayList<String> vowels;
+	
+	JaSpellWidget spell;
+	
+	Random random;
+	
 	model m;
 	view v;
 	
@@ -28,6 +43,12 @@ public class Anomic_error_nonword extends AC_Distortion_BubbleDown implements Ch
 		m = new model();
 		v = new view();
 		
+		spell = new JaSpellWidget();
+		
+		random = new Random();
+		consonants =  new ArrayList(Arrays.asList(_consonants));
+
+		vowels =new ArrayList(Arrays.asList(_vowels));
 		
 		update();
 	}
@@ -47,6 +68,56 @@ public class Anomic_error_nonword extends AC_Distortion_BubbleDown implements Ch
 
 	public void parseMessageWord(PosWord posWord){
 		
+		if(!posWord.isDistorted() && posWord.pos_isNoun()){
+			boolean createdNonWord = false;
+			String finalWord = "";
+			String rawWord = posWord.getTokenAsWord();
+			
+			int attempts = 0;
+			
+			while(createdNonWord && attempts<10){
+				finalWord = createNonWord(rawWord);	
+				if(spell.isRealWord(finalWord))
+					createdNonWord = true;
+				attempts++;
+			}
+			posWord.setDistorted("NONWORD_ERROR", finalWord);
+		}		
+	}
+	
+	private String createNonWord(String rawWord){
+		
+		
+		int changes = random.nextInt(rawWord.length()-1)+1;
+		ArrayList<Integer> changed = new ArrayList<Integer>();
+		
+		char[] charArr = rawWord.toCharArray();
+		String[] strArr = new String[charArr.length];
+		for(int i=0; i<charArr.length; i++)
+			strArr[i] = charArr[i]+"";
+		
+		while(changed.size()<changes){
+			int toChange = random.nextInt(rawWord.length());
+			Integer iToChange = new Integer(toChange);
+			if(!changed.contains(iToChange)){
+				String c = strArr[toChange];
+				ArrayList<String> choiceArray;
+				if(vowels.contains(c))
+					choiceArray = vowels;
+				else
+					choiceArray = consonants;
+				int toReplace = random.nextInt(choiceArray.size());
+				if(!c.equalsIgnoreCase(choiceArray.get(toReplace))){
+					//check to see if it is a real word!
+					changed.add(iToChange);
+					strArr[toChange]= choiceArray.get(toReplace);
+				}					
+			}				
+		}
+		String finalWord = "";
+		for(String s:strArr)
+			finalWord+=s;
+		return finalWord;
 	}
 
 

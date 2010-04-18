@@ -8,7 +8,7 @@ public class JaSpellWidget {
 
 	SpellChecker spellCheck;
 	
-	public JaSpellWidget() throws Exception{
+	public JaSpellWidget(){
 		spellCheck = new SpellChecker();
 		
 		String lang = "english.txt";
@@ -22,10 +22,23 @@ public class JaSpellWidget {
 		
 		dataDir += "/" + lang;
 		
-		spellCheck.initialize(preDataDict+dataDir,preDataDict+misspells,preDataDict+jargon);
+		try {
+			spellCheck.initialize(preDataDict+dataDir,preDataDict+misspells,preDataDict+jargon);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public boolean isRealWord(String aWord){
+		ArrayList<String> nearWords = findSimilarWords(aWord);
+		for(String s:nearWords){
+			if(s.equalsIgnoreCase(aWord))
+				return true;
+		}
+		return false;
 	}
 	
-	public ArrayList<String> doit(String aWord){
+	public ArrayList<String> findSimilarWords(String aWord){
 		ArrayList<String> similarWords = new ArrayList<String>();
 		
 		List results = spellCheck.findMostSimilarList(aWord);
@@ -46,7 +59,7 @@ public class JaSpellWidget {
 		JaSpellWidget jsw;
 		try {
 			jsw = new JaSpellWidget();
-			System.out.println(jsw.doit("block"));
+			System.out.println(jsw.findSimilarWords("block"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -92,9 +92,11 @@ public class Controller_chatClient implements ActionListener, ItemListener, Wind
 		if( (mcc != null && mcc.isOnline())){
 		
 			String messageTyped = vcc.getMessageAndClear();
-			String buddy = vcc.getSelectedBuddyName();
+			if(messageTyped.length()>0 && vcc.selectedBuddyIsReal()){
+				String buddy = vcc.getSelectedBuddyName();
 			
-			outgoingMessage(buddy,messageTyped);
+				outgoingMessage(buddy,messageTyped);
+			}
 		}
 	}
 	

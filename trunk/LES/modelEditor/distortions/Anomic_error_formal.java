@@ -2,6 +2,8 @@ package modelEditor.distortions;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,6 +14,7 @@ import javax.swing.event.ChangeListener;
 import org.w3c.dom.Document;
 
 import modelEditor.abstractClasses.AC_Distortion_BubbleDown;
+import modelEditor.distortions.spelling.JaSpellWidget;
 import modelEditor.model.Model_Message;
 import modelEditor.model.Model_Message_posWord.PosWord;
 
@@ -28,13 +31,15 @@ public class Anomic_error_formal extends AC_Distortion_BubbleDown implements Cha
 
 	model m;
 	view v;
-
+	JaSpellWidget spell;
+	Random random;
 	
 	public Anomic_error_formal() {
 		super("Formal", true, false, false, false);
 		m = new model();
 		v = new view();
-		
+		spell = new JaSpellWidget();
+		random = new Random();
 		
 		update();
 	}
@@ -53,6 +58,26 @@ public class Anomic_error_formal extends AC_Distortion_BubbleDown implements Cha
 
 
 	public void parseMessageWord(PosWord posWord){
+		if(!posWord.isDistorted() && posWord.pos_isNounNotProperNoun()){
+			String fullWord = posWord.getTokenAsWord();
+			ArrayList<String> similarWords = spell.findSimilarWords(fullWord);
+			String similarWord = fullWord;
+			boolean foundSimilarWord = false;
+			while(!foundSimilarWord){
+				if(similarWords.size()<=1){
+					foundSimilarWord = true;
+					if(similarWords.size()==1)
+						similarWord = similarWords.get(0);
+				}else{
+					int drawWordIndex = random.nextInt(similarWords.size());
+					similarWord = similarWords.get(drawWordIndex);
+					if(!similarWord.equalsIgnoreCase(fullWord))
+						foundSimilarWord = true;
+				}
+			}
+			
+			posWord.setDistorted("FORMAL ERROR", similarWord);
+		}
 		
 	}
 

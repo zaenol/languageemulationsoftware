@@ -29,6 +29,7 @@ public class Model_Message_fullWord extends Model_Message_posWord{
 			
 			boolean untouched = true;
 			for(int i=0; i<posWords.size() && untouched;i++){
+				PosWord p = posWords.get(i);
 				if(posWords.get(i).isDistorted() || posWords.get(i).isNewMessageAfterWord()){
 					untouched = false;
 					
@@ -74,7 +75,7 @@ public class Model_Message_fullWord extends Model_Message_posWord{
 						
 					}else{//previous element exists!
 						
-						if(!_posWord.isDistorted() || !_posWord.isNewMessageAfterWord()){//previous word is NOT distorted NOR New line
+						if(!_posWord.isDistorted() && !_posWord.isNewMessageAfterWord()){//previous word is NOT distorted NOR New line
 							
 							if(posWord.isDistorted()){//current word is distorted
 								currentMessage+=_posWord.getTokenAsWord()+" "+posWord.getDistortedWord();
