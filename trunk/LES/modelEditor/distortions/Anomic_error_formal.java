@@ -58,7 +58,7 @@ public class Anomic_error_formal extends AC_Distortion_BubbleDown implements Cha
 
 
 	public void parseMessageWord(PosWord posWord){
-		if(!posWord.isDistorted() && posWord.pos_isNounNotProperNoun()){
+		if(!posWord.isDistorted() && posWord.pos_isContentWord()){
 			String fullWord = posWord.getTokenAsWord();
 			ArrayList<String> similarWords = spell.findSimilarWords(fullWord);
 			String similarWord = fullWord;
