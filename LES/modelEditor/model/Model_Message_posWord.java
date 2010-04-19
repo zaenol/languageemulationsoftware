@@ -223,8 +223,9 @@ public class Model_Message_posWord extends Model_Message_GlobalFunctions{
 		
 		public boolean pos_isContentWord(){
 			
-			if(pos_isVerb()||pos_isNoun()||pos_isAdj()||pos_isAdVerb())
-				return true;
+			if(!this.pos_isFunctionWord())
+				if(pos_isVerb()||pos_isNoun()||pos_isAdj()||pos_isAdVerb())
+					return true;
 			
 			return false;
 		}
@@ -286,6 +287,17 @@ public class Model_Message_posWord extends Model_Message_GlobalFunctions{
 				if(tag.equals("NN")) //Noun, singular or mass
 					return true;
 				if(tag.equals("NNS")) //Noun, plural
+					return true;
+			}
+			return false;
+		}
+		public boolean pos_isProperNoun(){
+			if(!pos_isFunctionWord()){
+				if(tag.equals("NPS")) //Proper noun, plural
+					return true;
+				if(tag.equals("NNP")) //Proper noun, singular
+					return true;
+				if(tag.equals("NNPS")) //Proper noun, plural
 					return true;
 			}
 			return false;

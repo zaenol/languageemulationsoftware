@@ -68,7 +68,7 @@ public class Anomic_error_nonword extends AC_Distortion_BubbleDown implements Ch
 
 	public void parseMessageWord(PosWord posWord){
 		
-		if(!posWord.isDistorted() && posWord.pos_isNoun()){
+		if(!posWord.isDistorted() && posWord.pos_isContentWord()){
 			boolean createdNonWord = false;
 			String finalWord = "";
 			String rawWord = posWord.getTokenAsWord();
