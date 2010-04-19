@@ -33,6 +33,12 @@ public class Model_Message_posWord extends Model_Message_GlobalFunctions{
 			"right", "used", "take", "three" };
 	protected ArrayList<String> functionWordList = new ArrayList(Arrays.asList(functionWordArray));
 
+	public PosWord makePosWord(StringObject tokens, StringObject tags){
+		final PosWord pw = new PosWord(tokens,tags);
+		//String pw = "";
+		return pw;
+	}
+	
 	public class PosWord{
 		StringObject token;
 		StringObject tag;
@@ -40,6 +46,19 @@ public class Model_Message_posWord extends Model_Message_GlobalFunctions{
 		StringObject distortionType;
 		BooleanObject distorted;
 		BooleanObject newMessageAfterWord;
+		
+		public PosWord(StringObject tokens, StringObject tags){
+			this.token = tokens;
+			this.tag = tags;
+			this.distortedWord = new StringObject(""); 
+			this.distortionType = new StringObject("");
+			this.distorted = new BooleanObject(false);
+			this.newMessageAfterWord = new BooleanObject(false);
+			
+			if(!pos_isKnown()){
+				System.out.println("UNKNOWN:  "+tokens+"  -  "+tags);
+			}
+		}
 		
 		public PosWord(StringObject tokens, StringObject tags, StringObject distoredWord, StringObject DistortionTypes, BooleanObject IsDistorted, BooleanObject NewMessageAfterWord){
 			this.token = tokens;
