@@ -11,6 +11,8 @@ import org.w3c.dom.Document;
 import modelEditor.abstractClasses.AC_Distortion_BubbleUp;
 import modelEditor.distortions.Anomic_correction_omissions.model;
 import modelEditor.distortions.Anomic_correction_omissions.view;
+import modelEditor.distortions.conceptNet.ConceptuallyRelatedIndex;
+import modelEditor.distortions.conceptNet.DefinitionIndex;
 import modelEditor.model.Model_Message;
 import modelEditor.model.Model_Message_posWord.PosWord;
 
@@ -19,11 +21,14 @@ public class Anomic_correction_semanticDescription extends
 
 			model m;
 			view v;
+			DefinitionIndex di;
 			
 	public Anomic_correction_semanticDescription() {
 		super("Semantic Description", false, false, false, true);
 		m = new model();
 		v = new view();
+		
+		di  = new DefinitionIndex();
 	}
 
 	public Document getXML() {
@@ -33,7 +38,8 @@ public class Anomic_correction_semanticDescription extends
 
 
 	public void parseMessageWord(PosWord posWord){
-		
+		if(posWord.pos_isContentWord())
+			posWord.setDistorted("SEMANTIC DESCRIPTION", di.getDescription(posWord.getTokenAsWord()));
 	}
 
 
