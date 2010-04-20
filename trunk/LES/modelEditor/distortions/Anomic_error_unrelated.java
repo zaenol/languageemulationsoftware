@@ -1,6 +1,12 @@
 package modelEditor.distortions;
 
 import java.awt.Component;
+import java.util.ArrayList;
+import java.util.Random;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import javax.swing.JLabel;
 import javax.swing.JSlider;
@@ -24,10 +30,34 @@ public class Anomic_error_unrelated extends AC_Distortion_BubbleDown implements 
 	model m;
 	view v;
 	
+	Random random;
+	
+	String fullPath = "/modelEditor/distortions/conceptNet/";
+	String[] fileNames = {"_adjList.csv","_adVerbList.csv","_nounList.csv","_verbList.csv"};
+	ArrayList[] fileValues = {new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>()};
+	
 	public Anomic_error_unrelated() {
 		super("UnRelated", true, false, false, false);
 		m = new model();
 		v = new view();
+		
+		random = new Random();
+		
+		try{
+			for(int i=0; i<fileNames.length;i++){
+				InputStream in = getClass().getResourceAsStream(fullPath+fileNames[i]);
+			
+				BufferedReader buffRead = new BufferedReader(new InputStreamReader(in));
+				String line = "";
+				while ((line = buffRead.readLine()) != null){
+					fileValues[i].add(line);
+				}
+			
+			}
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}//header line
 		
 		
 		update();
@@ -46,7 +76,32 @@ public class Anomic_error_unrelated extends AC_Distortion_BubbleDown implements 
 	}
 
 	public void parseMessageWord(PosWord posWord){
+		if(posWord.pos_isContentWord()){
+			
+			if(posWord.pos_isVerb()){
+				findNewWord(3,posWord);
+				
+			}else if(posWord.pos_isNoun()){
+				findNewWord(2,posWord);
+			}else if(posWord.pos_isAdj()){
+				findNewWord(0,posWord);
+			}else if(posWord.pos_isAdVerb()){
+				findNewWord(1,posWord);
+			}
+			
+		}
 		
+	}
+	
+	private void findNewWord(int pullFrom,PosWord posWord){
+		boolean notFound = true;
+		while(notFound){
+			String relation = (String) fileValues[pullFrom].get(random.nextInt(fileValues[pullFrom].size()));
+			if(!relation.equalsIgnoreCase(posWord.getTokenAsWord())){
+				notFound = false;
+				posWord.setDistorted("UNRELATED", relation); 
+			}
+		}
 	}
 
 	public void setValuesFromXML_local(Document dom) {

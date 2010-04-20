@@ -75,9 +75,9 @@ public class Anomic_error_nonword extends AC_Distortion_BubbleDown implements Ch
 			
 			int attempts = 0;
 			
-			while(createdNonWord && attempts<10){
+			while(!createdNonWord && attempts<10){
 				finalWord = createNonWord(rawWord);	
-				if(spell.isRealWord(finalWord))
+				if(!spell.isRealWord(finalWord))
 					createdNonWord = true;
 				attempts++;
 			}
