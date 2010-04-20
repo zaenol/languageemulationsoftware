@@ -25,7 +25,7 @@ public class Anomic_error_mixed extends AC_Distortion_BubbleDown implements Chan
 	view v;
 	
 	public Anomic_error_mixed() {
-		super("Mixed", true, false, false, false);
+		super("Mixed (not implimented)", true, false, false, false);
 		m = new model();
 		v = new view();
 		

@@ -10,6 +10,7 @@ import javax.swing.event.ChangeListener;
 import org.w3c.dom.Document;
 
 import modelEditor.abstractClasses.AC_Distortion_BubbleDown;
+import modelEditor.distortions.conceptNet.ConceptuallyRelatedIndex;
 import modelEditor.model.Model_Message;
 import modelEditor.model.Model_Message_posWord.PosWord;
 
@@ -23,12 +24,14 @@ public class Anomic_error_semantic extends AC_Distortion_BubbleDown implements C
 
 	model m;
 	view v;
+	ConceptuallyRelatedIndex cri;
 	
 	public Anomic_error_semantic() {
 		super("Semantic", true, false, false, false);
 		m = new model();
 		v = new view();
 		
+		cri = new ConceptuallyRelatedIndex();
 		
 		update();
 	}
@@ -46,6 +49,8 @@ public class Anomic_error_semantic extends AC_Distortion_BubbleDown implements C
 	}
 
 	public void parseMessageWord(PosWord posWord){
+		if(posWord.pos_isContentWord())
+			posWord.setDistorted("SEMANTIC ERROR", cri.getConceptuallyRelatedTo(posWord.getTokenAsWord()));
 		
 	}
 
