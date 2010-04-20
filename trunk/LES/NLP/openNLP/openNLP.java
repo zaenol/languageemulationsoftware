@@ -57,15 +57,15 @@ public class openNLP implements Gen_NLP{
 			int beamSize = Parser.defaultBeamSize;
 			double advancePercentage = Parser.defaultAdvancePercentage;
 			opennlp.tools.parser.Parser parser = TreebankParser.getParser(
-			        "NLP/openNLP/parser", useTagDict, useCaseInsensitiveTagDict,
-			        beamSize, advancePercentage);
+			        "/NLP/openNLP/parser", useTagDict, useCaseInsensitiveTagDict,
+			        beamSize, advancePercentage,getClass());
 			
 			
 			String tagBiGz = "NLP/openNLP/postag/tag.bin.gz";
 			String tagdict = "NLP/openNLP/postag/tagdict";
 			
 			
-			SuffixSensitiveGISModelReader modelReader = (new SuffixSensitiveGISModelReader(new File(tagBiGz)));
+			SuffixSensitiveGISModelReader modelReader = (new SuffixSensitiveGISModelReader("/"+tagBiGz));
 			MaxentModel model = modelReader.getModel();
 			
 			
