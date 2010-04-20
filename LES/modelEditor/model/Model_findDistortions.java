@@ -57,7 +57,7 @@ public abstract class Model_findDistortions {
     	try {
 			String[] resources = getResourceListing(getClass(),dirName+"/");
 			for(String s: resources){
-				System.out.println(">> "+s);
+				//System.out.println(">> "+s);
 				if(s.contains(".java"))
 					list.add(s);
 			}
