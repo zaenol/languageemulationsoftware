@@ -41,10 +41,13 @@ public class openNLP implements Gen_NLP{
 	
 	boolean loaded = false;
 	
+	String tokenizerPath = "NLP/openNLP/tokenize/EnglishTok.bin.gz";
+	
 	public openNLP() {
 		
 		try {
-			tokenizer = new opennlp.tools.lang.english.Tokenizer("NLP/openNLP/tokenize/EnglishTok.bin.gz");
+			//tokenizer = new opennlp.tools.lang.english.Tokenizer("NLP/openNLP/tokenize/EnglishTok.bin.gz");
+			tokenizer = new opennlp.tools.lang.english.Tokenizer(getClass().getResourceAsStream("/"+tokenizerPath),tokenizerPath);
 			sdetector =  new SentenceDetector("NLP/openNLP/sentdetect/EnglishSD.bin.gz");
 			
 			boolean useTagDict = true;
@@ -66,7 +69,8 @@ public class openNLP implements Gen_NLP{
 			MaxentModel model = modelReader.getModel();
 			
 			
-			POSDictionary dictionary = new POSDictionary(tagdict);
+			//POSDictionary dictionary = new POSDictionary(tagdict);
+			POSDictionary dictionary = new POSDictionary(getClass().getResourceAsStream("/"+tagdict));
 			
 			tagger = new POSTaggerME(model,dictionary);
 			loaded = true;
