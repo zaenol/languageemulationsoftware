@@ -150,7 +150,7 @@ public class Anomic_error_unrelated extends AC_Distortion_BubbleDown implements 
 			setOldValue(d_errorProbability);
 			double x = getSeverityValue_local()/100;
 			d_errorProbability = 0.4119*Math.pow(x,2) - 0.7368*x + 0.3356;
-			if(d_errorProbability<0)
+			if(d_errorProbability<0|| getSeverityValue_local()==100)
 				d_errorProbability =0;
 			
 		}

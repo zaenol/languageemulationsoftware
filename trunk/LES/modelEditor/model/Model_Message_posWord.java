@@ -301,6 +301,15 @@ public class Model_Message_posWord extends Model_Message_GlobalFunctions{
 			return false;
 		}
 		
+		public boolean pos_isPluralNoun(){
+			
+			if(tag.equals("NNS")) //Noun, plural
+				return true;
+			if(tag.equals("NNPS")) //Proper noun, plural
+				return true;
+			return false;
+		}
+		
 		public boolean pos_isNounNotProperNoun(){
 			if(!pos_isFunctionWord()){
 				if(tag.equals("NN")) //Noun, singular or mass

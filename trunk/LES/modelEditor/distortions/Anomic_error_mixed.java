@@ -94,7 +94,7 @@ public class Anomic_error_mixed extends AC_Distortion_BubbleDown implements Chan
 			setOldValue(d_errorProbability);
 			double x = getSeverityValue_local()/100;
 			d_errorProbability = 0.138*Math.pow(x, 3) - 0.359*Math.pow(x,2) + 0.2162*x + 0.0172;
-			if(d_errorProbability<0)
+			if(d_errorProbability<0|| getSeverityValue_local()==100)
 				d_errorProbability =0;
 			
 		}
