@@ -11,6 +11,7 @@ import org.w3c.dom.Document;
 
 import modelEditor.abstractClasses.AC_Distortion_BubbleDown;
 import modelEditor.distortions.conceptNet.ConceptuallyRelatedIndex;
+import modelEditor.distortions.stemmingSnowball.ext.englishStemmer;
 import modelEditor.model.Model_Message;
 import modelEditor.model.Model_Message_posWord.PosWord;
 
@@ -26,12 +27,16 @@ public class Anomic_error_semantic extends AC_Distortion_BubbleDown implements C
 	view v;
 	ConceptuallyRelatedIndex cri;
 	
+	englishStemmer stemmer;
+	
 	public Anomic_error_semantic() {
 		super("Semantic", true, false, false, false);
 		m = new model();
 		v = new view();
 		
 		cri = new ConceptuallyRelatedIndex();
+		
+		stemmer = new englishStemmer();
 		
 		update();
 	}
@@ -49,8 +54,22 @@ public class Anomic_error_semantic extends AC_Distortion_BubbleDown implements C
 	}
 
 	public void parseMessageWord(PosWord posWord){
-		if(posWord.pos_isContentWord())
-			posWord.setDistorted("SEMANTIC ERROR", cri.getConceptuallyRelatedTo(posWord.getTokenAsWord()));
+		if(posWord.pos_isContentWord()){
+			String theWord = posWord.getTokenAsWord();
+			
+			if(posWord.pos_isPluralNoun()){
+				String twoEnding = theWord.substring(theWord.length()-2);
+				String oneEnding = theWord.substring(theWord.length()-1);
+				// if(theWord.substring(theWord.length()-2))
+				
+				stemmer.setCurrent(posWord.getTokenAsWord());
+				stemmer.stem();
+				theWord = stemmer.getCurrent();
+				
+			}		
+				posWord.setDistorted("SEMANTIC ERROR", cri.getConceptuallyRelatedTo(theWord));
+			
+		}
 		
 	}
 
@@ -98,8 +117,10 @@ public class Anomic_error_semantic extends AC_Distortion_BubbleDown implements C
 			setOldValue(d_errorProbability);
 			double x = getSeverityValue_local()/100;
 			d_errorProbability = -0.2653*Math.pow(x,2) + 0.2134*x + 0.0577;
-			if(d_errorProbability<0)
+			if(d_errorProbability<0 || getSeverityValue_local()==100)
 				d_errorProbability =0;
+			
+				
 			
 		}
 
