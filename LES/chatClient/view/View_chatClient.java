@@ -153,6 +153,7 @@ public class View_chatClient {
 		Date now = new Date();
 		String timestamp = DateFormat.getTimeInstance(DateFormat.SHORT).format(now);
 		conversation.append(from+" ("+timestamp+"):"+tab+message + newline);
+		conversation_ScrollPane.revalidate();
 	}
 
 	public void updateUsability(){
