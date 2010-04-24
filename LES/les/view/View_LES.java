@@ -13,10 +13,12 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
 import les.controller.Controller_LES;
@@ -27,9 +29,9 @@ public class View_LES {
 	JFrame loginFrame;
 	JPanel loginPanel;
 	
-	TextEntry userName;
+	JTextField userName;
 	JPasswordField password;
-	TextEntry subjectID;
+	JTextField subjectID;
 	JButton connect;
 	JButton localChat;
 	JButton startModelEditor;
@@ -48,38 +50,62 @@ public class View_LES {
 		loginFrame.setResizable(false);
 		
 		loginPanel = new JPanel();
-		loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));
+		//loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));
+		
+		loginPanel.setBorder(
+	                BorderFactory.createCompoundBorder(
+	                                BorderFactory.createTitledBorder("Language Emulation Software"),
+	                                BorderFactory.createEmptyBorder(5,5,5,5)));
 		
 		loginFrame.add(loginPanel);
 		
-		userName = new TextEntry("User Name:");
-		loginPanel.add(userName);
 		
-		JPanel pwPanel = new JPanel();
-		pwPanel.setLayout(new BoxLayout(pwPanel, BoxLayout.X_AXIS));
-		pwPanel.setSize(400, 30);
+		
+		userName = new JTextField();
+		userName.addKeyListener(controller);
+		JLabel userName_Label = makeLabel(userName,"User Name:");
+		//loginPanel.add(userName);
+		
+
 		password = new JPasswordField();
-		JLabel passwordLabel = new JLabel("Password:");
-		passwordLabel.setLabelFor(password);
-		pwPanel.add(passwordLabel);
-		pwPanel.add(password);
-		loginPanel.add(pwPanel);
+		password.addKeyListener(controller);
+		JLabel password_Label = makeLabel(password,"Password:");
+
+
 		
-		subjectID = new TextEntry("Subject ID (optional):");
-		loginPanel.add(subjectID);
+		subjectID = new JTextField();
+		subjectID.addKeyListener(controller);
+		JLabel subjectID_Label = makeLabel(subjectID,"Subject ID (optional):");
 		
 		connect = new JButton("Connect");
 		connect.addActionListener(controller);
-		loginPanel.add(connect);
+		JLabel connect_Label = makeLabel(connect,"Connect to AIM server:");
+		//loginPanel.add(connect);
 		connect.setEnabled(false);
 		
 		localChat = new JButton("Local Chat");
 		localChat.addActionListener(controller);
-		loginPanel.add(localChat);
+		JLabel localChat_Label = makeLabel(localChat,"Local Chat for Testing");
+		//loginPanel.add(localChat);
 		
 		startModelEditor= new JButton("Model Editor");
 		startModelEditor.addActionListener(controller);
-		loginPanel.add(startModelEditor);
+		JLabel startModelEditor_Label = makeLabel(startModelEditor,"Model Editor Interface:");
+		//loginPanel.add(startModelEditor);
+		
+		 JLabel[] labels = {userName_Label,password_Label,subjectID_Label,new JLabel(" "),connect_Label,localChat_Label,startModelEditor_Label};
+		 JComponent[] textFields = {userName,password,subjectID,new JSeparator(),connect,localChat,startModelEditor};
+		 
+		 GridBagLayout gridbag = new GridBagLayout();
+	        GridBagConstraints c = new GridBagConstraints();
+		
+	        loginPanel.setLayout(gridbag);
+	        
+		 addLabelTextRows(labels, textFields, gridbag, loginPanel);
+		 
+		 c.gridwidth = GridBagConstraints.REMAINDER; //last
+	        c.anchor = GridBagConstraints.WEST;
+	        c.weightx = 1.0;
 		
 		
 		/*
@@ -108,8 +134,14 @@ public class View_LES {
 		loginFrame.setVisible(true);
 	}
 	
+	private JLabel makeLabel(JComponent element, String label){
+		JLabel myLabel = new JLabel(label);
+		myLabel.setLabelFor(element);
+		return myLabel;
+	}
+	
 	private void addLabelTextRows(JLabel[] labels,
-            JTextField[] textFields,
+			JComponent[] textFields,
             GridBagLayout gridbag,
             Container container) {
 		GridBagConstraints c = new GridBagConstraints();
@@ -198,7 +230,7 @@ public class View_LES {
 		return false;
 	}
 	public String getScreenName() {
-		return userName.getEnteredText();
+		return userName.getText();//.getEnteredText();
 	}
 	public String getPassword() {
 		//return password.getEnteredText();
@@ -208,11 +240,11 @@ public class View_LES {
 		return pw;
 	}
 	public String getSubjectID() {
-		return subjectID.getEnteredText();
+		return subjectID.getText();//.getEnteredText();
 	}
 
 	public void updateUI() {
-		if(!userName.isEmpty() && password.getPassword().length>0)
+		if(userName.getText().length()>0 && password.getPassword().length>0)
 			connect.setEnabled(true);
 		else
 			connect.setEnabled(false);
