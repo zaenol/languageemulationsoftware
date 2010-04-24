@@ -1,6 +1,7 @@
 package chatClient.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.util.Date;
@@ -12,11 +13,19 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+import javax.swing.text.StyledDocument;
 
 import com.zion.jbuddy.IBuddy;
 
@@ -30,8 +39,10 @@ public class View_chatClient {
 	
 	JPanel fullPanel;
 	
-	JTextArea conversation;
+	JTextPane conversation;
 	JScrollPane conversation_ScrollPane;
+	StyledDocument doc;
+	
 	
 	JPanel inputPanel;
 	JButton sendButton;
@@ -79,9 +90,20 @@ public class View_chatClient {
 		 * http://java.sun.com/docs/books/tutorial/uiswing/components/editorpane.html#editorpane
 		 * 
 		 */
-		conversation =  new JTextArea();
-		conversation.setWrapStyleWord(true);
-		conversation.setLineWrap(true);
+		conversation =  new JTextPane();
+		doc = conversation.getStyledDocument();
+		Style def = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
+		Style regular = doc.addStyle("regular", def);
+		
+		 Style r = doc.addStyle("red", regular);
+	     StyleConstants.setForeground(r, Color.RED);
+	     
+	     Style b = doc.addStyle("blue", regular);
+	     StyleConstants.setForeground(b, Color.BLUE);
+		
+		//conversation.setWrapStyleWord(true);
+		//conversation.setLineWrap(true);
+		
 		conversation.setEditable(false);
 		conversation_ScrollPane = new JScrollPane(conversation, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         conversation_ScrollPane.setMaximumSize(new Dimension(clientMesageTextAreaWidth, clientMesageTextAreaHeight));
@@ -150,10 +172,41 @@ public class View_chatClient {
 		this.postMessage(from, message,false,true);    	
 	}
 	private void postMessage(String from,String message,boolean incoming, boolean outgoing){
+		
 		Date now = new Date();
 		String timestamp = DateFormat.getTimeInstance(DateFormat.SHORT).format(now);
-		conversation.append(from+" ("+timestamp+"):"+tab+message + newline);
+		/*if(outgoing)
+			conversation.setForeground(Color.RED);
+		else
+			conversation.setForeground(Color.BLUE);
+		conversation.append(from+" ("+timestamp+"):");
+		conversation.setForeground(Color.BLACK);
+		conversation.append(""+tab+message + newline);
 		conversation_ScrollPane.revalidate();
+		*/
+		String color = "red";
+		if(!outgoing)
+			color = "blue";
+		
+		String[] initString = {from+" ("+timestamp+"):",tab+message + newline};
+		String[] initStyles = {color,"regular"};
+		
+		for (int i=0; i < initString.length; i++) {
+			try {
+				doc.insertString(doc.getLength(), initString[i],
+						 doc.getStyle(initStyles[i]));
+			} catch (BadLocationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    }
+		conversation.revalidate();
+		conversation_ScrollPane.revalidate();
+		//conversation.inse.setText(conversation.getText()+"<div><font color=\""+color+"\">"+from+" ("+timestamp+"):\t</font>"+message+"</div><br>");
+		
+		//JLabel theLabel = new JLabel("<html><div><font color=\""+color+"\">"+from+" ("+timestamp+"):\t</font>"+message+"</div><br>");
+		//conversation.add(theLabel);
+		
 	}
 
 	public void updateUsability(){
