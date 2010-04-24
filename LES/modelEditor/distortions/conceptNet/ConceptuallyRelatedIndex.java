@@ -54,6 +54,10 @@ public class ConceptuallyRelatedIndex {
 		
 	}
 	
+	public boolean containsWord(String word){
+		return database.containsKey(word);
+	}
+	
 	public String getConceptuallyRelatedTo(String word){
 		if(database.containsKey(word)){
 			ArrayList<String> relations = database.get(word);

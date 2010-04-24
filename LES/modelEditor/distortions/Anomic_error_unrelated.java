@@ -76,7 +76,7 @@ public class Anomic_error_unrelated extends AC_Distortion_BubbleDown implements 
 	}
 
 	public void parseMessageWord(PosWord posWord){
-		if(posWord.pos_isContentWord()){
+		if(posWord.pos_isContentWord() && !posWord.isDistorted()){
 			
 			if(posWord.pos_isVerb()){
 				findNewWord(3,posWord);

@@ -13,6 +13,7 @@ import modelEditor.distortions.Anomic_correction_omissions.model;
 import modelEditor.distortions.Anomic_correction_omissions.view;
 import modelEditor.distortions.conceptNet.ConceptuallyRelatedIndex;
 import modelEditor.distortions.conceptNet.DefinitionIndex;
+import modelEditor.distortions.stemmingSnowball.ext.englishStemmer;
 import modelEditor.model.Model_Message;
 import modelEditor.model.Model_Message_posWord.PosWord;
 
@@ -22,11 +23,14 @@ public class Anomic_correction_semanticDescription extends
 			model m;
 			view v;
 			DefinitionIndex di;
+			englishStemmer stemmer;
 			
 	public Anomic_correction_semanticDescription() {
 		super("Semantic Description", false, false, false, true);
 		m = new model();
 		v = new view();
+		
+		stemmer = new englishStemmer();
 		
 		di  = new DefinitionIndex();
 	}
@@ -38,8 +42,30 @@ public class Anomic_correction_semanticDescription extends
 
 
 	public void parseMessageWord(PosWord posWord){
-		if(posWord.pos_isContentWord())
-			posWord.setDistorted("SEMANTIC DESCRIPTION", di.getDescription(posWord.getTokenAsWord()));
+		if(posWord.pos_isContentWord() && !posWord.isDistorted()){
+		
+			
+			String theWord = posWord.getTokenAsWord();
+			
+			if(posWord.pos_isPluralNoun() || !di.containsWord(theWord)){
+				String twoEnding = theWord.substring(theWord.length()-2);
+				String oneEnding = theWord.substring(theWord.length()-1);
+				// if(theWord.substring(theWord.length()-2))
+				
+				stemmer.setCurrent(posWord.getTokenAsWord());
+				stemmer.stem();
+				theWord = stemmer.getCurrent();
+				
+				if(!di.containsWord(theWord)){
+					theWord = posWord.getTokenAsWord();
+				}
+				
+			}
+			
+			
+			posWord.setDistorted("SEMANTIC DESCRIPTION", di.getDescription(theWord));
+			
+		}
 	}
 
 
@@ -49,7 +75,7 @@ public class Anomic_correction_semanticDescription extends
 	}
 	public double getProbability() {
 		// TODO Auto-generated method stub
-		return m.getOldValue();
+		return m.getOldValue()/100d;
 	}
 	public class view{
 		JSlider slider;

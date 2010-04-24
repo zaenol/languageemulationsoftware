@@ -54,7 +54,7 @@ public class Anomic_error_semantic extends AC_Distortion_BubbleDown implements C
 	}
 
 	public void parseMessageWord(PosWord posWord){
-		if(posWord.pos_isContentWord()){
+		if(posWord.pos_isContentWord() && !posWord.isDistorted()){
 			String theWord = posWord.getTokenAsWord();
 			
 			if(posWord.pos_isPluralNoun()){
@@ -65,6 +65,10 @@ public class Anomic_error_semantic extends AC_Distortion_BubbleDown implements C
 				stemmer.setCurrent(posWord.getTokenAsWord());
 				stemmer.stem();
 				theWord = stemmer.getCurrent();
+				
+				if(!cri.containsWord(theWord)){
+					theWord = posWord.getTokenAsWord();
+				}
 				
 			}		
 				posWord.setDistorted("SEMANTIC ERROR", cri.getConceptuallyRelatedTo(theWord));

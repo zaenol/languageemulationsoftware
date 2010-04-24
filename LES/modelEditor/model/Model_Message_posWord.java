@@ -121,7 +121,7 @@ public class Model_Message_posWord extends Model_Message_GlobalFunctions{
 				return "have";
 				
 			
-			return token.getValue();		
+			return token.getValue().toLowerCase();		
 		}
 		public String getTag(){
 			return tag.getValue();
