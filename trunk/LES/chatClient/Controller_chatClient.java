@@ -119,18 +119,34 @@ public class Controller_chatClient implements ActionListener, ItemListener, Wind
 			screenName = parent.getMyName();
 		}
 		
+		if(message.isPostOriginalMessage())
+			vcc.postOutgoingMessage(screenName, message.getOriginalMessage());
 		
-		for(String s_message:message.getMessageToTransmit()){
+		
+		String[] messages = message.getMessageToTransmit();
+		int messageCount = 0;
+		
+		for(String s_message:messages){
 			System.out.println(message.isPostOriginalMessage());
 			if(!message.isPostOriginalMessage())
 				vcc.postOutgoingMessage(screenName, s_message);
 			
 			mcc.outgoing_sendIMMessage(buddy, s_message);
+			
+			
 		}
 		
-		if(message.isPostOriginalMessage())
-			vcc.postOutgoingMessage(screenName, message.getOriginalMessage());
+
 	}
+	
+	private static void wait (int n){
+        long t0,t1;
+        t0=System.currentTimeMillis();
+        do{
+            t1=System.currentTimeMillis();
+        }
+        while (t1-t0<(n*1000));
+		}
 	
 	public void incomingMessage(IMessage message){
 		if(parent != null)
