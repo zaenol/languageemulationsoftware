@@ -162,19 +162,19 @@ public class Model_Message extends Model_Message_fullWord {
 			for(int j=0; j<words.size();j++){
 				message+=words.get(j)+" ";
 				boolean isLastElement = (j!=words.size()-1 && words.size() > 1 );
-				if(isLastElement && message.length()>0){
+				if(isLastElement && message.length()>0 && !message.equals("...")){
 					messages.add(message);
 					message = "";
 				}
 			}
 			
-			if(_words.get(i).isNewMessageAfterFullWord() && message.length()!=0){
-				messages.add(message);
-				message = "";
+			if(_words.get(i).isNewMessageAfterFullWord() && message.length()>0 && !message.equals("...")){
+				messages.add(message.substring(0, message.length()-1)+"... ");
+				message = "...";
 			}
 			
 		}
-		if(message.length()!=0){
+		if(message.length()>0 && !message.equals("...")){
 				messages.add(message);
 		}
 		
