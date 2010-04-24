@@ -40,7 +40,6 @@ public class Model_Message_fullWord extends Model_Message_posWord{
 					
 			}
 			
-			
 			if(untouched){
 				finalWord.add(this.getWord_Original());
 			}
@@ -86,6 +85,8 @@ public class Model_Message_fullWord extends Model_Message_posWord{
 						}else{//previous word IS distorted or has a new line
 							if(_posWord.isNewMessageAfterWord()){// new line after prior word
 								
+								
+								
 								if(_posWord.isDistorted())//prior word is distorted
 									currentMessage += _posWord.getDistortedWord();
 								else//prior word is not distorted
@@ -93,7 +94,9 @@ public class Model_Message_fullWord extends Model_Message_posWord{
 								
 								if(currentMessage.length() != 0)
 									finalWord.add(currentMessage);
-								currentMessage= "";
+								
+								currentMessage= "...";
+								
 								
 								if(posWord.isDistorted()){//current word is distorted
 									currentMessage+=posWord.getDistortedWord();
@@ -115,7 +118,7 @@ public class Model_Message_fullWord extends Model_Message_posWord{
 						
 						if(posWord.isNewMessageAfterWord()){
 							if(currentMessage.length() != 0)
-								finalWord.add(currentMessage);
+								finalWord.add(currentMessage+"...");
 							currentMessage= "";
 						}
 						

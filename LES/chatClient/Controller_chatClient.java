@@ -120,7 +120,8 @@ public class Controller_chatClient implements ActionListener, ItemListener, Wind
 		}
 		
 		
-		for(String s_message:message.getMessageToTransmit()){			
+		for(String s_message:message.getMessageToTransmit()){
+			System.out.println(message.isPostOriginalMessage());
 			if(!message.isPostOriginalMessage())
 				vcc.postOutgoingMessage(screenName, s_message);
 			
