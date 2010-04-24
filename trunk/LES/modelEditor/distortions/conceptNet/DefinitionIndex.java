@@ -65,25 +65,27 @@ public class DefinitionIndex {
 			
 			ArrayList<String> relations = database.get(word);
 			
-			int max = 7;
-			if(relations.size()<max)
-				max = relations.size();
-			
-			int drawCount = random.nextInt(max-1)+1;
-			
-			ArrayList<String> chosenWords = new ArrayList<String>();
-			
-			
-			while(chosenWords.size()<drawCount){
-				String chosenWord = getDescriptiveWord(word);
-				if(!chosenWords.contains(chosenWord)){
-					chosenWords.add(chosenWord);
-					sDescription += " "+chosenWord+" ...";
-				}					
+			if(relations.size()>0){
+				int max = 7;
+				if(relations.size()<max)
+					max = relations.size();
+				
+				int drawCount = random.nextInt(max-1)+1;
+				
+				ArrayList<String> chosenWords = new ArrayList<String>();
+				
+				
+				while(chosenWords.size()<drawCount){
+					String chosenWord = getDescriptiveWord(word);
+					if(!chosenWords.contains(chosenWord)){
+						chosenWords.add(chosenWord);
+						sDescription += " "+chosenWord+" ...";
+					}					
+				}
+				
+				
+				return sDescription;
 			}
-			
-			
-			return sDescription;
 		}
 		return word;
 	}
