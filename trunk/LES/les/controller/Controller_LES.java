@@ -60,9 +60,10 @@ public class Controller_LES implements ActionListener, KeyListener {
 				
 		loginScreen = new View_LES(this);
 		
+		modelEditor = new Controller_modelEditor();
 		init();	
 		
-		modelEditor = new Controller_modelEditor();
+		
 
 		
 		
@@ -82,8 +83,8 @@ public class Controller_LES implements ActionListener, KeyListener {
 		rootEle = dom.createElement("Conversation");
 		dom.appendChild(rootEle);
 		
-		while(chatClient == null || !chatClient.isLoaded()){
-			
+		while(chatClient == null || !chatClient.isLoaded() || modelEditor == null){
+			//System.out.println((chatClient == null)+" - "+(modelEditor==null));
 		}
 		loginScreen.setLoading(false);
 	}

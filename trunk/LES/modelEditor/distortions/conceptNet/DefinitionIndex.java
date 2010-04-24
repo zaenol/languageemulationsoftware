@@ -54,6 +54,11 @@ public class DefinitionIndex {
 		
 	}
 	
+	public boolean containsWord(String word){
+		return database.containsKey(word);
+	}
+	
+	
 	public String getDescription(String word){
 		if(database.containsKey(word)){
 			String sDescription = "...";
