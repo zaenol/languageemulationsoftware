@@ -200,8 +200,9 @@ public class View_chatClient {
 				e.printStackTrace();
 			}
 		    }
-		conversation.revalidate();
-		conversation_ScrollPane.revalidate();
+		//conversation.revalidate();
+		conversation.select(doc.getLength(),doc.getLength());
+		//conversation_ScrollPane.revalidate();
 		//conversation.inse.setText(conversation.getText()+"<div><font color=\""+color+"\">"+from+" ("+timestamp+"):\t</font>"+message+"</div><br>");
 		
 		//JLabel theLabel = new JLabel("<html><div><font color=\""+color+"\">"+from+" ("+timestamp+"):\t</font>"+message+"</div><br>");
