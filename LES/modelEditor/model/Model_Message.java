@@ -217,7 +217,7 @@ public class Model_Message extends Model_Message_fullWord {
 			this.init_Dom();
 		
 		if(dom!=null){
-			message_element = dom.createElement("Outgoing");
+			message_element = dom.createElement("OutgoingDetails");
 			message_element.appendChild(makeElementWithTextBody("OriginalMessage",originalMessage));
 			
 			for(int i=0; i<_words.size();i++){
