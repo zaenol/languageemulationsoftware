@@ -277,12 +277,14 @@ public class Controller_LES implements ActionListener, KeyListener {
 			sentMessageString+="]";*/
 			
 			message_element.setAttribute("Direction", messageDirection);
-			message_element.setAttribute("TransmittedMessage", sentMessageString);			
+			message_element.setAttribute("TransmittedMessage", sentMessageString);
 			
-			message_element.appendChild(this.makeWordElement("Date",DateFormat.getInstance().format(now)));
-			message_element.appendChild(this.makeWordElement("Sender", sender));
-			message_element.appendChild(this.makeWordElement("Recipient", recipient));
-			message_element.appendChild(this.makeWordElement("Direction",messageDirection));
+			Element metaData_element = dom.createElement("metaData");
+			metaData_element.appendChild(this.makeWordElement("Date",DateFormat.getInstance().format(now)));
+			metaData_element.appendChild(this.makeWordElement("Sender", sender));
+			metaData_element.appendChild(this.makeWordElement("Recipient", recipient));
+			metaData_element.appendChild(this.makeWordElement("Direction",messageDirection));
+			message_element.appendChild(metaData_element);	
 			
 			Element transmitted_element = dom.createElement("TransmittedMessage");
 			for(int i=0; i<subMessages.length;i++){
