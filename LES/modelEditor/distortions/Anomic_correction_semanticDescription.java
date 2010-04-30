@@ -60,6 +60,19 @@ public class Anomic_correction_semanticDescription extends
 					theWord = posWord.getTokenAsWord();
 				}
 				
+			}else{
+				
+				
+				if(!di.containsWord(theWord)){
+					
+					stemmer.setCurrent(posWord.getTokenAsWord());
+					stemmer.stem();
+					theWord = stemmer.getCurrent();
+					if(!di.containsWord(theWord)){
+						theWord = posWord.getTokenAsWord();
+					}
+				}
+				
 			}
 			
 			
