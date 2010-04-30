@@ -70,8 +70,21 @@ public class Anomic_error_semantic extends AC_Distortion_BubbleDown implements C
 					theWord = posWord.getTokenAsWord();
 				}
 				
-			}		
-				posWord.setDistorted("SEMANTIC ERROR", cri.getConceptuallyRelatedTo(theWord));
+			}else{
+				
+				
+				if(!cri.containsWord(theWord)){
+					
+					stemmer.setCurrent(posWord.getTokenAsWord());
+					stemmer.stem();
+					theWord = stemmer.getCurrent();
+					if(!cri.containsWord(theWord)){
+						theWord = posWord.getTokenAsWord();
+					}
+				}
+				
+			}
+			posWord.setDistorted("SEMANTIC ERROR", cri.getConceptuallyRelatedTo(theWord));
 			
 		}
 		
