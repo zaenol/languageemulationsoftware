@@ -70,8 +70,13 @@ public class DefinitionIndex {
 				if(relations.size()<max)
 					max = relations.size();
 				
-				int drawCount = random.nextInt(max-1)+1;
+				int drawCount = 1;
 				
+				if(max<=1)
+					drawCount = 1;
+				else{
+					drawCount = random.nextInt(max-1)+1;
+				}
 				ArrayList<String> chosenWords = new ArrayList<String>();
 				
 				
