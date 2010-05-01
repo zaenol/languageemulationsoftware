@@ -46,10 +46,12 @@ public class View_chatClient {
 	
 	JPanel inputPanel;
 	JButton sendButton;
-	JTextField inputMessage;
+	//JTextField inputMessage;
+	JTextArea inputMessage;
+	JScrollPane inputMessage_ScrollPane;
 	
 	private int clientWidth = 500;
-	private int clientHeight = 350;
+	private int clientHeight = 450;
 	private int clientBorder = 20;
 	
 	private int clientMesageTextAreaHeight = clientHeight*4/5;
@@ -112,16 +114,24 @@ public class View_chatClient {
         inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.X_AXIS));
         inputPanel.setBorder(BorderFactory.createEmptyBorder(5, 20, 5, 10));
         
-        inputMessage = new JTextField(20);
-        inputMessage.setMaximumSize(new Dimension(clientMesageTextAreaWidth-40, clientBorder));
-        //inputMessage.addKeyListener(this.controller);
-        inputMessage.addActionListener(controller);
+        inputMessage = new JTextArea(2,20);
+        inputMessage.setMaximumSize(new Dimension(clientMesageTextAreaWidth-40, clientBorder*3));
+        inputMessage.setWrapStyleWord(true);
+        inputMessage.setLineWrap(true);
+        inputMessage.addKeyListener(this.controller);
+        //inputMessage.addActionListener(controller);
+        //inputMessage.getDocument().addDocumentListener(controller);
+        //inputMessage.addKeyListener(l)
+        
+        inputMessage_ScrollPane = new JScrollPane(inputMessage, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        inputMessage_ScrollPane.setMaximumSize(new Dimension(clientMesageTextAreaWidth-40, clientBorder*3));
+        
         
         sendButton = new JButton("Send");
         sendButton.setMnemonic(KeyEvent.VK_ENTER);
         sendButton.addActionListener(this.controller);
         
-        inputPanel.add(inputMessage);
+        inputPanel.add(inputMessage_ScrollPane);
         inputPanel.add(Box.createRigidArea(new Dimension(5,0)));
         inputPanel.add(sendButton);
 		
@@ -214,9 +224,11 @@ public class View_chatClient {
 		if(buddyList.getSelectedIndex()>0){
 			inputPanel.setEnabled(true);
 			sendButton.setEnabled(true);
+			inputMessage.setEditable(true);
 		}else{
 			inputPanel.setEnabled(false);
 			sendButton.setEnabled(false);
+			inputMessage.setEditable(false);
 		}
 			
 		
