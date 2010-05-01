@@ -193,7 +193,10 @@ public class Model_Message extends Model_Message_fullWord {
 		for(String msg:msgs){
 			s+=msg+"//";
 		}
-		s = s.substring(0, s.length()-3);
+		if(s.length()-3>0)
+			s = s.substring(0, s.length()-3);
+		else
+			s=s;
 		
 		return s+"}";
 	}
