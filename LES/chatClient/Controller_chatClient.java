@@ -105,12 +105,13 @@ public class Controller_chatClient implements ActionListener, ItemListener, Wind
 	}
 	
 	private void outgoingMessage(String buddy, String messageTyped){
-		ArrayList<ArrayList<StringObject>> opennlp = nlp.runNLP(messageTyped);
+		String _messageTyped = messageTyped.replace("\r", "").replace("\n", "");
+		ArrayList<ArrayList<StringObject>> opennlp = nlp.runNLP(_messageTyped);
 		
 		ArrayList<StringObject> tokens = opennlp.get(0);
 		ArrayList<StringObject> tags = opennlp.get(1);
 		
-		Model_Message message = new Model_Message(messageTyped,tokens,tags);
+		Model_Message message = new Model_Message(_messageTyped,tokens,tags);
 		
 		if(parent != null)
 			message = parent.distortMessage(message);
