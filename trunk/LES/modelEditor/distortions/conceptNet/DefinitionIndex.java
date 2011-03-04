@@ -61,7 +61,7 @@ public class DefinitionIndex {
 	
 	public String getDescription(String word){
 		if(database.containsKey(word)){
-			String sDescription = "...";
+			String sDescription = generateparalinguistic();
 			
 			ArrayList<String> relations = database.get(word);
 			
@@ -84,7 +84,7 @@ public class DefinitionIndex {
 					String chosenWord = getDescriptiveWord(word);
 					if(!chosenWords.contains(chosenWord)){
 						chosenWords.add(chosenWord);
-						sDescription += " "+chosenWord+" ...";
+						sDescription += " "+chosenWord+" "+generateparalinguistic();
 					}					
 				}
 				
@@ -93,6 +93,16 @@ public class DefinitionIndex {
 			}
 		}
 		return word;
+	}
+	
+	private String generateparalinguistic(){
+		int i = random.nextInt(3);
+		if(i==0)
+			return "...";
+		else if(i==1)
+			return "um...";
+		else
+			return "uh...";
 	}
 	
 	private String getDescriptiveWord(String word){

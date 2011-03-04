@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -28,6 +29,8 @@ import opennlp.tools.util.InvalidFormatException;
  */
 public class Model_Message extends Model_Message_fullWord {
 	private String originalMessage="";
+	
+	Random random;
 	
 	/*
 	private String[] originalWords = {};
@@ -56,6 +59,7 @@ public class Model_Message extends Model_Message_fullWord {
 		//InputStream in = getClass().getResourceAsStream("/modelEditor/openNLP/tag.bin.gz");
 		//Dictionary dict = new Dictionary(in);
 		this.init(message, tokens, tags);
+		random = new Random();
 		
 	}
 	public Model_Message(String message){
@@ -162,19 +166,19 @@ public class Model_Message extends Model_Message_fullWord {
 			for(int j=0; j<words.size();j++){
 				message+=words.get(j)+" ";
 				boolean isLastElement = (j!=words.size()-1 && words.size() > 1 );
-				if(isLastElement && message.length()>0 && !message.equals("...")){
+				if(isLastElement && message.length()>0 && !(isgParalinguistic(message))){
 					messages.add(message);
 					message = "";
 				}
 			}
 			
-			if(_words.get(i).isNewMessageAfterFullWord() && message.length()>0 && !message.equals("...")){
-				messages.add(message.substring(0, message.length()-1)+"... ");
-				message = "...";
+			if(_words.get(i).isNewMessageAfterFullWord() && message.length()>0 && !isgParalinguistic(message)){
+				messages.add(message.substring(0, message.length()-1)+generateparalinguistic()+" ");
+				message = generateparalinguistic();
 			}
 			
 		}
-		if(message.length()>0 && !message.equals("...")){
+		if(message.length()>0 && !isgParalinguistic(message)){
 				messages.add(message);
 		}
 		
@@ -233,6 +237,29 @@ public class Model_Message extends Model_Message_fullWord {
 	}
 	public ArrayList<PosWord> get_tagWords() {
 		return _tagWords;
+	}
+	private boolean isgParalinguistic(String s){
+		if(s.equals("..."))
+			return true;
+		if(s.equals("um..."))
+			return true;
+		if(s.equals("uh..."))
+			return true;
+		if(s.equals(" uh..."))
+			return true;
+		if(s.equals(" um..."))
+			return true;
+		
+		return false;
+	}
+	private String generateparalinguistic(){
+		int i = random.nextInt(3);
+		if(i==0)
+			return "...";
+		else if(i==1)
+			return "um...";
+		else
+			return "uh...";
 	}
 	
 	
