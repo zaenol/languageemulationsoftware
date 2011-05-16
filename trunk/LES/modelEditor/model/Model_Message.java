@@ -5,12 +5,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import modelEditor.abstractClasses.AC_Element;
 import opennlp.maxent.MaxentModel;
 
 import org.w3c.dom.Document;
@@ -166,19 +168,19 @@ public class Model_Message extends Model_Message_fullWord {
 			for(int j=0; j<words.size();j++){
 				message+=words.get(j)+" ";
 				boolean isLastElement = (j!=words.size()-1 && words.size() > 1 );
-				if(isLastElement && message.length()>0 && !(isgParalinguistic(message))){
+				if(isLastElement && message.length()>0 && !(AC_Element.isgParalinguistic(message))){
 					messages.add(message);
 					message = "";
 				}
 			}
 			
-			if(_words.get(i).isNewMessageAfterFullWord() && message.length()>0 && !isgParalinguistic(message)){
-				messages.add(message.substring(0, message.length()-1)+generateparalinguistic()+" ");
-				message = generateparalinguistic();
+			if(_words.get(i).isNewMessageAfterFullWord() && message.length()>0 && !AC_Element.isgParalinguistic(message)){
+				messages.add(message.substring(0, message.length()-1)+AC_Element.generateparalinguisticWithSpace()+" ");
+				message = AC_Element.generateparalinguisticWithSpace();
 			}
 			
 		}
-		if(message.length()>0 && !isgParalinguistic(message)){
+		if(message.length()>0 && !AC_Element.isgParalinguistic(message)){
 				messages.add(message);
 		}
 		
@@ -238,29 +240,22 @@ public class Model_Message extends Model_Message_fullWord {
 	public ArrayList<PosWord> get_tagWords() {
 		return _tagWords;
 	}
-	private boolean isgParalinguistic(String s){
-		if(s.equals("..."))
-			return true;
-		if(s.equals("um..."))
-			return true;
-		if(s.equals("uh..."))
-			return true;
-		if(s.equals(" uh..."))
-			return true;
-		if(s.equals(" um..."))
-			return true;
-		
-		return false;
-	}
+	
+	/*
+	private String[] paralinguisticWords = {"...","...","...","um...","uh...","ah...","eh...","er..."};
+	private ArrayList<String> paralinguisticWordsArrayList = new ArrayList(Arrays.asList(paralinguisticWords));;
+	
 	private String generateparalinguistic(){
-		int i = random.nextInt(3);
-		if(i==0)
-			return "...";
-		else if(i==1)
-			return "um...";
-		else
-			return "uh...";
+		int i = random.nextInt(paralinguisticWords.length);
+		return paralinguisticWords[i];
 	}
+	
+	private boolean isgParalinguistic(String s){
+		if(paralinguisticWordsArrayList.contains(s))
+			return true;
+		else
+			return false;
+	}*/
 	
 	
 }
