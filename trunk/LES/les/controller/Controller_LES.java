@@ -280,7 +280,9 @@ public class Controller_LES implements ActionListener, KeyListener {
 			message_element.setAttribute("TransmittedMessage", sentMessageString);
 			
 			Element metaData_element = dom.createElement("metaData");
-			metaData_element.appendChild(this.makeWordElement("Date",DateFormat.getInstance().format(now)));
+			//metaData_element.appendChild(this.makeWordElement("Date",DateFormat.getInstance().format(now)));
+			metaData_element.appendChild(this.makeWordElement("MS1970",now.getTime()+""));
+			metaData_element.appendChild(this.makeWordElement("Date",DateFormat.getDateTimeInstance(DateFormat.FULL,DateFormat.FULL).format(now)));
 			metaData_element.appendChild(this.makeWordElement("Sender", sender));
 			metaData_element.appendChild(this.makeWordElement("Recipient", recipient));
 			metaData_element.appendChild(this.makeWordElement("Direction",messageDirection));
