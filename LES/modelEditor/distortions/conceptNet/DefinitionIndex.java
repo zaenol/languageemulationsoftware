@@ -8,6 +8,8 @@ import java.util.Hashtable;
 import java.util.ArrayList;
 import java.util.Random;
 
+import modelEditor.abstractClasses.AC_Element;
+
 public class DefinitionIndex {
 
 	Hashtable<String,ArrayList<String>> database;
@@ -61,7 +63,7 @@ public class DefinitionIndex {
 	
 	public String getDescription(String word){
 		if(database.containsKey(word)){
-			String sDescription = generateparalinguistic();
+			String sDescription = AC_Element.generateparalinguisticOrEmpty(2);
 			
 			ArrayList<String> relations = database.get(word);
 			
@@ -84,7 +86,7 @@ public class DefinitionIndex {
 					String chosenWord = getDescriptiveWord(word);
 					if(!chosenWords.contains(chosenWord)){
 						chosenWords.add(chosenWord);
-						sDescription += " "+chosenWord+" "+generateparalinguistic();
+						sDescription += " "+chosenWord+" "+AC_Element.generateparalinguistic();
 					}					
 				}
 				
@@ -95,6 +97,7 @@ public class DefinitionIndex {
 		return word;
 	}
 	
+	/*
 	private String generateparalinguistic(){
 		int i = random.nextInt(3);
 		if(i==0)
@@ -103,7 +106,7 @@ public class DefinitionIndex {
 			return "um...";
 		else
 			return "uh...";
-	}
+	}*/
 	
 	private String getDescriptiveWord(String word){
 		if(database.containsKey(word)){

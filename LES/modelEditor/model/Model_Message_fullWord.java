@@ -1,8 +1,11 @@
 package modelEditor.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
+
+import modelEditor.abstractClasses.AC_Element;
 
 import org.w3c.dom.Element;
 
@@ -99,7 +102,8 @@ public class Model_Message_fullWord extends Model_Message_posWord{
 								if(currentMessage.length() != 0)
 									finalWord.add(currentMessage);
 								
-								currentMessage= generateparalinguistic();
+				
+								currentMessage= AC_Element.generateparalinguisticWithSpace();
 								
 								
 								if(posWord.isDistorted()){//current word is distorted
@@ -121,8 +125,9 @@ public class Model_Message_fullWord extends Model_Message_posWord{
 						}
 						
 						if(posWord.isNewMessageAfterWord()){
+						
 							if(currentMessage.length() != 0)
-								finalWord.add(currentMessage+generateparalinguisticWithSpace());
+								finalWord.add(currentMessage+AC_Element.generateparalinguisticWithSpace());
 							currentMessage= "";
 						}
 						
@@ -154,25 +159,7 @@ public class Model_Message_fullWord extends Model_Message_posWord{
 		public String toString(){
 			return "["+oWord+"]";
 		}
-		private String generateparalinguistic(){
-			int i = random.nextInt(3);
-			if(i==0)
-				return "...";
-			else if(i==1)
-				return "um...";
-			else
-				return "uh...";
-		}
 		
-		private String generateparalinguisticWithSpace(){
-			int i = random.nextInt(3);
-			if(i==0)
-				return "...";
-			else if(i==1)
-				return " um...";
-			else
-				return " uh...";
-		}
 	}
 	
 	

@@ -31,7 +31,7 @@ public class Anomic_correction_omissions extends AC_Distortion_BubbleUp implemen
 
 	public void parseMessageWord(PosWord posWord){
 		if(!posWord.isDistorted())
-			posWord.setDistorted("OMISSIONS_NONFLUENCY", "");
+			posWord.setDistorted("OMISSIONS_NONFLUENCY", generateparalinguisticOrEmptyWithSpace(2));
 	}
 
 
