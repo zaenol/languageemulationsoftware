@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="jbuddy/lib/JBuddy.jar"/>
 	<classpathentry kind="lib" path="xerces/resolver.jar"/>
 	<classpathentry kind="lib" path="xerces/serializer.jar"/>
 	<classpathentry kind="lib" path="xerces/xercesImpl.jar"/>
@@ -12,5 +11,6 @@
 	<classpathentry kind="lib" path="NLP/openNLP/trove.jar"/>
 	<classpathentry kind="lib" path="NLP/stanfordNLP/stanford-postagger-2009-12-24.jar"/>
 	<classpathentry kind="lib" path="NLP/openNLP/les_flavor_onlp.jar"/>
+	<classpathentry kind="lib" path="jbuddy/lib/JBuddy.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
