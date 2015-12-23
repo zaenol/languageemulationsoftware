@@ -1,0 +1,1 @@
+The main contribution of this work is a model of emulating aphasia to teach empathy
